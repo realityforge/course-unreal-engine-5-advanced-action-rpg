@@ -8,7 +8,14 @@ public class Warrior : ModuleRules
 	{
 		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
 
-		PublicDependencyModuleNames.AddRange(new[] { "Core", "CoreUObject", "Engine", "InputCore", "GameplayTags" });
+		PublicDependencyModuleNames.AddRange(new[]
+		{
+			"Core",
+			"CoreUObject",
+			"Engine",
+			"InputCore",
+			"GameplayTags"
+		});
 
 		PrivateDependencyModuleNames.AddRange(new string[] { });
 
