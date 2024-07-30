@@ -3,4 +3,4 @@
 #include "Warrior.h"
 #include "Modules/ModuleManager.h"
 
-IMPLEMENT_PRIMARY_GAME_MODULE( FDefaultGameModuleImpl, Warrior, "Warrior" );
+IMPLEMENT_PRIMARY_GAME_MODULE(FDefaultGameModuleImpl, Warrior, "Warrior");

@@ -7,8 +7,8 @@
 UCLASS()
 class WARRIOR_API AWarriorCharacterBase : public ACharacter
 {
-	GENERATED_BODY()
+    GENERATED_BODY()
 
 public:
-	AWarriorCharacterBase();
+    AWarriorCharacterBase();
 };

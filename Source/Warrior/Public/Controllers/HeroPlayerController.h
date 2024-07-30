@@ -7,5 +7,5 @@
 UCLASS()
 class WARRIOR_API AWarriorHeroPlayerController : public APlayerController
 {
-	GENERATED_BODY()
-	};
+    GENERATED_BODY()
+};
