@@ -1,0 +1,10 @@
+{
+  "config_version": 1,
+  "mirrors": {
+    "Plugins/RuleRanger": {
+      "url": "https://github.com/realityforge/RuleRanger.git",
+      "branch": "main",
+      "revision": "d7a313c43d5585d625016c40e1461bfc55085194"
+    }
+  }
+}
