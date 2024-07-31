@@ -18,13 +18,13 @@ class WARRIOR_API UWarriorCharacterAnimInstance : public UWarriorAnimInstanceBas
     UPROPERTY()
     TObjectPtr<UCharacterMovementComponent> OwningMovementComponent{ nullptr };
 
-    UPROPERTY(VisibleDefaultsOnly,
+    UPROPERTY(EditInstanceOnly,
               BlueprintReadOnly,
               Category = "AnimData|LocomotionData",
               meta = (AllowPrivateAccess = "true"))
     float GroundSpeed{ 0.f };
 
-    UPROPERTY(VisibleDefaultsOnly,
+    UPROPERTY(EditInstanceOnly,
               BlueprintReadOnly,
               Category = "AnimData|LocomotionData",
               meta = (AllowPrivateAccess = "true"))
