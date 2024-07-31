@@ -32,6 +32,10 @@ class WARRIOR_API UWarriorCharacterAnimInstance : public UWarriorAnimInstanceBas
               meta = (AllowPrivateAccess = "true"))
     bool bHasAcceleration{ false };
 
+protected:
+    FORCEINLINE AWarriorCharacterBase* GetOwningCharacter() const { return OwningCharacter; };
+    FORCEINLINE bool HasAcceleration() const { return bHasAcceleration; }
+
 public:
     virtual void NativeInitializeAnimation() override;
     virtual void NativeThreadSafeUpdateAnimation(float DeltaSeconds) override;
