@@ -327,6 +327,9 @@ bool URuleRangerEditorSubsystem::IsMatchingRulePresent(UObject* InObject, const 
                             {
                                 return true;
                             }
+                        }
+                        else
+                        {
                             UE_LOG(RuleRanger,
                                    Error,
                                    TEXT("IsMatchingRulePresent: Invalid RuleSet skipped when processing "
