@@ -1,5 +1,3 @@
-
-
 #pragma once
 
 #include "AnimInstances/WarriorAnimInstanceBase.h"
