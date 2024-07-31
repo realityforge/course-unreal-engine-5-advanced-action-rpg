@@ -30,5 +30,5 @@ AHeroCharacter::AHeroCharacter()
     GetCharacterMovement()->bOrientRotationToMovement = true;
     GetCharacterMovement()->RotationRate = FRotator(0.f, 500.f, 0.f);
     GetCharacterMovement()->MaxWalkSpeed = 400.f;
-    GetCharacterMovement()->bRequestedMoveUseAcceleration = 2000.f;
+    GetCharacterMovement()->BrakingDecelerationWalking = 2000.f;
 }
