@@ -3,12 +3,10 @@
 #include "Components/CapsuleComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/SpringArmComponent.h"
-#include "WarriorDebugHelper.h"
 
 void AHeroCharacter::BeginPlay()
 {
     Super::BeginPlay();
-    Debug::Print(TEXT("Welcome"));
 }
 
 AHeroCharacter::AHeroCharacter()
