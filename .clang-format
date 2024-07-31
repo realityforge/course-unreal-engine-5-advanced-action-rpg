@@ -59,6 +59,7 @@ InsertNewlineAtEOF: true
 NamespaceIndentation: All
 PointerAlignment: Left
 SortIncludes: true
+SortUsingDeclarations: LexicographicNumeric
 SpaceBeforeCaseColon: false
 StatementMacros:
   - UPROPERTY
