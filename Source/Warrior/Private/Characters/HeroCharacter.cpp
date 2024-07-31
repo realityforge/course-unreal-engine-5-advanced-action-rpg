@@ -4,11 +4,6 @@
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/SpringArmComponent.h"
 
-void AHeroCharacter::BeginPlay()
-{
-    Super::BeginPlay();
-}
-
 AHeroCharacter::AHeroCharacter()
 {
     GetCapsuleComponent()->InitCapsuleSize(42.f, 96.f);
@@ -32,3 +27,9 @@ AHeroCharacter::AHeroCharacter()
     GetCharacterMovement()->MaxWalkSpeed = 400.f;
     GetCharacterMovement()->BrakingDecelerationWalking = 2000.f;
 }
+
+void AHeroCharacter::BeginPlay()
+{
+    Super::BeginPlay();
+}
+
