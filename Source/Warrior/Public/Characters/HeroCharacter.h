@@ -47,4 +47,6 @@ protected:
 
 public:
     AHeroCharacter();
+
+    virtual void PossessedBy(AController* NewController) override;
 };

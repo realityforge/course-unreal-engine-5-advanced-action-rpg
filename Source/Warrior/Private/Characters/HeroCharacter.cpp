@@ -1,4 +1,5 @@
 #include "Characters/HeroCharacter.h"
+#include "AbilitySystem/WarriorAbilitySystemComponent.h"
 #include "Camera/CameraComponent.h"
 #include "Components/CapsuleComponent.h"
 #include "Components/Input/WarriorInputComponent.h"
@@ -6,6 +7,7 @@
 #include "EnhancedInputSubsystems.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/SpringArmComponent.h"
+#include "WarriorDebugHelper.h"
 #include "WarriorGameplayTags.h"
 
 AHeroCharacter::AHeroCharacter()
@@ -30,6 +32,18 @@ AHeroCharacter::AHeroCharacter()
     GetCharacterMovement()->RotationRate = FRotator(0.f, 500.f, 0.f);
     GetCharacterMovement()->MaxWalkSpeed = 400.f;
     GetCharacterMovement()->BrakingDecelerationWalking = 2000.f;
+}
+
+void AHeroCharacter::PossessedBy(AController* NewController)
+{
+    Super::PossessedBy(NewController);
+    if (GetWarriorAbilitySystemComponent() && GetWarriorAttributeSet())
+    {
+        const auto Text = FString::Printf(TEXT("Ability system component valid. Owner = %s, AvatarActor=%s"),
+                                          *GetWarriorAbilitySystemComponent()->GetOwnerActor()->GetActorLabel(),
+                                          *GetWarriorAbilitySystemComponent()->GetAvatarActor()->GetActorLabel());
+        Debug::Print(Text, FColor::Green);
+    }
 }
 
 void AHeroCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
