@@ -55,6 +55,7 @@ IndentCaseLabels: true
 InsertBraces: true
 IndentPPDirectives: BeforeHash
 IndentWidth: 4
+InsertNewlineAtEOF: true
 NamespaceIndentation: All
 PointerAlignment: Left
 SortIncludes: true
