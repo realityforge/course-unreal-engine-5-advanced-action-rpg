@@ -4,6 +4,8 @@
 #include "CoreMinimal.h"
 #include "HeroCharacter.generated.h"
 
+struct FInputActionValue;
+class UDataAsset_InputConfig;
 class UCameraComponent;
 class USpringArmComponent;
 
@@ -12,6 +14,7 @@ class WARRIOR_API AHeroCharacter : public AWarriorCharacterBase
 {
     GENERATED_BODY()
 
+// Set up folding Region for VS
 #pragma region Components
 
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Camera", meta = (AllowPrivateAccess = "true"))
@@ -22,8 +25,25 @@ class WARRIOR_API AHeroCharacter : public AWarriorCharacterBase
 
 #pragma endregion
 
+// Set up folding Region for VS
+#pragma region Inputs
+
+    UPROPERTY(EditDefaultsOnly,
+              BlueprintReadOnly,
+              Category = "CharacterData",
+              meta = (AllowPrivateAccess = "true", RuleRangerRequired = "true"))
+    TObjectPtr<UDataAsset_InputConfig> InputConfigDataAsset;
+
+    void Input_Move(const FInputActionValue& InputActionValue);
+
+    void Input_Look(const FInputActionValue& InputActionValue);
+
+#pragma endregion
+
 protected:
     virtual void BeginPlay() override;
+
+    virtual void SetupPlayerInputComponent(UInputComponent* PlayerInputComponent) override;
 
 public:
     AHeroCharacter();
