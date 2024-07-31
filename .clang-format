@@ -52,6 +52,7 @@ Cpp11BracedListStyle: false
 EmptyLineBeforeAccessModifier: Always
 IndentCaseBlocks: false
 IndentCaseLabels: true
+InsertBraces: true
 IndentPPDirectives: BeforeHash
 IndentWidth: 4
 NamespaceIndentation: All
