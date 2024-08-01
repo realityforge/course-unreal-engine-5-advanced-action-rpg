@@ -2,8 +2,8 @@
 #include "AbilitySystem/Abilities/WarriorGameplayAbility.h"
 #include "AbilitySystem/WarriorAbilitySystemComponent.h"
 
-void UDataAsset_StartupDataBase::GrantAbilities(const TArray<TSubclassOf<UWarriorGameplayAbility>> InGameplayAbilities,
-                                                UWarriorAbilitySystemComponent* InWarriorAbilitySystemComponent,
+void UDataAsset_StartupDataBase::GrantAbilities(const TArray<TSubclassOf<UWarriorGameplayAbility>>& InGameplayAbilities,
+                                                UWarriorAbilitySystemComponent* InAbilitySystemComponent,
                                                 const int32 ApplyLevel)
 {
     if (!InGameplayAbilities.IsEmpty())
@@ -13,10 +13,10 @@ void UDataAsset_StartupDataBase::GrantAbilities(const TArray<TSubclassOf<UWarrio
             if (Ability)
             {
                 FGameplayAbilitySpec AbilitySpec(Ability);
-                AbilitySpec.SourceObject = InWarriorAbilitySystemComponent->GetAvatarActor();
+                AbilitySpec.SourceObject = InAbilitySystemComponent->GetAvatarActor();
                 AbilitySpec.Level = ApplyLevel;
 
-                InWarriorAbilitySystemComponent->GiveAbility(AbilitySpec);
+                InAbilitySystemComponent->GiveAbility(AbilitySpec);
             }
             else
             {
@@ -26,12 +26,11 @@ void UDataAsset_StartupDataBase::GrantAbilities(const TArray<TSubclassOf<UWarrio
     }
 }
 
-void UDataAsset_StartupDataBase::GiveToAbilitySystemComponent(
-    UWarriorAbilitySystemComponent* InWarriorAbilitySystemComponent,
-    int32 ApplyLevel)
+void UDataAsset_StartupDataBase::GiveToAbilitySystemComponent(UWarriorAbilitySystemComponent* InAbilitySystemComponent,
+                                                              const int32 ApplyLevel)
 {
-    check(InWarriorAbilitySystemComponent);
+    check(InAbilitySystemComponent);
 
-    GrantAbilities(ActivateOnGivenAbilities, InWarriorAbilitySystemComponent, ApplyLevel);
-    GrantAbilities(ReactiveAbilities, InWarriorAbilitySystemComponent, ApplyLevel);
+    GrantAbilities(ActivateOnGivenAbilities, InAbilitySystemComponent, ApplyLevel);
+    GrantAbilities(ReactiveAbilities, InAbilitySystemComponent, ApplyLevel);
 }
