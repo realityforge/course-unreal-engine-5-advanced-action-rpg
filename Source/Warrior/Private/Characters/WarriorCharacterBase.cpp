@@ -41,7 +41,7 @@ void AWarriorCharacterBase::GiveStartUpDataToAbilitySystem() const
         }
         else
         {
-            ensureMsgf(false, TEXT("CharacterStartUpData %s failed to load"), CharacterStartUpData.GetAssetName());
+            ensureMsgf(false, TEXT("CharacterStartUpData %s failed to load"), *CharacterStartUpData.GetAssetName());
         }
     }
 }
