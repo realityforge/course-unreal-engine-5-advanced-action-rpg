@@ -71,6 +71,9 @@ StatementMacros:
   - UENUM
   - UINTERFACE
   - GENERATED_BODY
+# This is available with clang-format v19
+# BreakTemplateDeclarationsStyle: Yes
+AlwaysBreakTemplateDeclarations: true
 TabWidth: 4
 BinPackParameters: false
 AllowAllParametersOfDeclarationOnNextLine: false
