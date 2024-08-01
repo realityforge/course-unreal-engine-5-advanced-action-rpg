@@ -38,11 +38,13 @@ try:
                         files_to_format.append(file)
 
     if 0 != len(files_to_format):
-        subprocess.run(["clang-format", "-i", *files_to_format])
+        subprocess.run(["clang-format", "-i", *files_to_format], check=True)
         print("Formatted the following files:")
         for file in files_to_format:
             print(file)
 except subprocess.CalledProcessError as e:
-    print(f"Error executing git diff: {e}")
+    print(f"Error executing process: {e}")
+    exit(e.returncode)
 except Exception as e:
     print(f"An error occurred: {e}")
+    exit(-1)
