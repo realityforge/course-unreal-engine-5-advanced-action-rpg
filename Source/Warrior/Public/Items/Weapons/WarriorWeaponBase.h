@@ -6,7 +6,7 @@
 
 class UBoxComponent;
 
-UCLASS(Abstract)
+UCLASS(Abstract, meta = (RuleRangerRequired = "WeaponMesh.StaticMesh"))
 class WARRIOR_API AWarriorWeaponBase : public AActor
 {
     GENERATED_BODY()
