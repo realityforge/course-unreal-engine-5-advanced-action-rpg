@@ -4,6 +4,7 @@
 #include "CoreMinimal.h"
 #include "HeroCharacter.generated.h"
 
+class UHeroCombatComponent;
 struct FInputActionValue;
 class UDataAsset_InputConfig;
 class UCameraComponent;
@@ -22,6 +23,9 @@ class WARRIOR_API AHeroCharacter : public AWarriorCharacterBase
 
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Camera", meta = (AllowPrivateAccess = "true"))
     TObjectPtr<UCameraComponent> FollowCamera;
+
+    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Combat", meta = (AllowPrivateAccess = "true"))
+    TObjectPtr<UHeroCombatComponent> CombatComponent;
 
 #pragma endregion
 
@@ -49,4 +53,6 @@ public:
     AHeroCharacter();
 
     virtual void PossessedBy(AController* NewController) override;
+
+    FORCEINLINE UHeroCombatComponent* GetCombatComponent() const { return CombatComponent; }
 };
