@@ -1,6 +1,7 @@
 #include "Characters/WarriorCharacterBase.h"
 #include "AbilitySystem/WarriorAbilitySystemComponent.h"
 #include "AbilitySystem/WarriorAttributeSet.h"
+#include "DataAssets/StartUpData/DataAsset_StartUpDataBase.h"
 
 AWarriorCharacterBase::AWarriorCharacterBase()
 {
@@ -28,4 +29,19 @@ void AWarriorCharacterBase::PostInitializeComponents()
 UAbilitySystemComponent* AWarriorCharacterBase::GetAbilitySystemComponent() const
 {
     return GetWarriorAbilitySystemComponent();
+}
+
+void AWarriorCharacterBase::GiveStartUpDataToAbilitySystem() const
+{
+    if (ensureMsgf(!CharacterStartUpData.IsNull(), TEXT("CharacterStartUpData has not been assigned")))
+    {
+        if (const auto Data = CharacterStartUpData.LoadSynchronous())
+        {
+            Data->GiveToAbilitySystemComponent(WarriorAbilitySystemComponent);
+        }
+        else
+        {
+            ensureMsgf(false, TEXT("CharacterStartUpData %s failed to load"), CharacterStartUpData.GetAssetName());
+        }
+    }
 }

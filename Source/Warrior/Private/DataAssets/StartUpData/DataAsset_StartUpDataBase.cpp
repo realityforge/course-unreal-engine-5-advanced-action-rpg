@@ -1,8 +1,9 @@
-#include "DataAssets/StartupData/DataAsset_StartupDataBase.h"
+#include "DataAssets/StartUpData/DataAsset_StartUpDataBase.h"
 #include "AbilitySystem/Abilities/WarriorGameplayAbility.h"
 #include "AbilitySystem/WarriorAbilitySystemComponent.h"
 
-void UDataAsset_StartupDataBase::GrantAbilities(const TArray<TSubclassOf<UWarriorGameplayAbility>>& InGameplayAbilities,
+// ReSharper disable once CppMemberFunctionMayBeStatic
+void UDataAsset_StartUpDataBase::GrantAbilities(const TArray<TSubclassOf<UWarriorGameplayAbility>>& InGameplayAbilities,
                                                 UWarriorAbilitySystemComponent* InAbilitySystemComponent,
                                                 const int32 ApplyLevel)
 {
@@ -26,7 +27,7 @@ void UDataAsset_StartupDataBase::GrantAbilities(const TArray<TSubclassOf<UWarrio
     }
 }
 
-void UDataAsset_StartupDataBase::GiveToAbilitySystemComponent(UWarriorAbilitySystemComponent* InAbilitySystemComponent,
+void UDataAsset_StartUpDataBase::GiveToAbilitySystemComponent(UWarriorAbilitySystemComponent* InAbilitySystemComponent,
                                                               const int32 ApplyLevel)
 {
     check(InAbilitySystemComponent);

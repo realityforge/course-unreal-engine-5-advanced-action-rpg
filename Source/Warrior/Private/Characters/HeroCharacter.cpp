@@ -37,13 +37,7 @@ AHeroCharacter::AHeroCharacter()
 void AHeroCharacter::PossessedBy(AController* NewController)
 {
     Super::PossessedBy(NewController);
-    if (GetWarriorAbilitySystemComponent() && GetWarriorAttributeSet())
-    {
-        const auto Text = FString::Printf(TEXT("Ability system component valid. Owner = %s, AvatarActor=%s"),
-                                          *GetWarriorAbilitySystemComponent()->GetOwnerActor()->GetActorLabel(),
-                                          *GetWarriorAbilitySystemComponent()->GetAvatarActor()->GetActorLabel());
-        Debug::Print(Text, FColor::Green);
-    }
+    GiveStartUpDataToAbilitySystem();
 }
 
 void AHeroCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)

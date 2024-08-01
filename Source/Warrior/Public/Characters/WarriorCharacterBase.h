@@ -5,6 +5,7 @@
 #include "GameFramework/Character.h"
 #include "WarriorCharacterBase.generated.h"
 
+class UDataAsset_StartUpDataBase;
 class UWarriorAttributeSet;
 class UWarriorAbilitySystemComponent;
 
@@ -13,16 +14,20 @@ class WARRIOR_API AWarriorCharacterBase : public ACharacter, public IAbilitySyst
 {
     GENERATED_BODY()
 
-    // Set up folding Region for VS
-#pragma region Components
-
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "AbilitySystem", meta = (AllowPrivateAccess = "true"))
     TObjectPtr<UWarriorAbilitySystemComponent> WarriorAbilitySystemComponent{ nullptr };
 
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "AbilitySystem", meta = (AllowPrivateAccess = "true"))
     TObjectPtr<UWarriorAttributeSet> WarriorAttributeSet{ nullptr };
 
-#pragma endregion
+    UPROPERTY(EditDefaultsOnly,
+              BlueprintReadOnly,
+              Category = "CharacterData",
+              meta = (AllowPrivateAccess = "true", RuleRangerRequired = "true"))
+    TSoftObjectPtr<UDataAsset_StartUpDataBase> CharacterStartUpData{ nullptr };
+
+protected:
+    void GiveStartUpDataToAbilitySystem() const;
 
 public:
     AWarriorCharacterBase();

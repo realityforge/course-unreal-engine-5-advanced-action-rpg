@@ -2,13 +2,13 @@
 
 #include "CoreMinimal.h"
 #include "Engine/DataAsset.h"
-#include "DataAsset_StartupDataBase.generated.h"
+#include "DataAsset_StartUpDataBase.generated.h"
 
 class UWarriorAbilitySystemComponent;
 class UWarriorGameplayAbility;
 
 UCLASS(Abstract)
-class WARRIOR_API UDataAsset_StartupDataBase : public UDataAsset
+class WARRIOR_API UDataAsset_StartUpDataBase : public UDataAsset
 {
     GENERATED_BODY()
 
