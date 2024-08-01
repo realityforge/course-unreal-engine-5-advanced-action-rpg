@@ -13,7 +13,7 @@ enum class EWarriorAbilityActivationPolicy : uint8
     OnGiven
 };
 
-UCLASS()
+UCLASS(Abstract)
 class WARRIOR_API UWarriorGameplayAbility : public UGameplayAbility
 {
     GENERATED_BODY()
