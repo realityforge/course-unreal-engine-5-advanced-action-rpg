@@ -33,6 +33,7 @@ public class RuleRanger : ModuleRules
 				"DeveloperSettings",
 				"EditorSubsystem",
 				"Engine",
+				"Kismet",
 				"Projects", // IPluginManager
 				"MessageLog",
 				"NiagaraEditor",
