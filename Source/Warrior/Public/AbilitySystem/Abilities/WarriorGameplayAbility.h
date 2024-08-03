@@ -6,6 +6,8 @@
 #include "CoreMinimal.h"
 #include "WarriorGameplayAbility.generated.h"
 
+class UPawnCombatComponent;
+
 UENUM(BlueprintType)
 enum class EWarriorAbilityActivationPolicy : uint8
 {
@@ -29,6 +31,10 @@ protected:
                             bool bReplicateEndAbility,
                             bool bWasCancelled) override;
     //~End UGameplayAbility Interface
+
+    /** Return the CombatComponent from the associated Avatar Actor */
+    UFUNCTION(BlueprintPure, Category = "Warrior|Ability")
+    UPawnCombatComponent* GetPawnCombatComponentFromActorInfo() const;
 
 public:
     //~Begin UGameplayAbility Interface
