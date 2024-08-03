@@ -34,9 +34,18 @@ public:
     UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
     TObjectPtr<UInputMappingContext> DefaultMappingContext;
 
+    /**
+     * A set of "well-know" tags that are bound to InputAction.
+     * The callbacks all take a FInputActionValue reference.
+     * The supported tags are those with the prefix "Input.Native."
+     */
     UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, meta = (TitleProperty = "InputTag"))
     TArray<FWarriorInputActionConfig> NativeInputActions;
 
+    /**
+     * A set of tags that are bound to InputAction.
+     * The supported tags are those with the prefix "Input.Ability."
+     */
     UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, meta = (TitleProperty = "InputTag"))
     TArray<FWarriorInputActionConfig> AbilityInputActions;
 

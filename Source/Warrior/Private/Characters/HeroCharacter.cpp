@@ -54,12 +54,12 @@ void AHeroCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompo
     const auto WarriorInputComponent = CastChecked<UWarriorInputComponent>(PlayerInputComponent);
 
     WarriorInputComponent->BindNativeInputAction(InputConfigDataAsset,
-                                                 WarriorGameplayTags::InputTag_Move,
+                                                 WarriorGameplayTags::Input_Native_Move,
                                                  ETriggerEvent::Triggered,
                                                  this,
                                                  &AHeroCharacter::Input_Move);
     WarriorInputComponent->BindNativeInputAction(InputConfigDataAsset,
-                                                 WarriorGameplayTags::InputTag_Look,
+                                                 WarriorGameplayTags::Input_Native_Look,
                                                  ETriggerEvent::Triggered,
                                                  this,
                                                  &AHeroCharacter::Input_Look);
