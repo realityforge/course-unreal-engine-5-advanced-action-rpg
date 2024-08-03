@@ -18,7 +18,7 @@ class WARRIOR_API UWarriorGameplayAbility : public UGameplayAbility
 {
     GENERATED_BODY()
 
-    UPROPERTY(EditDefaultsOnly, Category = "WarriorAbility")
+    UPROPERTY(EditDefaultsOnly, Category = "Warrior|Ability")
     EWarriorAbilityActivationPolicy AbilityActivationPolicy{ EWarriorAbilityActivationPolicy::OnTriggered };
 
 protected:
