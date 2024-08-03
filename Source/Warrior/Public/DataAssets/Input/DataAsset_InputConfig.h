@@ -22,9 +22,6 @@ struct FWarriorInputActionConfig
     bool IsValid() const { return InputTag.IsValid() && InputAction; }
 };
 
-/**
- *
- */
 UCLASS()
 class WARRIOR_API UDataAsset_InputConfig : public UDataAsset
 {
