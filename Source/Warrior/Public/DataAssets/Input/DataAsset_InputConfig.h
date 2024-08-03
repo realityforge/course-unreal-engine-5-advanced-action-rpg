@@ -14,12 +14,12 @@ struct FWarriorInputActionConfig
     GENERATED_BODY()
 
     UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, meta = (Categories = "InputTag"))
-    FGameplayTag InputTag;
+    FGameplayTag Tag;
 
     UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
     TObjectPtr<UInputAction> InputAction;
 
-    bool IsValid() const { return InputTag.IsValid() && InputAction; }
+    bool IsValid() const { return Tag.IsValid() && InputAction; }
 };
 
 UCLASS()
@@ -36,7 +36,7 @@ public:
      * The callbacks all take a FInputActionValue reference parameter.
      * The supported tags are those with the prefix "Input.Native."
      */
-    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, meta = (TitleProperty = "InputTag"))
+    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, meta = (TitleProperty = "Tag"))
     TArray<FWarriorInputActionConfig> NativeInputActions;
 
     /**
@@ -44,7 +44,7 @@ public:
      * The callbacks all take a FGameplayTag parameter.
      * The supported tags are those with the prefix "Input.Ability."
      */
-    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, meta = (TitleProperty = "InputTag"))
+    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, meta = (TitleProperty = "Tag"))
     TArray<FWarriorInputActionConfig> AbilityInputActions;
 
     UInputAction* FindNativeInputActionByTag(const FGameplayTag& InInputTag) const;

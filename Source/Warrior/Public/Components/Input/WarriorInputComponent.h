@@ -15,7 +15,7 @@ class WARRIOR_API UWarriorInputComponent : public UEnhancedInputComponent
 public:
     template <class UserObject, typename CallbackFunc>
     void BindNativeInputAction(const UDataAsset_InputConfig* InInputConfig,
-                               const FGameplayTag& InInputTag,
+                               const FGameplayTag& InTag,
                                ETriggerEvent TriggerEvent,
                                UserObject* ContextObject,
                                CallbackFunc Func);
@@ -29,13 +29,13 @@ public:
 
 template <class UserObject, typename CallbackFunc>
 void UWarriorInputComponent::BindNativeInputAction(const UDataAsset_InputConfig* InInputConfig,
-                                                   const FGameplayTag& InInputTag,
+                                                   const FGameplayTag& InTag,
                                                    ETriggerEvent TriggerEvent,
                                                    UserObject* ContextObject,
                                                    CallbackFunc Func)
 {
     checkf(InInputConfig, TEXT("InputConfig data asset is null, Binding not valid"));
-    if (const auto Action = InInputConfig->FindNativeInputActionByTag(InInputTag))
+    if (const auto Action = InInputConfig->FindNativeInputActionByTag(InTag))
     {
         BindAction(Action, TriggerEvent, ContextObject, Func);
     }
@@ -52,8 +52,8 @@ void UWarriorInputComponent::BindAbilityInputAction(const UDataAsset_InputConfig
     {
         if (Action.IsValid())
         {
-            BindAction(Action.InputAction, ETriggerEvent::Started, ContextObject, InputPressedFunc, Action.InputTag);
-            BindAction(Action.InputAction, ETriggerEvent::Completed, ContextObject, InputReleasedFunc, Action.InputTag);
+            BindAction(Action.InputAction, ETriggerEvent::Started, ContextObject, InputPressedFunc, Action.Tag);
+            BindAction(Action.InputAction, ETriggerEvent::Completed, ContextObject, InputReleasedFunc, Action.Tag);
         }
         else
         {
