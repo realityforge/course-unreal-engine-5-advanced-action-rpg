@@ -7,9 +7,6 @@
 
 struct FGameplayTag;
 
-/**
- *
- */
 UCLASS()
 class WARRIOR_API UWarriorInputComponent : public UEnhancedInputComponent
 {
