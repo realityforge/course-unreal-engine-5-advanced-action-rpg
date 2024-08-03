@@ -18,6 +18,7 @@ class WARRIOR_API UDataAsset_StartUpDataBase : public UDataAsset
     UPROPERTY(EditDefaultsOnly, Category = "StartUpData", meta = (AllowAbstract = "false"))
     TArray<TSubclassOf<UWarriorGameplayAbility>> ReactiveAbilities;
 
+protected:
     void GrantAbilities(const TArray<TSubclassOf<UWarriorGameplayAbility>>& InGameplayAbilities,
                         UWarriorAbilitySystemComponent* InAbilitySystemComponent,
                         int32 ApplyLevel);
