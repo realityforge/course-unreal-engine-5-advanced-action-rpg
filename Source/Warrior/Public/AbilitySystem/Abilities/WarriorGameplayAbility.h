@@ -6,6 +6,7 @@
 #include "CoreMinimal.h"
 #include "WarriorGameplayAbility.generated.h"
 
+class UWarriorAbilitySystemComponent;
 class UPawnCombatComponent;
 
 UENUM(BlueprintType)
@@ -35,6 +36,10 @@ protected:
     /** Return the CombatComponent from the associated Avatar Actor */
     UFUNCTION(BlueprintPure, Category = "Warrior|Ability")
     UPawnCombatComponent* GetPawnCombatComponentFromActorInfo() const;
+
+    /** Return the WarriorAbilitySystemComponent from the associated Actor */
+    UFUNCTION(BlueprintPure, Category = "Warrior|Ability")
+    UWarriorAbilitySystemComponent* GetWarriorAbilitySystemComponentFromActorInfo() const;
 
 public:
     //~Begin UGameplayAbility Interface
