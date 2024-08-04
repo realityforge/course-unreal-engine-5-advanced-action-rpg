@@ -35,6 +35,7 @@ Shorthand notes of where to go next with this experiment:
   * Ensure that descriptions for inputs present
   * Ensure that the override name matches a pattern if exposed to library
 * Material checks:
+  * Ensure Material is compiled
   * Ensure that parameters of specific name/type exist on a material ... or a material property? (Useful when using to create dynamic material instance and use strings to match parameters)
   * Ensure that materials associated with Skeletons that have Material type animation curves, have materials with parameters that match.
   * Ensure that there are no dangling nodes in material
