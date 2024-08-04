@@ -3,6 +3,7 @@
 #include "CoreMinimal.h"
 #include "DataAssets/Input/DataAsset_InputConfig.h"
 #include "EnhancedInputComponent.h"
+#include "WarriorDebugHelper.h"
 #include "WarriorInputComponent.generated.h"
 
 struct FGameplayTag;
@@ -39,6 +40,11 @@ void UWarriorInputComponent::BindNativeInputAction(const UDataAsset_InputConfig*
     {
         BindAction(Action, TriggerEvent, ContextObject, Func);
     }
+    else
+    {
+        Debug::Print(FString::Printf(TEXT("BindNativeInputAction: Unable to locate input action with tag named %s"),
+                                     *InTag.ToString()));
+    }
 }
 
 template <class UserObject, typename CallbackFunc>
@@ -57,7 +63,8 @@ void UWarriorInputComponent::BindAbilityInputAction(const UDataAsset_InputConfig
         }
         else
         {
-            // TODO: Log Error
+            Debug::Print(FString::Printf(TEXT("BindAbilityInputAction: Invalid Action with tag named %s"),
+                                         *Action.Tag.ToString()));
         }
     }
 }
