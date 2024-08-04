@@ -1,4 +1,5 @@
 #include "Characters/HeroCharacter.h"
+#include "AbilitySystem/WarriorAbilitySystemComponent.h"
 #include "Camera/CameraComponent.h"
 #include "Components/CapsuleComponent.h"
 #include "Components/Combat/HeroCombatComponent.h"
@@ -63,6 +64,11 @@ void AHeroCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompo
                                                  ETriggerEvent::Triggered,
                                                  this,
                                                  &AHeroCharacter::Input_Look);
+
+    WarriorInputComponent->BindAbilityInputAction(InputConfigDataAsset,
+                                                  this,
+                                                  &AHeroCharacter::Input_AbilityInputPressed,
+                                                  &AHeroCharacter::Input_AbilityInputReleased);
 }
 
 void AHeroCharacter::BeginPlay()
@@ -96,4 +102,14 @@ void AHeroCharacter::Input_Look(const FInputActionValue& InputActionValue)
     {
         AddControllerPitchInput(LookAxisVector.Y);
     }
+}
+
+void AHeroCharacter::Input_AbilityInputPressed(const FGameplayTag InGameplayTag)
+{
+    GetWarriorAbilitySystemComponent()->OnAbilityInputPressed(InGameplayTag);
+}
+
+void AHeroCharacter::Input_AbilityInputReleased(const FGameplayTag InGameplayTag)
+{
+    GetWarriorAbilitySystemComponent()->OnAbilityInputReleased(InGameplayTag);
 }
