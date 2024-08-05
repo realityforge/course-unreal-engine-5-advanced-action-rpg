@@ -140,6 +140,7 @@ bool URuleRangerEditorSubsystem::ProcessRuleSetForObject(URuleRangerConfig* cons
         // ReSharper disable once CppTooWideScopeInitStatement
         if (const auto Rule = RulePtr.Get(); IsValid(Rule))
         {
+            bool bSkipRule = false;
             for (auto ExclusionIt = Exclusions.CreateIterator(); ExclusionIt; ++ExclusionIt)
             {
                 if (const auto Exclusion = *ExclusionIt)
@@ -152,12 +153,12 @@ bool URuleRangerEditorSubsystem::ProcessRuleSetForObject(URuleRangerConfig* cons
                                *Rule->GetName(),
                                *Object->GetName(),
                                *Exclusion->Description.ToString());
-                        return true;
+                        bSkipRule = true;
                     }
                 }
             }
 
-            if (!ProcessRuleFunction(Rule, Object))
+            if (!bSkipRule && !ProcessRuleFunction(Rule, Object))
             {
                 UE_LOG(RuleRanger,
                        VeryVerbose,
