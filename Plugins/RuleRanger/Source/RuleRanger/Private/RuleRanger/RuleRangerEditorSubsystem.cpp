@@ -340,13 +340,13 @@ bool URuleRangerEditorSubsystem::IsMatchingRulePresent(UObject* InObject, const 
                         }
                     }
                 }
-                else
-                {
-                    UE_LOG(RuleRanger,
-                           Error,
-                           TEXT("IsMatchingRulePresent: Invalid RuleSetConfig skipped when processing rules for %s"),
-                           *InObject->GetName());
-                }
+            }
+            else
+            {
+                UE_LOG(RuleRanger,
+                       Error,
+                       TEXT("IsMatchingRulePresent: Invalid RuleSetConfig skipped when processing rules for %s"),
+                       *InObject->GetName());
             }
         }
     }
