@@ -1,0 +1,1 @@
+#include "WarriorTypes/WarriorStructTypes.h"
