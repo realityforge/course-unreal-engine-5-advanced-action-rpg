@@ -17,8 +17,16 @@
 #include "ContentBrowserModule.h"
 #include "RuleRanger/RuleRangerEditorSubsystem.h"
 #include "RuleRangerCommands.h"
+#include "RuleRangerDeveloperSettings.h"
 #include "RuleRangerLogging.h"
 #include "RuleRangerMessageLog.h"
+
+static void MaybeOpenMessageLog(FMessageLog& MessageLog)
+{
+    const auto DeveloperSettings = GetMutableDefault<URuleRangerDeveloperSettings>();
+    check(IsValid(DeveloperSettings));
+    MessageLog.Open(DeveloperSettings->bAlwaysShowMessageLog ? EMessageSeverity::Info : EMessageSeverity::Warning);
+}
 
 static void OnScanSelectedAssets(const TArray<FAssetData>& Assets)
 {
@@ -52,7 +60,7 @@ static void OnScanSelectedAssets(const TArray<FAssetData>& Assets)
                                     "ScanSelectedAssetsCompleted",
                                     "Rule Ranger has completed scanning of the selected assets at {0}"),
                           FText::AsDateTime(FDateTime::UtcNow()))));
-        MessageLog.Open();
+        MaybeOpenMessageLog(MessageLog);
     }
 }
 
@@ -88,9 +96,10 @@ static void OnFixSelectedAssets(const TArray<FAssetData>& Assets)
                                     "ScanAndFixSelectedAssetsCompleted",
                                     "Rule Ranger has completed scanning and fixing of the selected assets at {0}"),
                           FText::AsDateTime(FDateTime::UtcNow()))));
-        MessageLog.Open();
+        MaybeOpenMessageLog(MessageLog);
     }
 }
+
 static void OnScanSelectedPaths(const TArray<FString>& AssetPaths)
 {
     if (AssetPaths.Num() > 0)
@@ -145,7 +154,7 @@ static void OnScanSelectedPaths(const TArray<FString>& AssetPaths)
                                     "ScanSelectedPathsCompleted",
                                     "Rule Ranger has completed scanning of the selected paths at {0}"),
                           FText::AsDateTime(FDateTime::UtcNow()))));
-        MessageLog.Open();
+        MaybeOpenMessageLog(MessageLog);
     }
 }
 
@@ -204,7 +213,7 @@ static void OnFixSelectedPaths(const TArray<FString>& AssetPaths)
                                     "ScanAndFixSelectedPathsCompleted",
                                     "Rule Ranger has completed scanning and fixing of the selected paths at {0}"),
                           FText::AsDateTime(FDateTime::UtcNow()))));
-        MessageLog.Open();
+        MaybeOpenMessageLog(MessageLog);
     }
 }
 
