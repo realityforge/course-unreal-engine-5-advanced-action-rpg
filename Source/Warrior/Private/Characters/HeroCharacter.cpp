@@ -104,11 +104,13 @@ void AHeroCharacter::Input_Look(const FInputActionValue& InputActionValue)
     }
 }
 
+// ReSharper disable once CppMemberFunctionMayBeConst
 void AHeroCharacter::Input_AbilityInputPressed(const FGameplayTag InGameplayTag)
 {
     GetWarriorAbilitySystemComponent()->OnAbilityInputPressed(InGameplayTag);
 }
 
+// ReSharper disable once CppMemberFunctionMayBeConst
 void AHeroCharacter::Input_AbilityInputReleased(const FGameplayTag InGameplayTag)
 {
     GetWarriorAbilitySystemComponent()->OnAbilityInputReleased(InGameplayTag);
