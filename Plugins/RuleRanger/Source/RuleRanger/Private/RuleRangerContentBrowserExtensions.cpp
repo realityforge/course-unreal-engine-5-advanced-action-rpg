@@ -41,7 +41,7 @@ static void OnScanSelectedAssets(const TArray<FAssetData>& Assets)
         FScopedSlowTask SlowTask(
             Assets.Num(),
             NSLOCTEXT("RuleRanger", "ScanAssetsStarting", "Rule Ranger: Scan the selected assets"));
-        SlowTask.MakeDialogDelayed(1.f);
+        SlowTask.MakeDialogDelayed(.5f, true);
         FMessageLog MessageLog(FRuleRangerMessageLog::GetMessageLogName());
         MessageLog.Info()->AddToken(
             FTextToken::Create(FText::Format(NSLOCTEXT("RuleRanger",
@@ -51,6 +51,16 @@ static void OnScanSelectedAssets(const TArray<FAssetData>& Assets)
 
         if (const auto Subsystem = GEditor->GetEditorSubsystem<URuleRangerEditorSubsystem>())
         {
+            if (SlowTask.ShouldCancel())
+            {
+                MessageLog.Info()->AddToken(FTextToken::Create(FText::Format(
+                    NSLOCTEXT("RuleRanger",
+                              "CancelScanSelectedAssets",
+                              "User requested that Rule Ranger cancel the scanning of the selected assets at {0}"),
+                    FText::AsDateTime(FDateTime::UtcNow()))));
+                MaybeOpenMessageLog(MessageLog);
+                return;
+            }
             for (const auto& Asset : Assets)
             {
                 // Object can be null if it is a redirect
@@ -77,7 +87,7 @@ static void OnFixSelectedAssets(const TArray<FAssetData>& Assets)
         FScopedSlowTask SlowTask(
             Assets.Num(),
             NSLOCTEXT("RuleRanger", "ScanAndFixAssetsStarting", "Rule Ranger: Scan and fix the selected assets"));
-        SlowTask.MakeDialogDelayed(1.f);
+        SlowTask.MakeDialogDelayed(.5f, true);
         FMessageLog MessageLog(FRuleRangerMessageLog::GetMessageLogName());
         MessageLog.Info()->AddToken(FTextToken::Create(
             FText::Format(NSLOCTEXT("RuleRanger",
@@ -87,6 +97,17 @@ static void OnFixSelectedAssets(const TArray<FAssetData>& Assets)
 
         if (const auto Subsystem = GEditor->GetEditorSubsystem<URuleRangerEditorSubsystem>())
         {
+            if (SlowTask.ShouldCancel())
+            {
+                MessageLog.Info()->AddToken(FTextToken::Create(FText::Format(
+                    NSLOCTEXT(
+                        "RuleRanger",
+                        "CancelScanAndFixSelectedAssets",
+                        "User requested that Rule Ranger cancel the scanning and fixing of the selected assets at {0}"),
+                    FText::AsDateTime(FDateTime::UtcNow()))));
+                MaybeOpenMessageLog(MessageLog);
+                return;
+            }
             for (const auto& Asset : Assets)
             {
                 // Object can be null if it is a redirect
