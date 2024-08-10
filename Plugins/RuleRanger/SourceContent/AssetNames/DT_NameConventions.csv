@@ -88,3 +88,4 @@ MaterialFunctionMaterialLayerInstance,"/Script/EngineAssetDefinitions.AssetDefin
 MaterialFunctionInstance,"/Script/Engine.MaterialFunctionInstance","","MFI_",""
 MaterialFunctionMaterialLayerBlend,"/Script/Engine.MaterialFunctionMaterialLayerBlend","","MLB_",""
 MaterialFunctionMaterialLayerBlendInstance,"/Script/Engine.MaterialFunctionMaterialLayerBlendInstance","","MLBI_",""
+AnimationLayerInterface,"/Script/Engine.AnimLayerInterface","","ALI_",""
