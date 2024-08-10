@@ -226,7 +226,6 @@ static void OnFixSelectedPaths(const TArray<FString>& AssetPaths)
 
         if (const auto Subsystem = GEditor->GetEditorSubsystem<URuleRangerEditorSubsystem>())
         {
-            const auto& AssetRegistry = FModuleManager::LoadModuleChecked<FAssetRegistryModule>("AssetRegistry").Get();
             for (const auto& AssetData : Assets)
             {
                 if (SlowTask.ShouldCancel())
