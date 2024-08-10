@@ -127,14 +127,47 @@ static void OnFixSelectedAssets(const TArray<FAssetData>& Assets)
     }
 }
 
+static void CollectAssetsFromPaths(const TArray<FString>& AssetPaths, TArray<FAssetData>& Assets)
+{
+    const auto& AssetRegistry = FModuleManager::LoadModuleChecked<FAssetRegistryModule>("AssetRegistry").Get();
+    for (const auto& AssetPath : AssetPaths)
+    {
+        // ReSharper disable once CppTooWideScopeInitStatement
+        const auto& AssetData = AssetRegistry.GetAssetByObjectPath(AssetPath);
+        if (AssetData.IsRedirector())
+        {
+            // Ignore
+        }
+        else if (EName::None != AssetData.AssetName)
+        {
+            Assets.Add(AssetData);
+        }
+        else
+        {
+            TArray<FAssetData> OutAssets;
+            AssetRegistry.GetAssetsByPath(*AssetPath, OutAssets, true);
+            for (auto& OutAsset : OutAssets)
+            {
+                if (AssetData.IsTopLevelAsset())
+                {
+                    Assets.Add(OutAsset);
+                }
+            }
+        }
+    }
+}
+
 static void OnScanSelectedPaths(const TArray<FString>& AssetPaths)
 {
-    if (AssetPaths.Num() > 0)
+    TArray<FAssetData> Assets;
+    CollectAssetsFromPaths(AssetPaths, Assets);
+
+    if (Assets.Num() > 0)
     {
         FScopedSlowTask SlowTask(
-            AssetPaths.Num(),
+            Assets.Num(),
             NSLOCTEXT("RuleRanger", "ScanSelectedPathsStarting", "Rule Ranger: Scan the selected paths"));
-        SlowTask.MakeDialogDelayed(1.f);
+        SlowTask.MakeDialogDelayed(.5f, true);
         FMessageLog MessageLog(FRuleRangerMessageLog::GetMessageLogName());
         MessageLog.Info()->AddToken(
             FTextToken::Create(FText::Format(NSLOCTEXT("RuleRanger",
@@ -144,36 +177,24 @@ static void OnScanSelectedPaths(const TArray<FString>& AssetPaths)
 
         if (const auto Subsystem = GEditor->GetEditorSubsystem<URuleRangerEditorSubsystem>())
         {
-            const auto& AssetRegistry = FModuleManager::LoadModuleChecked<FAssetRegistryModule>("AssetRegistry").Get();
-            for (const auto& AssetPath : AssetPaths)
+            for (const auto& AssetData : Assets)
             {
-                const auto& AssetData = AssetRegistry.GetAssetByObjectPath(AssetPath);
-                if (AssetData.IsRedirector())
+                if (SlowTask.ShouldCancel())
                 {
-                    // Ignore
+                    MessageLog.Info()->AddToken(FTextToken::Create(FText::Format(
+                        NSLOCTEXT("RuleRanger",
+                                  "CancelScanSelectedPaths",
+                                  "User requested that Rule Ranger cancel the scanning of the selected paths at {0}"),
+                        FText::AsDateTime(FDateTime::UtcNow()))));
+                    MaybeOpenMessageLog(MessageLog);
+                    return;
                 }
-                else if (AssetData.IsUAsset())
-                {
-                    if (UObject* Object = AssetData.GetAsset())
-                    {
-                        Subsystem->ScanObject(Object);
-                    }
-                }
-                else
-                {
-                    // Assuming this is a folder
-                    TArray<FAssetData> Assets;
-                    AssetRegistry.GetAssetsByPath(*AssetPath, Assets, true);
 
-                    for (const auto& Asset : Assets)
-                    {
-                        if (const auto Object = Asset.GetAsset())
-                        {
-                            Subsystem->ScanObject(Object);
-                        }
-                    }
+                if (UObject* Object = AssetData.GetAsset())
+                {
+                    Subsystem->ScanObject(Object);
                 }
-                SlowTask.TickProgress();
+                TickTask(SlowTask);
             }
         }
         MessageLog.Info()->AddToken(FTextToken::Create(
@@ -187,12 +208,15 @@ static void OnScanSelectedPaths(const TArray<FString>& AssetPaths)
 
 static void OnFixSelectedPaths(const TArray<FString>& AssetPaths)
 {
-    if (AssetPaths.Num() > 0)
+    TArray<FAssetData> Assets;
+    CollectAssetsFromPaths(AssetPaths, Assets);
+
+    if (Assets.Num() > 0)
     {
         FScopedSlowTask SlowTask(
-            AssetPaths.Num(),
+            Assets.Num(),
             NSLOCTEXT("RuleRanger", "ScanAndFixSelectedPathsStarting", "Rule Ranger: Scan and fix the selected paths"));
-        SlowTask.MakeDialogDelayed(1.f);
+        SlowTask.MakeDialogDelayed(.5f, true);
         FMessageLog MessageLog(FRuleRangerMessageLog::GetMessageLogName());
         MessageLog.Info()->AddToken(FTextToken::Create(
             FText::Format(NSLOCTEXT("RuleRanger",
@@ -203,36 +227,26 @@ static void OnFixSelectedPaths(const TArray<FString>& AssetPaths)
         if (const auto Subsystem = GEditor->GetEditorSubsystem<URuleRangerEditorSubsystem>())
         {
             const auto& AssetRegistry = FModuleManager::LoadModuleChecked<FAssetRegistryModule>("AssetRegistry").Get();
-            for (const auto& AssetPath : AssetPaths)
+            for (const auto& AssetData : Assets)
             {
-                const auto& AssetData = AssetRegistry.GetAssetByObjectPath(AssetPath);
-                if (AssetData.IsRedirector())
+                if (SlowTask.ShouldCancel())
                 {
-                    // Ignore
+                    MessageLog.Info()->AddToken(FTextToken::Create(FText::Format(
+                        NSLOCTEXT(
+                            "RuleRanger",
+                            "CancelScanAndFixSelectedPaths",
+                            "User requested that Rule Ranger cancel the scanning and fixing of the selected paths at {0}"),
+                        FText::AsDateTime(FDateTime::UtcNow()))));
+                    MaybeOpenMessageLog(MessageLog);
+                    return;
                 }
-                else if (AssetData.IsUAsset())
-                {
-                    if (const auto Object = AssetData.GetAsset())
-                    {
-                        Subsystem->ScanObject(Object);
-                    }
-                }
-                else
-                {
-                    // Assuming this is a folder
-                    TArray<FAssetData> Assets;
-                    AssetRegistry.GetAssetsByPath(*AssetPath, Assets, true);
 
-                    for (const auto& Asset : Assets)
-                    {
-                        if (const auto Object = Asset.GetAsset())
-                        {
-                            Subsystem->ScanAndFixObject(Object);
-                        }
-                    }
+                if (const auto Object = AssetData.GetAsset())
+                {
+                    Subsystem->ScanAndFixObject(Object);
                 }
+                TickTask(SlowTask);
             }
-            SlowTask.TickProgress();
         }
 
         MessageLog.Info()->AddToken(FTextToken::Create(
