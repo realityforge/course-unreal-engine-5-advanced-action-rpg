@@ -28,6 +28,12 @@ static void MaybeOpenMessageLog(FMessageLog& MessageLog)
     MessageLog.Open(DeveloperSettings->bAlwaysShowMessageLog ? EMessageSeverity::Info : EMessageSeverity::Warning);
 }
 
+static void TickTask(FScopedSlowTask& SlowTask)
+{
+    SlowTask.EnterProgressFrame();
+    SlowTask.TickProgress();
+}
+
 static void OnScanSelectedAssets(const TArray<FAssetData>& Assets)
 {
     if (Assets.Num() > 0)
@@ -52,7 +58,7 @@ static void OnScanSelectedAssets(const TArray<FAssetData>& Assets)
                 {
                     Subsystem->ScanObject(Object);
                 }
-                SlowTask.TickProgress();
+                TickTask(SlowTask);
             }
         }
         MessageLog.Info()->AddToken(FTextToken::Create(
@@ -88,7 +94,7 @@ static void OnFixSelectedAssets(const TArray<FAssetData>& Assets)
                 {
                     Subsystem->ScanAndFixObject(Object);
                 }
-                SlowTask.TickProgress();
+                TickTask(SlowTask);
             }
         }
         MessageLog.Info()->AddToken(FTextToken::Create(
