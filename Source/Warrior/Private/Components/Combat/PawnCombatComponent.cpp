@@ -19,9 +19,10 @@ void UPawnCombatComponent::RegisterSpawnedWeapon(const FGameplayTag InGameplayTa
         EquippedWeaponTag = InGameplayTag;
     }
 
-    Debug::Print(FString::Printf(TEXT("Weapon named %s has been registered using the tag %s"),
+    Debug::Print(FString::Printf(TEXT("Weapon named %s has been registered using the tag %s Equip?=%s"),
                                  *InWeapon->GetName(),
-                                 *InGameplayTag.ToString()));
+                                 *InGameplayTag.ToString(),
+                                 bInEquipWeapon ? TEXT("True") : TEXT("False")));
 }
 
 AWarriorWeaponBase* UPawnCombatComponent::GetWeaponInInventoryByTag(const FGameplayTag InGameplayTag) const
