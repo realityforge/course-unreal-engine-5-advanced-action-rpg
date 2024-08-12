@@ -4,6 +4,7 @@
 #include "GameplayTagContainer.h"
 #include "WarriorStructTypes.generated.h"
 
+class UInputMappingContext;
 class UWarriorHeroLinkedAnimLayer;
 class UWarriorGameplayAbility;
 
@@ -38,4 +39,12 @@ struct FWarriorHeroWeaponData
     /** The AnimLayer that we need to link when this weapon is equipped. */
     UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, meta = (AllowAbstract = "false"))
     TSubclassOf<UWarriorHeroLinkedAnimLayer> WeaponAnimLayer;
+
+    /** The InputMappingContext that is added to the owner when the weapon is equipped. */
+    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+    TObjectPtr<UInputMappingContext> InputMappingContext;
+
+    /** The Abilities that are granted to the owner when the weapon is equipped */
+    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, meta = (TitleProperty = "Tag"))
+    TArray<FWarriorHeroAbilitySet> DefaultWeaponAbilities;
 };
