@@ -7,6 +7,9 @@
 class UWarriorHeroLinkedAnimLayer;
 class UWarriorGameplayAbility;
 
+/**
+ * Definition of an ability that can be granted to a Hero.
+ */
 USTRUCT(BlueprintType)
 struct FWarriorHeroAbilitySet
 {
@@ -23,6 +26,9 @@ struct FWarriorHeroAbilitySet
     bool IsValid() const;
 };
 
+/**
+ * Data describing a type of weapon.
+ */
 USTRUCT(BlueprintType)
 struct FWarriorHeroWeaponData
 {
