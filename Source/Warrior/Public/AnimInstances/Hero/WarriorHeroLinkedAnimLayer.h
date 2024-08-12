@@ -6,7 +6,7 @@
 
 class UWarriorHeroAnimInstance;
 
-UCLASS()
+UCLASS(Abstract)
 class WARRIOR_API UWarriorHeroLinkedAnimLayer : public UWarriorAnimInstanceBase
 {
     GENERATED_BODY()
