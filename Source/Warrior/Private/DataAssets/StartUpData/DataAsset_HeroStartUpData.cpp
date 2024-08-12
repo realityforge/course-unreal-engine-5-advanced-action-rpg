@@ -2,11 +2,6 @@
 #include "AbilitySystem/Abilities/WarriorGameplayAbility.h"
 #include "AbilitySystem/WarriorAbilitySystemComponent.h"
 
-bool FWarriorHeroAbilitySet::IsValid() const
-{
-    return Tag.IsValid() && Ability;
-}
-
 void UDataAsset_HeroStartUpData::GiveToAbilitySystemComponent(UWarriorAbilitySystemComponent* InAbilitySystemComponent,
                                                               const int32 ApplyLevel)
 {
