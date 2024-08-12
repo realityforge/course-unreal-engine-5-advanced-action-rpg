@@ -34,7 +34,7 @@ struct FWarriorHeroWeaponData
 {
     GENERATED_BODY()
 
-    /** The AnimLayer that we need to link when this weapon is equipped */
+    /** The AnimLayer that we need to link when this weapon is equipped. */
     UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
     TSubclassOf<UWarriorHeroLinkedAnimLayer> WeaponAnimLayer;
 };
