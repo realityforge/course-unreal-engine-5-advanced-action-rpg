@@ -16,10 +16,9 @@ struct FWarriorHeroAbilitySet
 {
     GENERATED_BODY()
 
-    // TODO: Rename this to InputTag in Aeon as it specifically restricted to what input triggers
     /** Tag to identify the Ability. */
     UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, meta = (Categories = "InputTag"))
-    FGameplayTag Tag;
+    FGameplayTag InputTag;
 
     /** The Ability. */
     UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)

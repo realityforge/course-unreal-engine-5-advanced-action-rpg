@@ -3,5 +3,5 @@
 
 bool FWarriorHeroAbilitySet::IsValid() const
 {
-    return Tag.IsValid() && Ability;
+    return InputTag.IsValid() && Ability;
 }

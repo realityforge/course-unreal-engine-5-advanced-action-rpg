@@ -13,7 +13,7 @@ void UDataAsset_HeroStartUpData::GiveToAbilitySystemComponent(UWarriorAbilitySys
         {
             FGameplayAbilitySpec AbilitySpec{ AbilitySet.Ability, ApplyLevel };
             AbilitySpec.SourceObject = InAbilitySystemComponent->GetAvatarActor();
-            AbilitySpec.DynamicAbilityTags.AddTag(AbilitySet.Tag);
+            AbilitySpec.DynamicAbilityTags.AddTag(AbilitySet.InputTag);
 
             InAbilitySystemComponent->GiveAbility(AbilitySpec);
         }
