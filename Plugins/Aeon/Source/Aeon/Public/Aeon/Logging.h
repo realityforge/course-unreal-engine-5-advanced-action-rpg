@@ -32,7 +32,7 @@ AEON_API DECLARE_LOG_CATEGORY_EXTERN(Aeon, Display, All);
         UE_LOG(LogAbilitySystem, Verbosity, Format, ##__VA_ARGS__); \
     }
 
-#define AEON_ERROR_LOG(Format, ...) AEON_LOG(Warning, Format, ...)
+#define AEON_ERROR_LOG(Format, ...) AEON_LOG(Error, Format, ##__VA_ARGS__)
 #define AEON_WARNING_LOG(Format, ...) AEON_LOG(Warning, Format, ##__VA_ARGS__)
 #define AEON_INFO_LOG(Format, ...) AEON_LOG(Log, Format, ##__VA_ARGS__)
 #define AEON_VERBOSE_LOG(Format, ...) AEON_LOG(Verbose, Format, ##__VA_ARGS__)
