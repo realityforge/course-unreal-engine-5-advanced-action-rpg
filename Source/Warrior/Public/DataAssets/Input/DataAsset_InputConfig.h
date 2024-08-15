@@ -13,6 +13,7 @@ struct FWarriorInputActionConfig
 {
     GENERATED_BODY()
 
+    // TODO: Rename to InputTag
     UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, meta = (Categories = "InputTag"))
     FGameplayTag Tag;
 
