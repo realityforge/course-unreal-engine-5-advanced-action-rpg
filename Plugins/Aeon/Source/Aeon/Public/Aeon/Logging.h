@@ -32,6 +32,16 @@ AEON_API DECLARE_LOG_CATEGORY_EXTERN(Aeon, Display, All);
         UE_LOG(Aeon, Verbosity, Format, ##__VA_ARGS__); \
     }
 
+#define AEON_SHOW_MESSAGE(Color, Format, ...)                                                         \
+    {                                                                                                 \
+        if (GEngine)                                                                                  \
+        {                                                                                             \
+            GEngine->AddOnScreenDebugMessage(-1, 7.f, Color, FString::Printf(Format, ##__VA_ARGS__)); \
+        }                                                                                             \
+    }
+
+#define AEON_SHOW_INFO_MESSAGE(Format, ...) AEON_SHOW_MESSAGE(FColor::White, Format, ##__VA_ARGS__)
+
 #define AEON_ERROR_LOG(Format, ...) AEON_LOG(Error, Format, ##__VA_ARGS__)
 #define AEON_WARNING_LOG(Format, ...) AEON_LOG(Warning, Format, ##__VA_ARGS__)
 #define AEON_INFO_LOG(Format, ...) AEON_LOG(Log, Format, ##__VA_ARGS__)
