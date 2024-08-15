@@ -4,20 +4,21 @@
 
 AHeroCharacter* UWarriorHeroGameplayAbility::GetHeroCharacterFromActorInfo()
 {
-    if (!HeroCharacterCache.IsValid())
+    if (!HeroCharacterCache.IsValid() && IsValid(GetAvatarActorFromActorInfo()))
     {
         HeroCharacterCache = CastChecked<AHeroCharacter>(GetAvatarActorFromActorInfo());
     }
-    return HeroCharacterCache.Get();
+    return HeroCharacterCache.IsValid() ? HeroCharacterCache.Get() : nullptr;
 }
 
 AWarriorHeroPlayerController* UWarriorHeroGameplayAbility::GetWarriorHeroPlayerController()
 {
-    if (!WarriorHeroPlayerControllerCache.IsValid())
+    if (!WarriorHeroPlayerControllerCache.IsValid() && GameplayAbilityActorInfo.PlayerController.IsValid(false))
     {
-        WarriorHeroPlayerControllerCache = CastChecked<AWarriorHeroPlayerController>(GetActorInfo().PlayerController);
+        WarriorHeroPlayerControllerCache =
+            CastChecked<AWarriorHeroPlayerController>(GameplayAbilityActorInfo.PlayerController);
     }
-    return WarriorHeroPlayerControllerCache.Get();
+    return WarriorHeroPlayerControllerCache.IsValid() ? WarriorHeroPlayerControllerCache.Get() : nullptr;
 }
 
 UHeroCombatComponent* UWarriorHeroGameplayAbility::GetHeroCombatComponentFromActorInfo()
