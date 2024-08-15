@@ -13,10 +13,9 @@ AHeroCharacter* UWarriorHeroGameplayAbility::GetHeroCharacterFromActorInfo()
 
 AWarriorHeroPlayerController* UWarriorHeroGameplayAbility::GetWarriorHeroPlayerController()
 {
-    if (!WarriorHeroPlayerControllerCache.IsValid() && GameplayAbilityActorInfo.PlayerController.IsValid(false))
+    if (!WarriorHeroPlayerControllerCache.IsValid() && GetActorInfo().PlayerController.IsValid(false))
     {
-        WarriorHeroPlayerControllerCache =
-            CastChecked<AWarriorHeroPlayerController>(GameplayAbilityActorInfo.PlayerController);
+        WarriorHeroPlayerControllerCache = CastChecked<AWarriorHeroPlayerController>(GetActorInfo().PlayerController);
     }
     return WarriorHeroPlayerControllerCache.IsValid() ? WarriorHeroPlayerControllerCache.Get() : nullptr;
 }
