@@ -1,5 +1,7 @@
 #include "AbilitySystem/WarriorAbilitySystemComponent.h"
+#include "AbilitySystem/Abilities/WarriorGameplayAbility.h"
 #include "Aeon/Logging.h"
+#include "WarriorTypes/WarriorStructTypes.h"
 
 void UWarriorAbilitySystemComponent::OnAbilityInputPressed(const FGameplayTag& InTag)
 {
@@ -25,3 +27,54 @@ void UWarriorAbilitySystemComponent::OnAbilityInputPressed(const FGameplayTag& I
 }
 
 void UWarriorAbilitySystemComponent::OnAbilityInputReleased(const FGameplayTag& InTag) {}
+
+void UWarriorAbilitySystemComponent::GrantHeroWeaponAbilities(
+    const TArray<FWarriorHeroAbilitySet>& InAbilities,
+    const int32 InApplyLevel,
+    TArray<FGameplayAbilitySpecHandle>& OutGrantedAbilitySpecHandles)
+{
+    if (!InAbilities.IsEmpty())
+    {
+        for (const auto& AbilitySet : InAbilities)
+        {
+            if (AbilitySet.IsValid())
+            {
+                FGameplayAbilitySpec AbilitySpec(AbilitySet.Ability, InApplyLevel);
+                AbilitySpec.SourceObject = GetAvatarActor();
+                AbilitySpec.DynamicAbilityTags.AddTag(AbilitySet.InputTag);
+
+                if (FGameplayAbilitySpecHandle Handle = GiveAbility(AbilitySpec); Handle.IsValid())
+                {
+                    OutGrantedAbilitySpecHandles.AddUnique(Handle);
+                }
+                else
+                {
+                    AEON_ERROR_ALOG("UWarriorAbilitySystemComponent::GrantHeroWeaponAbilities: "
+                                    "Failed to grant ability (Tag %s, Ability %s) to %s",
+                                    *AbilitySet.InputTag.ToString(),
+                                    AbilitySet.Ability ? *AbilitySet.Ability->GetFullName() : TEXT(""),
+                                    *GetName());
+                }
+            }
+            else
+            {
+                AEON_ERROR_ALOG("UWarriorAbilitySystemComponent::GrantHeroWeaponAbilities: "
+                                "Invalid AbilitySet unable to be granted. Tag %s, Ability %s",
+                                *AbilitySet.InputTag.ToString(),
+                                AbilitySet.Ability ? *AbilitySet.Ability->GetFullName() : TEXT(""));
+            }
+        }
+    }
+}
+
+void UWarriorAbilitySystemComponent::RemoveGrantedHeroWeaponAbilities(
+    const TArray<FGameplayAbilitySpecHandle>& InAbilitySpecHandles)
+{
+    if (!InAbilitySpecHandles.IsEmpty())
+    {
+        for (const auto& SpecHandle : InAbilitySpecHandles)
+        {
+            ClearAbility(SpecHandle);
+        }
+    }
+}
