@@ -15,7 +15,7 @@
 import subprocess
 import sys
 
-plugins_to_process = ["RuleRanger"]
+plugins_to_process = ["RuleRanger", "Aeon"]
 
 # If files are passed in then restrict formatting to those
 direct_matches = []
