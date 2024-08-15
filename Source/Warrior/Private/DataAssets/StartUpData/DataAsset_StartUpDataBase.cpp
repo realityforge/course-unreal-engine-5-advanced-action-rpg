@@ -13,9 +13,8 @@ void UDataAsset_StartUpDataBase::GrantAbilities(const TArray<TSubclassOf<UWarrio
         {
             if (Ability)
             {
-                FGameplayAbilitySpec AbilitySpec(Ability);
+                FGameplayAbilitySpec AbilitySpec(Ability, ApplyLevel);
                 AbilitySpec.SourceObject = InAbilitySystemComponent->GetAvatarActor();
-                AbilitySpec.Level = ApplyLevel;
 
                 InAbilitySystemComponent->GiveAbility(AbilitySpec);
             }
