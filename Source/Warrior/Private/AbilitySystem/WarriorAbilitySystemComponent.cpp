@@ -1,5 +1,5 @@
 #include "AbilitySystem/WarriorAbilitySystemComponent.h"
-#include "WarriorDebugHelper.h"
+#include "Aeon/Logging.h"
 
 void UWarriorAbilitySystemComponent::OnAbilityInputPressed(const FGameplayTag& InTag)
 {
@@ -16,9 +16,10 @@ void UWarriorAbilitySystemComponent::OnAbilityInputPressed(const FGameplayTag& I
         }
         if (!bActivationOccurred)
         {
-            Debug::Print(FString::Printf(TEXT("UWarriorAbilitySystemComponent::OnAbilityInputPressed: "
-                                              "Unable to activate any ability with tag %s"),
-                                         *InTag.ToString()));
+
+            AEON_WARNING_ALOG("UWarriorAbilitySystemComponent::OnAbilityInputPressed: "
+                              "Unable to activate any ability with tag %s",
+                              *InTag.ToString());
         }
     }
 }

@@ -1,6 +1,6 @@
 #include "Components/Combat/PawnCombatComponent.h"
+#include "Aeon/Logging.h"
 #include "Items/Weapons/WarriorWeaponBase.h"
-#include "WarriorDebugHelper.h"
 
 void UPawnCombatComponent::RegisterSpawnedWeapon(const FGameplayTag InGameplayTag,
                                                  AWarriorWeaponBase* InWeapon,
@@ -19,10 +19,10 @@ void UPawnCombatComponent::RegisterSpawnedWeapon(const FGameplayTag InGameplayTa
         EquippedWeaponTag = InGameplayTag;
     }
 
-    Debug::Print(FString::Printf(TEXT("Weapon named %s has been registered using the tag %s Equip?=%s"),
-                                 *InWeapon->GetName(),
-                                 *InGameplayTag.ToString(),
-                                 bInEquipWeapon ? TEXT("True") : TEXT("False")));
+    AEON_SHOW_INFO_MESSAGE(TEXT("Weapon named %s has been registered using the tag %s Equip?=%s"),
+                           *InWeapon->GetName(),
+                           *InGameplayTag.ToString(),
+                           bInEquipWeapon ? TEXT("True") : TEXT("False"));
 }
 
 AWarriorWeaponBase* UPawnCombatComponent::GetWeaponInInventoryByTag(const FGameplayTag InGameplayTag) const
