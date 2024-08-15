@@ -1,6 +1,7 @@
 #include "Characters/WarriorCharacterBase.h"
 #include "AbilitySystem/WarriorAbilitySystemComponent.h"
 #include "AbilitySystem/WarriorAttributeSet.h"
+#include "Aeon/Logging.h"
 #include "DataAssets/StartUpData/DataAsset_StartUpDataBase.h"
 
 AWarriorCharacterBase::AWarriorCharacterBase()
@@ -30,6 +31,10 @@ void AWarriorCharacterBase::PossessedBy(AController* NewController)
         ensureMsgf(!CharacterStartUpData.IsNull(),
                    TEXT("AWarriorCharacterBase::PossessedBy: CharacterStartUpData not assigned to %s"),
                    *GetName());
+    }
+    else
+    {
+        AEON_ERROR_ALOG("WarriorAbilitySystemComponent not configured for Character");
     }
 }
 

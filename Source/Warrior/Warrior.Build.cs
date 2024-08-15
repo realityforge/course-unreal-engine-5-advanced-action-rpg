@@ -10,6 +10,7 @@ public class Warrior : ModuleRules
 
 		PublicDependencyModuleNames.AddRange(new[]
 		{
+			"Aeon",
 			"Core",
 			"CoreUObject",
 			"Engine",
