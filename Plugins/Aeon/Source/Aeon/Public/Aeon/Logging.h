@@ -33,7 +33,7 @@ AEON_API DECLARE_LOG_CATEGORY_EXTERN(Aeon, Display, All);
     }
 
 #define AEON_ERROR_LOG(Format, ...) AEON_LOG(Warning, Format, ...)
-#define AEON_WARNING_LOG(Format, ...) AEON_LOG(Warning, Format, ...)
-#define AEON_INFO_LOG(Format, ...) AEON_LOG(Log, Format, ...)
-#define AEON_VERBOSE_LOG(Format, ...) AEON_LOG(Verbose, Format, ...)
-#define AEON_VERY_VERBOSE_LOG(Format, ...) AEON_LOG(VeryVerbose, Format, ...)
+#define AEON_WARNING_LOG(Format, ...) AEON_LOG(Warning, Format, ##__VA_ARGS__)
+#define AEON_INFO_LOG(Format, ...) AEON_LOG(Log, Format, ##__VA_ARGS__)
+#define AEON_VERBOSE_LOG(Format, ...) AEON_LOG(Verbose, Format, ##__VA_ARGS__)
+#define AEON_VERY_VERBOSE_LOG(Format, ...) AEON_LOG(VeryVerbose, Format, ##__VA_ARGS__)
