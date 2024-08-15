@@ -37,3 +37,9 @@ AEON_API DECLARE_LOG_CATEGORY_EXTERN(Aeon, Display, All);
 #define AEON_INFO_LOG(Format, ...) AEON_LOG(Log, Format, ##__VA_ARGS__)
 #define AEON_VERBOSE_LOG(Format, ...) AEON_LOG(Verbose, Format, ##__VA_ARGS__)
 #define AEON_VERY_VERBOSE_LOG(Format, ...) AEON_LOG(VeryVerbose, Format, ##__VA_ARGS__)
+
+#define AEON_ERROR_ALOG(Format, ...) AEON_ERROR_LOG(TEXT(Format), ##__VA_ARGS__)
+#define AEON_WARNING_ALOG(Format, ...) AEON_WARNING_LOG(TEXT(Format), ##__VA_ARGS__)
+#define AEON_INFO_ALOG(Format, ...) AEON_INFO_LOG(TEXT(Format), ##__VA_ARGS__)
+#define AEON_VERBOSE_ALOG(Format, ...) AEON_VERBOSE_LOG(TEXT(Format), ##__VA_ARGS__)
+#define AEON_VERY_VERBOSE_ALOG(Format, ...) AEON_VERY_VERBOSE_LOG(TEXT(Format), ##__VA_ARGS__)
