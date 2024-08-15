@@ -32,9 +32,7 @@ protected:
 public:
     AWarriorCharacterBase();
 
-    //~ Begin AActor Interface.
-    virtual void PostInitializeComponents() override;
-    //~ End AActor Interface
+    virtual void PossessedBy(AController* NewController) override;
 
     //~ Begin IAbilitySystemInterface Interface.
     virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;

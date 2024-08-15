@@ -19,11 +19,18 @@ AWarriorCharacterBase::AWarriorCharacterBase()
     WarriorAttributeSet = CreateDefaultSubobject<UWarriorAttributeSet>(TEXT("WarriorAttributeSet"));
 }
 
-void AWarriorCharacterBase::PostInitializeComponents()
+void AWarriorCharacterBase::PossessedBy(AController* NewController)
 {
-    Super::PostInitializeComponents();
-    check(WarriorAbilitySystemComponent);
-    WarriorAbilitySystemComponent->InitAbilityActorInfo(this, this);
+    Super::PossessedBy(NewController);
+
+    if (ensure(WarriorAbilitySystemComponent))
+    {
+        WarriorAbilitySystemComponent->InitAbilityActorInfo(this, this);
+
+        ensureMsgf(!CharacterStartUpData.IsNull(),
+                   TEXT("AWarriorCharacterBase::PossessedBy: CharacterStartUpData not assigned to %s"),
+                   *GetName());
+    }
 }
 
 UAbilitySystemComponent* AWarriorCharacterBase::GetAbilitySystemComponent() const
