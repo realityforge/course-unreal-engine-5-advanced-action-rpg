@@ -27,9 +27,9 @@ AEON_API DECLARE_LOG_CATEGORY_EXTERN(Aeon, Display, All);
 
 // A simplified set of macros for logging
 
-#define AEON_LOG(Verbosity, Format, ...)                            \
-    {                                                               \
-        UE_LOG(LogAbilitySystem, Verbosity, Format, ##__VA_ARGS__); \
+#define AEON_LOG(Verbosity, Format, ...)                \
+    {                                                   \
+        UE_LOG(Aeon, Verbosity, Format, ##__VA_ARGS__); \
     }
 
 #define AEON_ERROR_LOG(Format, ...) AEON_LOG(Error, Format, ##__VA_ARGS__)
