@@ -44,6 +44,6 @@ struct FWarriorHeroWeaponData
     TObjectPtr<UInputMappingContext> InputMappingContext;
 
     /** The Abilities that are granted to the owner when the weapon is equipped */
-    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, meta = (TitleProperty = "Tag"))
+    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, meta = (TitleProperty = "InputTag"))
     TArray<FWarriorHeroAbilitySet> DefaultWeaponAbilities;
 };
