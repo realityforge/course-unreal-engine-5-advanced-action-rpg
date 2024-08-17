@@ -26,10 +26,17 @@ Shorthand notes of where to go next with this experiment:
 * Re-enable `RRR_Texture_AlertOnMissingVariant` when exclusion rules in places
 * Common checks:
   * Support RuleRangerRequiredIf="SomeProperty" to meta which will require that the property is non-null if the referenced property is non-null.
+* Possibly extract "Config Overrides" to allow us to configure all the settings in a central place?
+  * Is this possible? or we will be have to configure on rule-by-rule basis, at least into the near future. Perhaps we could introspect rule sets and automagically build a config panel.
 * Name checks:
   * Add regex per-type for nested names? or global regex for internal names?
   * Ensure that classes (C++ and Blueprint) have a "basename" that ends with Base rather than starts with Base. i.e. Prefer FooBase over BaseFoo
   * Ensure some name patterns (i.e. *Base) require (Abstract) UCLASS specifier
+* Blueprint checks:
+  * Add flag to skip description and categorization requirements for private variables/functions
+  * Blueprint Macros also have function rules applied. Should we restrict these rules as Macros are mostly internal? or maybe not as used by child classes?
+* Blueprint Functions:
+  * Default Return node requirement ... is a bit much if there is no return value.
 * Material Function checks:
   * Ensure that inputs names match pattern
   * Ensure that descriptions for inputs present
