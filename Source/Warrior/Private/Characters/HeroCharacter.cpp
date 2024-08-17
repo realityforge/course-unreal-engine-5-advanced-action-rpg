@@ -50,7 +50,7 @@ void AHeroCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompo
     const auto Subsystem = LocalPlayer ? LocalPlayer->GetSubsystem<UEnhancedInputLocalPlayerSubsystem>() : nullptr;
     check(Subsystem);
 
-    Subsystem->AddMappingContext(InputConfigDataAsset->DefaultMappingContext, 0);
+    Subsystem->AddMappingContext(InputConfigDataAsset->GetDefaultMappingContext(), 0);
 
     const auto WarriorInputComponent = CastChecked<UWarriorInputComponent>(PlayerInputComponent);
 

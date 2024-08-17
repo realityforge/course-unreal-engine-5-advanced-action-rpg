@@ -9,14 +9,31 @@ class UInputAction;
 class UInputMappingContext;
 
 /**
- * Association of an InputTag to an InputAction.
+ * Association of a Input.Native subtag to an InputAction.
  */
 USTRUCT(BlueprintType)
-struct FAeonInputAction
+struct FAeonNativeInputAction
 {
     GENERATED_BODY()
 
-    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, meta = (Categories = "Input"))
+    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, meta = (Categories = "Input.Native"))
+    FGameplayTag InputTag;
+
+    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+    TObjectPtr<UInputAction> InputAction{ nullptr };
+
+    bool IsValid() const { return InputTag.IsValid() && InputAction; }
+};
+
+/**
+ * Association of a Input.Ability subtag to an InputAction.
+ */
+USTRUCT(BlueprintType)
+struct FAeonAbilityInputAction
+{
+    GENERATED_BODY()
+
+    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, meta = (Categories = "Input.Ability"))
     FGameplayTag InputTag;
 
     UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
@@ -33,8 +50,10 @@ class AEON_API UAeonInputConfig : public UDataAsset
 {
     GENERATED_BODY()
 
-public:
-    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+    /**
+     * The Default MappingContext applied to when using config.
+     */
+    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
     TObjectPtr<UInputMappingContext> DefaultMappingContext;
 
     /**
@@ -43,17 +62,18 @@ public:
      * The callbacks all take a FInputActionValue reference parameter.
      * The supported tags are those with the prefix "Input.Native."
      */
-    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, meta = (TitleProperty = "InputTag"))
-    TArray<FAeonInputAction> NativeInputActions;
+    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, meta = (TitleProperty = "InputTag", AllowPrivateAccess = "true"))
+    TArray<FAeonNativeInputAction> NativeInputActions;
 
     /**
      * A set of tags that are bound to InputAction.
      * The callbacks all take a FGameplayTag parameter.
      * The supported tags are those with the prefix "Input.Ability."
      */
-    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, meta = (TitleProperty = "InputTag"))
-    TArray<FAeonInputAction> AbilityInputActions;
+    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, meta = (TitleProperty = "InputTag", AllowPrivateAccess = "true"))
+    TArray<FAeonAbilityInputAction> AbilityInputActions;
 
+public:
     /**
      * Return the InputAction registered with the specified Tag.
      *
@@ -62,4 +82,7 @@ public:
      */
     UFUNCTION(BlueprintCallable, Category = "Aeon|Input")
     const UInputAction* FindNativeInputActionByTag(const FGameplayTag& InInputTag) const;
+
+    FORCEINLINE const TArray<FAeonAbilityInputAction>& GetAbilityInputActions() const { return AbilityInputActions; };
+    FORCEINLINE UInputMappingContext* GetDefaultMappingContext() const { return DefaultMappingContext; };
 };

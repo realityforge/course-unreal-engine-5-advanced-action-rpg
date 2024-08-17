@@ -54,7 +54,7 @@ void UWarriorInputComponent::BindAbilityInputAction(const UAeonInputConfig* InIn
                                                     CallbackFunc InputReleasedFunc)
 {
     checkf(InInputConfig, TEXT("InputConfig data asset is null, Binding not valid"));
-    for (const auto Action : InInputConfig->AbilityInputActions)
+    for (const auto Action : InInputConfig->GetAbilityInputActions())
     {
         if (Action.IsValid())
         {
