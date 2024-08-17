@@ -27,7 +27,7 @@ public:
      *
      * @param InAbilityHandles The Handles to Assign
      */
-    UFUNCTION(BlueprintCallable)
+    UFUNCTION(BlueprintCallable, Category = "Warrior|Ability")
     void AssignGrantedAbilitySpecHandles(const TArray<FGameplayAbilitySpecHandle>& InAbilityHandles);
 
     /**
@@ -36,6 +36,6 @@ public:
      *
      * @return the currently assigned ability spec handles.
      */
-    UFUNCTION(BlueprintPure)
+    UFUNCTION(BlueprintPure, Category = "Warrior|Ability")
     TArray<FGameplayAbilitySpecHandle> GetGrantedAbilityHandles() const;
 };
