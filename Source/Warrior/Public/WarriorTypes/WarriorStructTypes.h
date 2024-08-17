@@ -17,7 +17,7 @@ struct FWarriorHeroAbilitySet
     GENERATED_BODY()
 
     /** Tag to identify the Ability. */
-    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, meta = (Categories = "InputTag"))
+    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, meta = (Categories = "Input"))
     FGameplayTag InputTag;
 
     /** The Ability. */
