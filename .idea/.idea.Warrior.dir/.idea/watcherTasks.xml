@@ -45,7 +45,7 @@
       <option name="arguments" value="bin/format_changed.py $/FilePathRelativeToProjectRoot$" />
       <option name="checkSyntaxErrors" value="true" />
       <option name="description" />
-      <option name="exitCodeBehavior" value="ALWAYS" />
+      <option name="exitCodeBehavior" value="ERROR" />
       <option name="fileExtension" value="cs" />
       <option name="immediateSync" value="true" />
       <option name="name" value="Format C# Files Windows" />
