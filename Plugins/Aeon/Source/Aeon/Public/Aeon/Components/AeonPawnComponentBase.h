@@ -2,13 +2,13 @@
 
 #include "Components/ActorComponent.h"
 #include "CoreMinimal.h"
-#include "PawnExtensionComponentBase.generated.h"
+#include "AeonPawnComponentBase.generated.h"
 
 /**
- * Abstract class that is the based for (most) custom components within the project.
+ * Abstract class that is the base class for (most) custom components within Aeon.
  */
-UCLASS(Abstract, ClassGroup = (Warrior), meta = (BlueprintSpawnableComponent))
-class WARRIOR_API UPawnExtensionComponentBase : public UActorComponent
+UCLASS(Abstract, ClassGroup = (Aeon), meta = (BlueprintSpawnableComponent))
+class AEON_API UAeonPawnComponentBase : public UActorComponent
 {
     GENERATED_BODY()
 

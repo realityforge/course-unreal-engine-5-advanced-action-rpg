@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Components/PawnExtensionComponentBase.h"
+#include "Aeon/Components/AeonPawnComponentBase.h"
 #include "CoreMinimal.h"
 #include "GameplayTagContainer.h"
 #include "PawnCombatComponent.generated.h"
@@ -10,7 +10,7 @@ class AWarriorWeaponBase;
  * Abstract component with combat related functionality that is shared between the Hero/Enemy classes.
  */
 UCLASS(Abstract)
-class WARRIOR_API UPawnCombatComponent : public UPawnExtensionComponentBase
+class WARRIOR_API UPawnCombatComponent : public UAeonPawnComponentBase
 {
     GENERATED_BODY()
 
