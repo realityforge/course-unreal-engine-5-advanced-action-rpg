@@ -1,8 +1,8 @@
 #pragma once
 
+#include "Aeon/Input/AeonInputConfig.h"
 #include "Aeon/Logging.h"
 #include "CoreMinimal.h"
-#include "DataAssets/Input/DataAsset_InputConfig.h"
 #include "EnhancedInputComponent.h"
 #include "WarriorInputComponent.generated.h"
 
@@ -15,21 +15,21 @@ class WARRIOR_API UWarriorInputComponent : public UEnhancedInputComponent
 
 public:
     template <class UserObject, typename CallbackFunc>
-    void BindNativeInputAction(const UDataAsset_InputConfig* InInputConfig,
+    void BindNativeInputAction(const UAeonInputConfig* InInputConfig,
                                const FGameplayTag& InInputTag,
                                ETriggerEvent TriggerEvent,
                                UserObject* ContextObject,
                                CallbackFunc Func);
 
     template <class UserObject, typename CallbackFunc>
-    void BindAbilityInputAction(const UDataAsset_InputConfig* InInputConfig,
+    void BindAbilityInputAction(const UAeonInputConfig* InInputConfig,
                                 UserObject* ContextObject,
                                 CallbackFunc InputPressedFunc,
                                 CallbackFunc InputReleasedFunc);
 };
 
 template <class UserObject, typename CallbackFunc>
-void UWarriorInputComponent::BindNativeInputAction(const UDataAsset_InputConfig* InInputConfig,
+void UWarriorInputComponent::BindNativeInputAction(const UAeonInputConfig* InInputConfig,
                                                    const FGameplayTag& InInputTag,
                                                    ETriggerEvent TriggerEvent,
                                                    UserObject* ContextObject,
@@ -48,7 +48,7 @@ void UWarriorInputComponent::BindNativeInputAction(const UDataAsset_InputConfig*
 }
 
 template <class UserObject, typename CallbackFunc>
-void UWarriorInputComponent::BindAbilityInputAction(const UDataAsset_InputConfig* InInputConfig,
+void UWarriorInputComponent::BindAbilityInputAction(const UAeonInputConfig* InInputConfig,
                                                     UserObject* ContextObject,
                                                     CallbackFunc InputPressedFunc,
                                                     CallbackFunc InputReleasedFunc)
@@ -58,13 +58,13 @@ void UWarriorInputComponent::BindAbilityInputAction(const UDataAsset_InputConfig
     {
         if (Action.IsValid())
         {
-            BindAction(Action.InputAction, ETriggerEvent::Started, ContextObject, InputPressedFunc, Action.Tag);
-            BindAction(Action.InputAction, ETriggerEvent::Completed, ContextObject, InputReleasedFunc, Action.Tag);
+            BindAction(Action.InputAction, ETriggerEvent::Started, ContextObject, InputPressedFunc, Action.InputTag);
+            BindAction(Action.InputAction, ETriggerEvent::Completed, ContextObject, InputReleasedFunc, Action.InputTag);
         }
         else
         {
             AEON_ERROR_ALOG("BindAbilityInputAction: Invalid Action in InputConfig with InputTag %s and Action %s",
-                            *Action.Tag.ToString(),
+                            *Action.InputTag.ToString(),
                             IsValid(Action.InputAction) ? *Action.InputAction.GetFullName() : TEXT("?"));
         }
     }

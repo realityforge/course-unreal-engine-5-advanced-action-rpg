@@ -1,6 +1,6 @@
-#include "DataAssets/Input/DataAsset_InputConfig.h"
+#include "Aeon/Input/AeonInputConfig.h"
 
-UInputAction* UDataAsset_InputConfig::FindNativeInputActionByTag(const FGameplayTag& InInputTag) const
+const UInputAction* UAeonInputConfig::FindNativeInputActionByTag(const FGameplayTag& InInputTag) const
 {
     for (const auto& [InputTag, InputAction] : NativeInputActions)
     {

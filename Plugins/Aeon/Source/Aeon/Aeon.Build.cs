@@ -8,9 +8,7 @@ public class Aeon : ModuleRules
 
         PublicIncludePaths.AddRange(new string[] {});
         PrivateIncludePaths.AddRange(new string[] {});
-        PublicDependencyModuleNames.AddRange(new[] {
-            "Core",
-        });
+        PublicDependencyModuleNames.AddRange(new[] { "Core", "EnhancedInput", "GameplayTags" });
         PrivateDependencyModuleNames.AddRange(new[] {
             "CoreUObject",
             "Engine",

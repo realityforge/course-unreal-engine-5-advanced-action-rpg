@@ -7,7 +7,7 @@
 
 class UHeroCombatComponent;
 struct FInputActionValue;
-class UDataAsset_InputConfig;
+class UAeonInputConfig;
 class UCameraComponent;
 class USpringArmComponent;
 
@@ -37,7 +37,7 @@ class WARRIOR_API AHeroCharacter : public AWarriorCharacterBase
               BlueprintReadOnly,
               Category = "CharacterData",
               meta = (AllowPrivateAccess = "true", RuleRangerRequired = "true"))
-    TObjectPtr<UDataAsset_InputConfig> InputConfigDataAsset;
+    TObjectPtr<UAeonInputConfig> InputConfigDataAsset;
 
     void Input_Move(const FInputActionValue& InputActionValue);
 
