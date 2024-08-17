@@ -14,23 +14,27 @@
 
 #pragma once
 
-#include "BlueprintFunctionAccessFilteringActionBase.h"
+#include "BlueprintFunctionActionBase.h"
 #include "CoreMinimal.h"
 #include "K2Node_FunctionEntry.h"
-#include "RuleRangerAction.h"
-#include "EnsureFunctionsHaveDescriptionsAction.generated.h"
+#include "BlueprintFunctionAccessFilteringActionBase.generated.h"
 
 /**
- * Action to check that the functions defined in the Blueprint have descriptions.
+ * Abstract action to analyze functions that allows filtering based on access level.
  */
-UCLASS(DisplayName = "Ensure Blueprint Functions Have Descriptions")
-class RULERANGER_API UEnsureFunctionsHaveDescriptionsAction final : public UBlueprintFunctionAccessFilteringActionBase
+UCLASS(Abstract)
+class RULERANGER_API UBlueprintFunctionAccessFilteringActionBase : public UBlueprintFunctionActionBase
 {
     GENERATED_BODY()
 
+    /** Should the action check private functions? */
+    UPROPERTY(EditAnywhere)
+    bool bCheckPrivateFunctions{ false };
+
+    /** Should the action check protected functions? */
+    UPROPERTY(EditAnywhere)
+    bool bCheckProtectedFunctions{ true };
+
 protected:
-    virtual void AnalyzeFunction(URuleRangerActionContext* ActionContext,
-                                 UBlueprint* Blueprint,
-                                 UK2Node_FunctionEntry* FunctionEntry,
-                                 UEdGraph* Graph) override;
+    virtual bool ShouldAnalyzeFunction(UBlueprint* Blueprint, UK2Node_FunctionEntry* FunctionEntry) const override;
 };

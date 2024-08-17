@@ -14,10 +14,10 @@
 
 #include "EnsureFunctionsHaveCategoriesAction.h"
 
-bool UEnsureFunctionsHaveCategoriesAction::ShouldAnalyzeBlueprint(UBlueprint* Blueprint) const
+bool UEnsureFunctionsHaveCategoriesAction::ShouldAnalyzeFunctions(UBlueprint* Blueprint,
+                                                                  const TArray<UK2Node_FunctionEntry*>& Functions) const
 {
-    // -1 to skip the construction graph
-    const int32 FunctionCount = Blueprint->FunctionGraphs.Num() - 1;
+    const int32 FunctionCount = Functions.Num();
     const bool bAnalyze = FunctionCount >= Threshold;
     if (!bAnalyze)
     {
