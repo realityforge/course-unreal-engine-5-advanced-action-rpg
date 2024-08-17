@@ -41,7 +41,7 @@ class RULERANGER_API UEnsureVariablesHaveDescriptionsAction final : public UBlue
 
     /** Should the action check local variables in functions? */
     UPROPERTY(EditAnywhere)
-    bool bCheckLocalVariables{ true };
+    bool bCheckLocalVariables{ false };
 
 protected:
     virtual bool ShouldAnalyzeFunction(UEdGraph* Graph, UK2Node_FunctionEntry* FunctionEntry) const override;
