@@ -24,7 +24,6 @@ void UEnsureRuleRangerSetHasDescriptionAction::Apply_Implementation(URuleRangerA
         {
             ActionContext->Error(FText::FromString(
                 TEXT("RuleRangerRuleSet has a blank description. Please add a description to the RuleSet.")));
-
         }
     }
 }

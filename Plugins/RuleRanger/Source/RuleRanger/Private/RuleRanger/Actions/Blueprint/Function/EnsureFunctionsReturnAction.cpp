@@ -22,9 +22,9 @@ bool UEnsureFunctionsReturnAction::ShouldAnalyzeGraph(UEdGraph* Graph) const
 }
 
 void UEnsureFunctionsReturnAction::AnalyzeFunction(URuleRangerActionContext* ActionContext,
-                                                       UBlueprint* Blueprint,
-                                                       UK2Node_FunctionEntry* FunctionEntry,
-                                                       UEdGraph* Graph)
+                                                   UBlueprint* Blueprint,
+                                                   UK2Node_FunctionEntry* FunctionEntry,
+                                                   UEdGraph* Graph)
 {
     // Find the list of result nodes
     TArray<UK2Node_FunctionResult*> ResultNodes;

@@ -25,9 +25,9 @@ bool UBlueprintFunctionActionBase::ShouldAnalyzeGraph(UEdGraph* Graph) const
 }
 
 void UBlueprintFunctionActionBase::AnalyzeFunction(URuleRangerActionContext* ActionContext,
-                                                 UBlueprint* Blueprint,
-                                                 UK2Node_FunctionEntry* FunctionEntry,
-                                                 UEdGraph* Graph)
+                                                   UBlueprint* Blueprint,
+                                                   UK2Node_FunctionEntry* FunctionEntry,
+                                                   UEdGraph* Graph)
 {
     LogError(Blueprint, TEXT("Action failed to override AnalyzeFunction."));
 }

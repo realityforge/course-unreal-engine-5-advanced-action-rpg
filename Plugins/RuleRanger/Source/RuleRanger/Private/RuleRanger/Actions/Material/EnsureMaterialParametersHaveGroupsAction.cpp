@@ -23,7 +23,7 @@ void UEnsureMaterialParametersHaveGroupsAction::AnalyzeParameter(URuleRangerActi
     {
         ActionContext->Error(
             FText::FromString(FString::Printf(TEXT("Material contains a parameter named '%s' that is expected "
-                "to have a group but does not."),
+                                                   "to have a group but does not."),
                                               *Info.Name.ToString())));
     }
     else
@@ -33,11 +33,10 @@ void UEnsureMaterialParametersHaveGroupsAction::AnalyzeParameter(URuleRangerActi
     }
 }
 
-bool UEnsureMaterialParametersHaveGroupsAction::ShouldAnalyzeParameters(URuleRangerActionContext* ActionContext,
-                                                                        const UMaterial* const Material,
-                                                                        const TMap<FMaterialParameterInfo,
-                                                                            FMaterialParameterMetadata>& Parameters)
-const
+bool UEnsureMaterialParametersHaveGroupsAction::ShouldAnalyzeParameters(
+    URuleRangerActionContext* ActionContext,
+    const UMaterial* const Material,
+    const TMap<FMaterialParameterInfo, FMaterialParameterMetadata>& Parameters) const
 {
     const int32 ParameterCount = Parameters.Num();
     const bool bAnalyze = ParameterCount >= Threshold;
@@ -45,8 +44,8 @@ const
     {
         LogInfo(Material,
                 FString::Printf(TEXT("The number of parameters in the Material (%d)"
-                    " is below the threshold (%d) so it is not "
-                    "necessary to enforce grouping of the parameters."),
+                                     " is below the threshold (%d) so it is not "
+                                     "necessary to enforce grouping of the parameters."),
                                 ParameterCount,
                                 Threshold));
     }

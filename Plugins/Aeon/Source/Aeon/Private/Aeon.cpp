@@ -2,13 +2,9 @@
 
 #define LOCTEXT_NAMESPACE "FAeonModule"
 
-void FAeonModule::StartupModule()
-{
-}
+void FAeonModule::StartupModule() {}
 
-void FAeonModule::ShutdownModule()
-{
-}
+void FAeonModule::ShutdownModule() {}
 
 #undef LOCTEXT_NAMESPACE
 
