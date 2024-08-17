@@ -30,18 +30,18 @@ public class RuleRanger : ModuleRules
                 "BlueprintGraph",
                 "DataValidation",
                 "DeveloperSettings",
-                "EditorSubsystem", 
-                "Engine", 
+                "EditorSubsystem",
+                "Engine",
                 "Kismet",
                 "Projects", // IPluginManager
-                "MessageLog", 
+                "MessageLog",
                 "NiagaraEditor",
                 "Niagara",
                 "Slate",
                 "SlateCore",
                 "UnrealEd"
             });
-                // clang-format on                    
+		// clang-format on                    
         PrivateIncludePathModuleNames.AddRange(new[] { "MessageLog" });
         DynamicallyLoadedModuleNames.AddRange(new string[] {});
     }
