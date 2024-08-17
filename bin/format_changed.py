@@ -29,7 +29,7 @@ try:
 
     files_to_format = []
     for file in changed_files:
-        if file.lower().endswith(".h") or file.lower().endswith(".cpp"):
+        if file.lower().endswith(".h") or file.lower().endswith(".cpp") or file.lower().endswith(".cs"):
             if file.startswith("Source/"):
                 files_to_format.append(file)
             elif file.startswith(f"Plugins/"):
