@@ -28,20 +28,35 @@ try:
                                             universal_newlines=True).splitlines()
 
     files_to_format = []
+    files_to_format_assuming_json = []
     for file in changed_files:
-        if file.lower().endswith(".h") or file.lower().endswith(".cpp") or file.lower().endswith(".cs"):
+        if (file.lower().endswith(".uplugin") or file.lower().endswith(".uproject")):
+            files_to_format_assuming_json.append(file)
+        elif file.lower().endswith(".h") or file.lower().endswith(".cpp") or file.lower().endswith(".cs"):
             if file.startswith("Source/"):
                 files_to_format.append(file)
-            elif file.startswith(f"Plugins/"):
+            elif file.startswith("Plugins/"):
                 for plugin in plugins_to_process:
                     if file.startswith(f"Plugins/{plugin}/Source/"):
                         files_to_format.append(file)
 
+    for file in files_to_format_assuming_json:
+        content = ''
+        with open(file, 'rb') as f:
+            content = subprocess.run(f"clang-format --assume-filename={file}.json", stdin=f, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, check=True).stdout
+        with open(file, 'w') as f:
+            f.write(content)
+
     if 0 != len(files_to_format):
         subprocess.run(["clang-format", "-i", *files_to_format], check=True)
+
+    if 0 != len(files_to_format) or 0 != len(files_to_format_assuming_json):
         print("Formatted the following files:")
+        for file in files_to_format_assuming_json:
+            print(file)
         for file in files_to_format:
             print(file)
+
 except subprocess.CalledProcessError as e:
     print(f"Error executing process: {e}")
     exit(e.returncode)

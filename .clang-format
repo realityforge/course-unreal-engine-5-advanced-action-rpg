@@ -97,3 +97,6 @@ IncludeIsMainRegex: '([-_](test|unittest))?$'
 ---
 Language:        CSharp
 BasedOnStyle:  Microsoft
+---
+Language: Json
+SpaceBeforeJsonColon: false
