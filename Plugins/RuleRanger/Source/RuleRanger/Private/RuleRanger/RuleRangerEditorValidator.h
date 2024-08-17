@@ -43,12 +43,11 @@ private:
     /**
      * Function invoked when each rules is applied to an object.
      *
-     * @param ValidationErrors A place to collect errors if any occur.
      * @param Rule The rule to apply.
      * @param InObject the object to apply rule to.
      * @return true to keep processing, false if no more rules should be applied to object.
      */
-    bool ProcessRule(TArray<FText>& ValidationErrors, URuleRangerRule* Rule, UObject* InObject);
+    bool ProcessRule(URuleRangerRule* Rule, UObject* InObject);
 
     bool WillRuleRun(URuleRangerRule* Rule, UObject* InObject) const;
 };

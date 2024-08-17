@@ -76,9 +76,8 @@ EDataValidationResult URuleRangerEditorValidator::ValidateLoadedAsset_Implementa
     const auto SubSystem = GEditor ? GEditor->GetEditorSubsystem<URuleRangerEditorSubsystem>() : nullptr;
     if (SubSystem)
     {
-        TArray<FText>& ValidationErrors2 = ValidationErrors;
-        SubSystem->ProcessRule(InAsset, [this, ValidationErrors2](URuleRangerRule* Rule, UObject* InObject) mutable {
-            return ProcessRule(ValidationErrors2, Rule, InObject);
+        SubSystem->ProcessRule(InAsset, [this](URuleRangerRule* Rule, UObject* InObject) mutable {
+            return ProcessRule(Rule, InObject);
         });
     }
     else
@@ -96,7 +95,7 @@ EDataValidationResult URuleRangerEditorValidator::ValidateLoadedAsset_Implementa
     return GetValidationResult();
 }
 
-bool URuleRangerEditorValidator::ProcessRule(TArray<FText>& ValidationErrors, URuleRangerRule* Rule, UObject* InObject)
+bool URuleRangerEditorValidator::ProcessRule(URuleRangerRule* Rule, UObject* InObject)
 {
     // ReSharper disable once CppTooWideScopeInitStatement
     const bool bIsSave = EDataValidationUsecase::Save == DataValidationUsecase;
@@ -123,11 +122,11 @@ bool URuleRangerEditorValidator::ProcessRule(TArray<FText>& ValidationErrors, UR
         }
         for (int i = 0; i < ActionContext->GetErrorMessages().Num(); i++)
         {
-            AssetFails(InObject, ActionContext->GetErrorMessages()[i], ValidationErrors);
+            AssetFails(InObject, ActionContext->GetErrorMessages()[i]);
         }
         for (int i = 0; i < ActionContext->GetFatalMessages().Num(); i++)
         {
-            AssetFails(InObject, ActionContext->GetFatalMessages()[i], ValidationErrors);
+            AssetFails(InObject, ActionContext->GetFatalMessages()[i]);
         }
         return ActionContext->GetFatalMessages().Num() <= 0;
     }
