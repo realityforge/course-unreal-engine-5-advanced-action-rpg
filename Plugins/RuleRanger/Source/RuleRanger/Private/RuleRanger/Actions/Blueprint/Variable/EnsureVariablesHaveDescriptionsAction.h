@@ -27,19 +27,19 @@ class RULERANGER_API UEnsureVariablesHaveDescriptionsAction final : public UBlue
 {
     GENERATED_BODY()
 
-    /** Should the action check instance editable variables. */
+    /** Should the action check instance editable variables? */
     UPROPERTY(EditAnywhere)
     bool bCheckInstanceEditableVariables{ true };
 
-    /** Should the action check instance editable variables. */
+    /** Should the action check instance editable variables? */
     UPROPERTY(EditAnywhere)
     bool bCheckTransientVariables{ false };
 
-    /** Should the action check private variables. */
+    /** Should the action check private variables? */
     UPROPERTY(EditAnywhere)
     bool bCheckPrivateVariables{ false };
 
-    /** Should the action check local variables in functions. */
+    /** Should the action check local variables in functions? */
     UPROPERTY(EditAnywhere)
     bool bCheckLocalVariables{ true };
 
