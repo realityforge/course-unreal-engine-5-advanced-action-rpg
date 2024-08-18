@@ -18,6 +18,8 @@ struct AEON_API FAeonGameplayAbilitySet
     UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, meta = (Categories = "Input"))
     FGameplayTag InputTag;
 
+    // TODO: It is unclear why the ApplyLevel is not configured here rather than jury rigged in at a later stage.
+
     /** The Ability. */
     UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
     TSubclassOf<UAeonGameplayAbility> Ability;
