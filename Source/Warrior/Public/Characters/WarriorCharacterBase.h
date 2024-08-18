@@ -5,7 +5,7 @@
 #include "GameFramework/Character.h"
 #include "WarriorCharacterBase.generated.h"
 
-class UDataAsset_StartUpDataBase;
+class UAeonAbilitySystemGrantsBase;
 class UWarriorAttributeSet;
 class UAeonAbilitySystemComponent;
 
@@ -27,7 +27,7 @@ class WARRIOR_API AWarriorCharacterBase : public ACharacter, public IAbilitySyst
               BlueprintReadOnly,
               Category = "CharacterData",
               meta = (AllowPrivateAccess = "true", RuleRangerRequired = "true"))
-    TSoftObjectPtr<UDataAsset_StartUpDataBase> CharacterStartUpData{ nullptr };
+    TSoftObjectPtr<UAeonAbilitySystemGrantsBase> CharacterStartUpData{ nullptr };
 
 protected:
     void GiveStartUpDataToAbilitySystem() const;

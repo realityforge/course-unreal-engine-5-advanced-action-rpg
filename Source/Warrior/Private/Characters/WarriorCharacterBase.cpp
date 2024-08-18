@@ -1,8 +1,8 @@
 #include "Characters/WarriorCharacterBase.h"
 #include "AbilitySystem/WarriorAttributeSet.h"
 #include "Aeon/AbilitySystem/AeonAbilitySystemComponent.h"
+#include "Aeon/AbilitySystem/AeonAbilitySystemGrantsBase.h"
 #include "Aeon/Logging.h"
-#include "DataAssets/StartUpData/DataAsset_StartUpDataBase.h"
 
 AWarriorCharacterBase::AWarriorCharacterBase()
 {
