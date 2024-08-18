@@ -14,7 +14,7 @@ struct AEON_API FAeonGameplayAbilitySet
 {
     GENERATED_BODY()
 
-    /** Tag to identify the Ability. */
+    /** Tag via which the actor can trigger the Ability. */
     UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, meta = (Categories = "Input"))
     FGameplayTag InputTag;
 
