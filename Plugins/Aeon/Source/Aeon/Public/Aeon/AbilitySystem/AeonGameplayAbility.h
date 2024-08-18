@@ -4,7 +4,7 @@
 #include "CoreMinimal.h"
 #include "AeonGameplayAbility.generated.h"
 
-class UWarriorAbilitySystemComponent;
+class UAeonAbilitySystemComponent;
 class UPawnCombatComponent;
 
 /**
@@ -38,6 +38,10 @@ protected:
                             bool bReplicateEndAbility,
                             bool bWasCancelled) override;
     //~End UGameplayAbility Interface
+
+    /** Return the AeonAbilitySystemComponent from the associated Actor */
+    UFUNCTION(BlueprintPure, Category = "Aeon|Ability")
+    UAeonAbilitySystemComponent* GetWarriorAbilitySystemComponentFromActorInfo() const;
 
 public:
     //~Begin UGameplayAbility Interface

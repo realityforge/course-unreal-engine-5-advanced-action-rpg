@@ -1,8 +1,9 @@
 #include "DataAssets/StartUpData/DataAsset_HeroStartUpData.h"
-#include "AbilitySystem/Abilities/WarriorGameplayAbility.h"
-#include "AbilitySystem/WarriorAbilitySystemComponent.h"
+#include "Aeon/AbilitySystem/AeonAbilitySystemComponent.h"
+#include "Aeon/AbilitySystem/AeonGameplayAbility.h"
+#include "Aeon/AbilitySystem/AeonGameplayAbilitySet.h"
 
-void UDataAsset_HeroStartUpData::GiveToAbilitySystemComponent(UWarriorAbilitySystemComponent* InAbilitySystemComponent,
+void UDataAsset_HeroStartUpData::GiveToAbilitySystemComponent(UAeonAbilitySystemComponent* InAbilitySystemComponent,
                                                               const int32 ApplyLevel)
 {
     Super::GiveToAbilitySystemComponent(InAbilitySystemComponent, ApplyLevel);

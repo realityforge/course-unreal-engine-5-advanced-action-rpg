@@ -4,7 +4,7 @@
 #include "Engine/DataAsset.h"
 #include "DataAsset_StartUpDataBase.generated.h"
 
-class UWarriorAbilitySystemComponent;
+class UAeonAbilitySystemComponent;
 class UWarriorGameplayAbility;
 
 UCLASS(Abstract)
@@ -20,10 +20,10 @@ class WARRIOR_API UDataAsset_StartUpDataBase : public UDataAsset
 
 protected:
     void GrantAbilities(const TArray<TSubclassOf<UWarriorGameplayAbility>>& InGameplayAbilities,
-                        UWarriorAbilitySystemComponent* InAbilitySystemComponent,
+                        UAeonAbilitySystemComponent* InAbilitySystemComponent,
                         int32 ApplyLevel);
 
 public:
-    virtual void GiveToAbilitySystemComponent(UWarriorAbilitySystemComponent* InAbilitySystemComponent,
+    virtual void GiveToAbilitySystemComponent(UAeonAbilitySystemComponent* InAbilitySystemComponent,
                                               int32 ApplyLevel = 1);
 };

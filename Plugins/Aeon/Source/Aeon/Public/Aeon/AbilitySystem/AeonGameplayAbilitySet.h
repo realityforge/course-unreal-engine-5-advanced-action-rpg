@@ -1,0 +1,26 @@
+﻿#pragma once
+
+#include "CoreMinimal.h"
+#include "GameplayTagContainer.h"
+#include "AeonGameplayAbilitySet.generated.h"
+
+class UAeonGameplayAbility;
+
+/**
+ * Definition of a GameplayAbility that can be granted to Actor.
+ */
+USTRUCT(BlueprintType)
+struct AEON_API FAeonGameplayAbilitySet
+{
+    GENERATED_BODY()
+
+    /** Tag to identify the Ability. */
+    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, meta = (Categories = "Input"))
+    FGameplayTag InputTag;
+
+    /** The Ability. */
+    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+    TSubclassOf<UAeonGameplayAbility> Ability;
+
+    bool IsValid() const;
+};

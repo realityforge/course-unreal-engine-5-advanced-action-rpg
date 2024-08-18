@@ -2,17 +2,31 @@
 
 #include "AbilitySystemComponent.h"
 #include "CoreMinimal.h"
-#include "WarriorAbilitySystemComponent.generated.h"
+#include "AeonAbilitySystemComponent.generated.h"
 
-struct FWarriorHeroAbilitySet;
+struct FAeonGameplayAbilitySet;
 
+/** The AbilitySystemComponent specialization used in Aeon */
 UCLASS()
-class WARRIOR_API UWarriorAbilitySystemComponent : public UAbilitySystemComponent
+class AEON_API UAeonAbilitySystemComponent : public UAbilitySystemComponent
 {
     GENERATED_BODY()
 
 public:
+    /**
+     * Callback invoked when an AbilityInputAction has associated Input pressed.
+     *
+     * @param InTag The InputTag that identifies the ability.
+     * @see UAeonInputConfig for where AbilityInputAction are defined
+     */
     void OnAbilityInputPressed(const FGameplayTag& InTag);
+
+    /**
+     * Callback invoked when an AbilityInputAction has associated Input released.
+     *
+     * @param InTag The InputTag that identifies the ability.
+     * @see UAeonInputConfig for where AbilityInputAction are defined
+     */
     void OnAbilityInputReleased(const FGameplayTag& InTag);
 
     /**
@@ -22,8 +36,8 @@ public:
      * @param InApplyLevel the level at which to grant abilities.
      * @param OutGrantedAbilitySpecHandles the spec handles of the granted abilities.
      */
-    UFUNCTION(BlueprintCallable, Category = "Warrior|Ability", meta = (InApplyLevel = "1"))
-    void GrantHeroWeaponAbilities(const TArray<FWarriorHeroAbilitySet>& InAbilities,
+    UFUNCTION(BlueprintCallable, Category = "Aeon|Ability", meta = (InApplyLevel = "1"))
+    void GrantHeroWeaponAbilities(const TArray<FAeonGameplayAbilitySet>& InAbilities,
                                   int32 InApplyLevel,
                                   TArray<FGameplayAbilitySpecHandle>& OutGrantedAbilitySpecHandles);
 
@@ -32,6 +46,6 @@ public:
      *
      * @param InAbilitySpecHandles The AbilityHandles to clear.
      */
-    UFUNCTION(BlueprintCallable, Category = "Warrior|Ability")
+    UFUNCTION(BlueprintCallable, Category = "Aeon|Ability")
     void RemoveGrantedHeroWeaponAbilities(UPARAM(ref) const TArray<FGameplayAbilitySpecHandle>& InAbilitySpecHandles);
 };

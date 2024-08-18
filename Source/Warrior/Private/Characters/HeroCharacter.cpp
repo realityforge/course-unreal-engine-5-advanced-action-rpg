@@ -1,5 +1,5 @@
 #include "Characters/HeroCharacter.h"
-#include "AbilitySystem/WarriorAbilitySystemComponent.h"
+#include "Aeon/AbilitySystem/AeonAbilitySystemComponent.h"
 #include "Aeon/Input/AeonInputConfig.h"
 #include "Camera/CameraComponent.h"
 #include "Components/CapsuleComponent.h"
@@ -107,11 +107,11 @@ void AHeroCharacter::Input_Look(const FInputActionValue& InputActionValue)
 // ReSharper disable once CppMemberFunctionMayBeConst
 void AHeroCharacter::Input_AbilityInputPressed(const FGameplayTag InGameplayTag)
 {
-    GetWarriorAbilitySystemComponent()->OnAbilityInputPressed(InGameplayTag);
+    GetAeonAbilitySystemComponent()->OnAbilityInputPressed(InGameplayTag);
 }
 
 // ReSharper disable once CppMemberFunctionMayBeConst
 void AHeroCharacter::Input_AbilityInputReleased(const FGameplayTag InGameplayTag)
 {
-    GetWarriorAbilitySystemComponent()->OnAbilityInputReleased(InGameplayTag);
+    GetAeonAbilitySystemComponent()->OnAbilityInputReleased(InGameplayTag);
 }

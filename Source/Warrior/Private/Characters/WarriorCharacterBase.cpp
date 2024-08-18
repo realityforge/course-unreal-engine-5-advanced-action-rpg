@@ -1,6 +1,6 @@
 #include "Characters/WarriorCharacterBase.h"
-#include "AbilitySystem/WarriorAbilitySystemComponent.h"
 #include "AbilitySystem/WarriorAttributeSet.h"
+#include "Aeon/AbilitySystem/AeonAbilitySystemComponent.h"
 #include "Aeon/Logging.h"
 #include "DataAssets/StartUpData/DataAsset_StartUpDataBase.h"
 
@@ -15,8 +15,9 @@ AWarriorCharacterBase::AWarriorCharacterBase()
     // character mesh means it does not get forced onto character
     GetMesh()->bReceivesDecals = false;
 
-    WarriorAbilitySystemComponent =
-        CreateDefaultSubobject<UWarriorAbilitySystemComponent>(TEXT("WarriorAbilitySystemComponent"));
+    AeonAbilitySystemComponent =
+        CreateDefaultSubobject<UAeonAbilitySystemComponent>(TEXT("AeonAbilitySystemComponent"));
+
     WarriorAttributeSet = CreateDefaultSubobject<UWarriorAttributeSet>(TEXT("WarriorAttributeSet"));
 }
 
@@ -24,9 +25,9 @@ void AWarriorCharacterBase::PossessedBy(AController* NewController)
 {
     Super::PossessedBy(NewController);
 
-    if (ensure(WarriorAbilitySystemComponent))
+    if (ensureMsgf(AeonAbilitySystemComponent, TEXT("AeonAbilitySystemComponent not configured for Character")))
     {
-        WarriorAbilitySystemComponent->InitAbilityActorInfo(this, this);
+        AeonAbilitySystemComponent->InitAbilityActorInfo(this, this);
 
         ensureMsgf(!CharacterStartUpData.IsNull(),
                    TEXT("AWarriorCharacterBase::PossessedBy: CharacterStartUpData not assigned to %s"),
@@ -34,13 +35,13 @@ void AWarriorCharacterBase::PossessedBy(AController* NewController)
     }
     else
     {
-        AEON_ERROR_ALOG("WarriorAbilitySystemComponent not configured for Character");
+        AEON_ERROR_ALOG("AeonAbilitySystemComponent not configured for Character");
     }
 }
 
 UAbilitySystemComponent* AWarriorCharacterBase::GetAbilitySystemComponent() const
 {
-    return GetWarriorAbilitySystemComponent();
+    return GetAeonAbilitySystemComponent();
 }
 
 void AWarriorCharacterBase::GiveStartUpDataToAbilitySystem() const
@@ -49,7 +50,7 @@ void AWarriorCharacterBase::GiveStartUpDataToAbilitySystem() const
     {
         if (const auto Data = CharacterStartUpData.LoadSynchronous())
         {
-            Data->GiveToAbilitySystemComponent(WarriorAbilitySystemComponent);
+            Data->GiveToAbilitySystemComponent(AeonAbilitySystemComponent);
         }
         else
         {

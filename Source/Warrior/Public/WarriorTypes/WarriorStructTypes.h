@@ -4,28 +4,10 @@
 #include "GameplayTagContainer.h"
 #include "WarriorStructTypes.generated.h"
 
+struct FAeonGameplayAbilitySet;
 class UInputMappingContext;
 class UWarriorHeroLinkedAnimLayer;
 class UWarriorGameplayAbility;
-
-/**
- * Definition of an ability that can be granted to a Hero.
- */
-USTRUCT(BlueprintType)
-struct FWarriorHeroAbilitySet
-{
-    GENERATED_BODY()
-
-    /** Tag to identify the Ability. */
-    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, meta = (Categories = "Input"))
-    FGameplayTag InputTag;
-
-    /** The Ability. */
-    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
-    TSubclassOf<UWarriorGameplayAbility> Ability;
-
-    bool IsValid() const;
-};
 
 /**
  * Data describing a type of weapon.
@@ -45,5 +27,5 @@ struct FWarriorHeroWeaponData
 
     /** The Abilities that are granted to the owner when the weapon is equipped */
     UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, meta = (TitleProperty = "InputTag"))
-    TArray<FWarriorHeroAbilitySet> DefaultWeaponAbilities;
+    TArray<FAeonGameplayAbilitySet> DefaultWeaponAbilities;
 };

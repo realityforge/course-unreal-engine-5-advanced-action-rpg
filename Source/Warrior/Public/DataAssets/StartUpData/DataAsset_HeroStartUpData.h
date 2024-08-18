@@ -11,10 +11,10 @@ class WARRIOR_API UDataAsset_HeroStartUpData : public UDataAsset_StartUpDataBase
     GENERATED_BODY()
 
     /** Abilities that are granted to the hero at startup. */
-    UPROPERTY(EditDefaultsOnly, Category = "StartUpData", meta = (AllowAbstract = "false", TitleProperty = "Tag"))
-    TArray<FWarriorHeroAbilitySet> StartUpAbilitySets;
+    UPROPERTY(EditDefaultsOnly, Category = "StartUpData", meta = (AllowAbstract = "false", TitleProperty = "InputTag"))
+    TArray<FAeonGameplayAbilitySet> StartUpAbilitySets;
 
 public:
-    virtual void GiveToAbilitySystemComponent(UWarriorAbilitySystemComponent* InAbilitySystemComponent,
+    virtual void GiveToAbilitySystemComponent(UAeonAbilitySystemComponent* InAbilitySystemComponent,
                                               int32 ApplyLevel) override;
 };

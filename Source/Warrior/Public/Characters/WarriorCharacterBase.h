@@ -7,17 +7,20 @@
 
 class UDataAsset_StartUpDataBase;
 class UWarriorAttributeSet;
-class UWarriorAbilitySystemComponent;
+class UAeonAbilitySystemComponent;
 
 UCLASS()
 class WARRIOR_API AWarriorCharacterBase : public ACharacter, public IAbilitySystemInterface
 {
     GENERATED_BODY()
 
-    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "AbilitySystem", meta = (AllowPrivateAccess = "true"))
-    TObjectPtr<UWarriorAbilitySystemComponent> WarriorAbilitySystemComponent{ nullptr };
+    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Warrior|Ability", meta = (AllowPrivateAccess = "true"))
+    TObjectPtr<UAeonAbilitySystemComponent> AeonAbilitySystemComponent{ nullptr };
 
-    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "AbilitySystem", meta = (AllowPrivateAccess = "true"))
+    UPROPERTY(VisibleAnywhere,
+              BlueprintReadOnly,
+              Category = "Warrior|AbilitySystem",
+              meta = (AllowPrivateAccess = "true"))
     TObjectPtr<UWarriorAttributeSet> WarriorAttributeSet{ nullptr };
 
     UPROPERTY(EditDefaultsOnly,
@@ -38,9 +41,9 @@ public:
     virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
     //~ End IAbilitySystemInterface Interface
 
-    FORCEINLINE UWarriorAbilitySystemComponent* GetWarriorAbilitySystemComponent() const
+    FORCEINLINE UAeonAbilitySystemComponent* GetAeonAbilitySystemComponent() const
     {
-        return WarriorAbilitySystemComponent;
+        return AeonAbilitySystemComponent;
     }
 
     FORCEINLINE UWarriorAttributeSet* GetWarriorAttributeSet() const { return WarriorAttributeSet; }

@@ -1,5 +1,6 @@
 #include "Aeon/AbilitySystem/AeonGameplayAbility.h"
 #include "AbilitySystemComponent.h"
+#include "Aeon/AbilitySystem/AeonAbilitySystemComponent.h"
 
 void UAeonGameplayAbility::OnGiveAbility(const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilitySpec& Spec)
 {
@@ -29,4 +30,9 @@ void UAeonGameplayAbility::EndAbility(const FGameplayAbilitySpecHandle Handle,
             ActorInfo->AbilitySystemComponent->ClearAbility(Handle);
         }
     }
+}
+
+UAeonAbilitySystemComponent* UAeonGameplayAbility::GetWarriorAbilitySystemComponentFromActorInfo() const
+{
+    return CastChecked<UAeonAbilitySystemComponent>(GetAbilitySystemComponentFromActorInfo());
 }

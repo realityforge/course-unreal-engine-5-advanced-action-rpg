@@ -4,7 +4,7 @@
 #include "CoreMinimal.h"
 #include "WarriorGameplayAbility.generated.h"
 
-class UWarriorAbilitySystemComponent;
+class UAeonAbilitySystemComponent;
 class UPawnCombatComponent;
 
 UCLASS(Abstract)
@@ -16,8 +16,4 @@ protected:
     /** Return the CombatComponent from the associated Avatar Actor */
     UFUNCTION(BlueprintPure, Category = "Warrior|Ability")
     UPawnCombatComponent* GetPawnCombatComponentFromActorInfo() const;
-
-    /** Return the WarriorAbilitySystemComponent from the associated Actor */
-    UFUNCTION(BlueprintPure, Category = "Warrior|Ability")
-    UWarriorAbilitySystemComponent* GetWarriorAbilitySystemComponentFromActorInfo() const;
 };

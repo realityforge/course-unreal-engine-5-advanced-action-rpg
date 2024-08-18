@@ -1,10 +1,10 @@
 #include "DataAssets/StartUpData/DataAsset_StartUpDataBase.h"
 #include "AbilitySystem/Abilities/WarriorGameplayAbility.h"
-#include "AbilitySystem/WarriorAbilitySystemComponent.h"
+#include "Aeon/AbilitySystem/AeonAbilitySystemComponent.h"
 
 // ReSharper disable once CppMemberFunctionMayBeStatic
 void UDataAsset_StartUpDataBase::GrantAbilities(const TArray<TSubclassOf<UWarriorGameplayAbility>>& InGameplayAbilities,
-                                                UWarriorAbilitySystemComponent* InAbilitySystemComponent,
+                                                UAeonAbilitySystemComponent* InAbilitySystemComponent,
                                                 const int32 ApplyLevel)
 {
     if (!InGameplayAbilities.IsEmpty())
@@ -26,7 +26,7 @@ void UDataAsset_StartUpDataBase::GrantAbilities(const TArray<TSubclassOf<UWarrio
     }
 }
 
-void UDataAsset_StartUpDataBase::GiveToAbilitySystemComponent(UWarriorAbilitySystemComponent* InAbilitySystemComponent,
+void UDataAsset_StartUpDataBase::GiveToAbilitySystemComponent(UAeonAbilitySystemComponent* InAbilitySystemComponent,
                                                               const int32 ApplyLevel)
 {
     check(InAbilitySystemComponent);
