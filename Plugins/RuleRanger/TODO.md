@@ -37,6 +37,10 @@ Shorthand notes of where to go next with this experiment:
   * Ensure that inputs names match pattern
   * Ensure that descriptions for inputs present
   * Ensure that the override name matches a pattern if exposed to library
+* Blueprint Enumerations:
+  * Add requirement that Enumerations are documented
+  * Add requirement that Enumerators are documented
+* Add the ability to add an exception for the a rule that was violated directly from within the MessageLog. Think "Click to to exclude".
 * Material checks:
   * Ensure Material is compiled
   * Ensure that parameters of specific name/type exist on a material ... or a material property? (Useful when using to create dynamic material instance and use strings to match parameters)
