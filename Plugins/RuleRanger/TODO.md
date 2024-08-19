@@ -33,14 +33,18 @@ Shorthand notes of where to go next with this experiment:
 * Blueprint checks:
   * Add flag to skip description and categorization requirements for private variables/functions
   * Blueprint Macros also have function rules applied. Should we restrict these rules as Macros are mostly internal? or maybe not as used by child classes?
-* Material Function checks:
-  * Ensure that inputs names match pattern
-  * Ensure that descriptions for inputs present
-  * Ensure that the override name matches a pattern if exposed to library
 * Blueprint Enumerations:
   * Add requirement that Enumerations are documented
   * Add requirement that Enumerators are documented
 * Add the ability to add an exception for the a rule that was violated directly from within the MessageLog. Think "Click to to exclude".
+* Material Function checks:
+  * Ensure that inputs names match pattern
+  * Ensure that descriptions for inputs present
+  * Ensure that the override name matches a pattern if exposed to library
+* Material Parameter:
+  * Add check to ensure that a material parameter exists matches a certain value. So some options can be set during development
+    but changed at shipping time. For example, Brightness controls set during development phase should be changed to adjusting brightness
+    on Texture import when you ship.
 * Material checks:
   * Ensure that parameters of specific name/type exist on a material ... or a material property? (Useful when using to create dynamic material instance and use strings to match parameters)
   * Ensure that materials associated with Skeletons that have Material type animation curves, have materials with parameters that match.
@@ -68,10 +72,6 @@ TextureFilter FGLTFTextureUtilities::GetDefaultFilter(TextureGroup LODGroup)
 	}
 }
 ```
-* Material Parameter:
-  * Add check to ensure that a material parameter exists matches a certain value. So some options can be set during development
-    but changed at shipping time. For example, Brightness controls set during development phase should be changed to adjusting brightness
-    on Texture import when you ship.
 * Can we make an asset validator that makes sure that certain assets are not baked/packaged?
 * Native Class checks:
   * Add naming convention check for native classes/structs
