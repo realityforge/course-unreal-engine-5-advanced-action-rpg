@@ -42,7 +42,6 @@ Shorthand notes of where to go next with this experiment:
   * Add requirement that Enumerators are documented
 * Add the ability to add an exception for the a rule that was violated directly from within the MessageLog. Think "Click to to exclude".
 * Material checks:
-  * Ensure Material is compiled
   * Ensure that parameters of specific name/type exist on a material ... or a material property? (Useful when using to create dynamic material instance and use strings to match parameters)
   * Ensure that materials associated with Skeletons that have Material type animation curves, have materials with parameters that match.
   * Ensure that there are no dangling nodes in material
