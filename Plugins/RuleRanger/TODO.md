@@ -14,7 +14,6 @@ Shorthand notes of where to go next with this experiment:
 * Experiment rolling back treating rules/matchers/actions as assets and instead allow them as Blueprint classes
 * Support writing rules as blueprints and thus inlining matcher/action functionality into a single call?
 * Add a mechanism for adding an exclude `DataTable` that will list assets that will ignore specific rules or all rules for specific assets or all assets or all assets that matchers match?
-* Material functions that are Material Layers are prefixed with ML not MF!
 * Retargeters should be named as RTG_\[Source\]_To_\[Target\]
 * Add ability to add other validators that are invoked on Scan (i.e. no directories without assets)
 * Add tool to record licenses for assets in MetaData
