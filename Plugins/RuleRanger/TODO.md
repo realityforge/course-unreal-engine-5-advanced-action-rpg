@@ -33,8 +33,6 @@ Shorthand notes of where to go next with this experiment:
 * Blueprint checks:
   * Add flag to skip description and categorization requirements for private variables/functions
   * Blueprint Macros also have function rules applied. Should we restrict these rules as Macros are mostly internal? or maybe not as used by child classes?
-* Blueprint Functions:
-  * Default Return node requirement ... is a bit much if there is no return value.
 * Material Function checks:
   * Ensure that inputs names match pattern
   * Ensure that descriptions for inputs present
