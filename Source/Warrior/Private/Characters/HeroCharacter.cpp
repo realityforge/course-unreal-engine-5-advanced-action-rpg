@@ -1,10 +1,10 @@
 #include "Characters/HeroCharacter.h"
 #include "Aeon/AbilitySystem/AeonAbilitySystemComponent.h"
+#include "Aeon/Input/AeonInputComponent.h"
 #include "Aeon/Input/AeonInputConfig.h"
 #include "Camera/CameraComponent.h"
 #include "Components/CapsuleComponent.h"
 #include "Components/Combat/HeroCombatComponent.h"
-#include "Components/Input/WarriorInputComponent.h"
 #include "EnhancedInputSubsystems.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/SpringArmComponent.h"
@@ -52,23 +52,23 @@ void AHeroCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompo
 
     Subsystem->AddMappingContext(InputConfigDataAsset->GetDefaultMappingContext(), 0);
 
-    const auto WarriorInputComponent = CastChecked<UWarriorInputComponent>(PlayerInputComponent);
+    const auto AeonInputComponent = CastChecked<UAeonInputComponent>(PlayerInputComponent);
 
-    WarriorInputComponent->BindNativeInputAction(InputConfigDataAsset,
-                                                 WarriorGameplayTags::Input_Native_Move,
-                                                 ETriggerEvent::Triggered,
-                                                 this,
-                                                 &AHeroCharacter::Input_Move);
-    WarriorInputComponent->BindNativeInputAction(InputConfigDataAsset,
-                                                 WarriorGameplayTags::Input_Native_Look,
-                                                 ETriggerEvent::Triggered,
-                                                 this,
-                                                 &AHeroCharacter::Input_Look);
+    AeonInputComponent->BindNativeInputAction(InputConfigDataAsset,
+                                              WarriorGameplayTags::Input_Native_Move,
+                                              ETriggerEvent::Triggered,
+                                              this,
+                                              &AHeroCharacter::Input_Move);
+    AeonInputComponent->BindNativeInputAction(InputConfigDataAsset,
+                                              WarriorGameplayTags::Input_Native_Look,
+                                              ETriggerEvent::Triggered,
+                                              this,
+                                              &AHeroCharacter::Input_Look);
 
-    WarriorInputComponent->BindAbilityInputAction(InputConfigDataAsset,
-                                                  this,
-                                                  &AHeroCharacter::Input_AbilityInputPressed,
-                                                  &AHeroCharacter::Input_AbilityInputReleased);
+    AeonInputComponent->BindAbilityInputAction(InputConfigDataAsset,
+                                               this,
+                                               &AHeroCharacter::Input_AbilityInputPressed,
+                                               &AHeroCharacter::Input_AbilityInputReleased);
 }
 
 void AHeroCharacter::BeginPlay()

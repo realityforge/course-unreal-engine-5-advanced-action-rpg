@@ -4,12 +4,19 @@
 #include "Aeon/Logging.h"
 #include "CoreMinimal.h"
 #include "EnhancedInputComponent.h"
-#include "WarriorInputComponent.generated.h"
+#include "AeonInputComponent.generated.h"
 
 struct FGameplayTag;
 
-UCLASS()
-class WARRIOR_API UWarriorInputComponent : public UEnhancedInputComponent
+/**
+ * An EnhancedInputComponent derived class that binds input using an AeonInputConfig asset.
+ *
+ * The class just adds functions to simplify the binding using an AeonInputConfig asset and this could be replaced
+ * by macros or helper functions in the caller class. However, this class is retained for ease of use.
+ */
+UCLASS(
+    meta = (ShortTooltip = "An EnhancedInputComponent derived class that binds input using an AeonInputConfig asset."))
+class AEON_API UAeonInputComponent : public UEnhancedInputComponent
 {
     GENERATED_BODY()
 
@@ -29,11 +36,11 @@ public:
 };
 
 template <class UserObject, typename CallbackFunc>
-void UWarriorInputComponent::BindNativeInputAction(const UAeonInputConfig* InInputConfig,
-                                                   const FGameplayTag& InInputTag,
-                                                   ETriggerEvent TriggerEvent,
-                                                   UserObject* ContextObject,
-                                                   CallbackFunc Func)
+void UAeonInputComponent::BindNativeInputAction(const UAeonInputConfig* InInputConfig,
+                                                const FGameplayTag& InInputTag,
+                                                ETriggerEvent TriggerEvent,
+                                                UserObject* ContextObject,
+                                                CallbackFunc Func)
 {
     checkf(InInputConfig, TEXT("InputConfig data asset is null, Binding not valid"));
     if (const auto Action = InInputConfig->FindNativeInputActionByTag(InInputTag))
@@ -48,10 +55,10 @@ void UWarriorInputComponent::BindNativeInputAction(const UAeonInputConfig* InInp
 }
 
 template <class UserObject, typename CallbackFunc>
-void UWarriorInputComponent::BindAbilityInputAction(const UAeonInputConfig* InInputConfig,
-                                                    UserObject* ContextObject,
-                                                    CallbackFunc InputPressedFunc,
-                                                    CallbackFunc InputReleasedFunc)
+void UAeonInputComponent::BindAbilityInputAction(const UAeonInputConfig* InInputConfig,
+                                                 UserObject* ContextObject,
+                                                 CallbackFunc InputPressedFunc,
+                                                 CallbackFunc InputReleasedFunc)
 {
     checkf(InInputConfig, TEXT("InputConfig data asset is null, Binding not valid"));
     for (const auto Action : InInputConfig->GetAbilityInputActions())
