@@ -14,3 +14,7 @@ This the project developed in the course [Unreal Engine 5 C++: Advanced Action R
   - Restrict Tag to Player.Event subtags?
 
 * Merge GA_Hero_HeavyAttack_Base and GA_Hero_LightAttack_Base or at least merge commonality. Consider making into C++ or otherwise force all subclasses to be Data-only?
+
+* Document how to give player equipment at start
+* Document how equipment when equipped will give the player an ability
+* Document how to give player an input action
