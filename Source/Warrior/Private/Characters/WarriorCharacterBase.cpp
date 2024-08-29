@@ -1,7 +1,7 @@
 #include "Characters/WarriorCharacterBase.h"
-#include "AbilitySystem/WarriorAttributeSet.h"
 #include "Aeon/AbilitySystem/AeonAbilitySystemComponent.h"
 #include "Aeon/AbilitySystem/AeonAbilitySystemGrantsBase.h"
+#include "Aeon/AbilitySystem/AeonAttributeSet.h"
 #include "Aeon/Logging.h"
 
 AWarriorCharacterBase::AWarriorCharacterBase()
@@ -18,7 +18,7 @@ AWarriorCharacterBase::AWarriorCharacterBase()
     AeonAbilitySystemComponent =
         CreateDefaultSubobject<UAeonAbilitySystemComponent>(TEXT("AeonAbilitySystemComponent"));
 
-    WarriorAttributeSet = CreateDefaultSubobject<UWarriorAttributeSet>(TEXT("WarriorAttributeSet"));
+    AeonAttributeSet = CreateDefaultSubobject<UAeonAttributeSet>(TEXT("AeonAttributeSet"));
 }
 
 void AWarriorCharacterBase::PossessedBy(AController* NewController)

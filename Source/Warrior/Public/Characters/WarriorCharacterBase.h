@@ -5,8 +5,8 @@
 #include "GameFramework/Character.h"
 #include "WarriorCharacterBase.generated.h"
 
+class UAeonAttributeSet;
 class UAeonAbilitySystemGrantsBase;
-class UWarriorAttributeSet;
 class UAeonAbilitySystemComponent;
 
 UCLASS()
@@ -21,7 +21,7 @@ class WARRIOR_API AWarriorCharacterBase : public ACharacter, public IAbilitySyst
               BlueprintReadOnly,
               Category = "Warrior|AbilitySystem",
               meta = (AllowPrivateAccess = "true"))
-    TObjectPtr<UWarriorAttributeSet> WarriorAttributeSet{ nullptr };
+    TObjectPtr<UAeonAttributeSet> AeonAttributeSet{ nullptr };
 
     UPROPERTY(EditDefaultsOnly,
               BlueprintReadOnly,
@@ -46,5 +46,5 @@ public:
         return AeonAbilitySystemComponent;
     }
 
-    FORCEINLINE UWarriorAttributeSet* GetWarriorAttributeSet() const { return WarriorAttributeSet; }
+    FORCEINLINE UAeonAttributeSet* GetAeonAttributeSet() const { return AeonAttributeSet; }
 };
