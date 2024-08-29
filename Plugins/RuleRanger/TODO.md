@@ -33,6 +33,10 @@ Shorthand notes of where to go next with this experiment:
 * Blueprint checks:
   * Add flag to skip description and categorization requirements for private variables/functions
   * Blueprint Macros also have function rules applied. Should we restrict these rules as Macros are mostly internal? or maybe not as used by child classes?
+* InputMappingContext:
+  * Ensure Description is specified
+* InputAction:
+  * Ensure ActionDescription is specified
 * Blueprint Enumerations:
   * Add requirement that Enumerations are documented
   * Add requirement that Enumerators are documented
