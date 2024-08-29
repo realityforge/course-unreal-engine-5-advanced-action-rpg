@@ -12,3 +12,5 @@ This the project developed in the course [Unreal Engine 5 C++: Advanced Action R
   - Specify a "Known" color?
   - Add (`meta=(RuleRangerRequired="true")`) to Tag
   - Restrict Tag to Player.Event subtags?
+
+* Merge GA_Hero_HeavyAttack_Base and GA_Hero_LightAttack_Base or at least merge commonality. Consider making into C++ or otherwise force all subclasses to be Data-only?
