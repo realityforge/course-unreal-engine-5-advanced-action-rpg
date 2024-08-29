@@ -1,50 +1,16 @@
 #pragma once
 
-#include "AbilitySystemInterface.h"
+#include "Aeon/Character/AeonCharacterBase.h"
 #include "CoreMinimal.h"
-#include "GameFramework/Character.h"
 #include "WarriorCharacterBase.generated.h"
 
-class UAeonAttributeSet;
-class UAeonAbilitySystemGrantsBase;
-class UAeonAbilitySystemComponent;
-
 UCLASS()
-class WARRIOR_API AWarriorCharacterBase : public ACharacter, public IAbilitySystemInterface
+class WARRIOR_API AWarriorCharacterBase : public AAeonCharacterBase
 {
     GENERATED_BODY()
-
-    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Warrior|Ability", meta = (AllowPrivateAccess = "true"))
-    TObjectPtr<UAeonAbilitySystemComponent> AeonAbilitySystemComponent{ nullptr };
-
-    UPROPERTY(VisibleAnywhere,
-              BlueprintReadOnly,
-              Category = "Warrior|AbilitySystem",
-              meta = (AllowPrivateAccess = "true"))
-    TObjectPtr<UAeonAttributeSet> AeonAttributeSet{ nullptr };
-
-    UPROPERTY(EditDefaultsOnly,
-              BlueprintReadOnly,
-              Category = "CharacterData",
-              meta = (AllowPrivateAccess = "true", RuleRangerRequired = "true"))
-    TSoftObjectPtr<UAeonAbilitySystemGrantsBase> CharacterStartUpData{ nullptr };
-
-protected:
-    void GiveStartUpDataToAbilitySystem() const;
 
 public:
     AWarriorCharacterBase();
 
     virtual void PossessedBy(AController* NewController) override;
-
-    //~ Begin IAbilitySystemInterface Interface.
-    virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
-    //~ End IAbilitySystemInterface Interface
-
-    FORCEINLINE UAeonAbilitySystemComponent* GetAeonAbilitySystemComponent() const
-    {
-        return AeonAbilitySystemComponent;
-    }
-
-    FORCEINLINE UAeonAttributeSet* GetAeonAttributeSet() const { return AeonAttributeSet; }
 };
