@@ -7,7 +7,7 @@ This the project developed in the course [Unreal Engine 5 C++: Advanced Action R
 * Convert `GA_Shared_SpawnWeapon` to C++ so that we can add better validation rules (ala `meta=(RuleRangerRequired="true")`)
 * Add RuleRanger rule to ensure `GA_Shared_SpawnWeapon` has data-only blueprints as subclasses? 
 
-* Convert SendGameplayEventToOwner
+* Convert SendGameplayEventToOwner to C++
   - Ensure bShouldFireInEditor is False
   - Specify a "Known" color?
   - Add (`meta=(RuleRangerRequired="true")`) to Tag
