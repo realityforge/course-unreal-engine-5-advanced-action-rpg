@@ -32,7 +32,7 @@ void UAeonGameplayAbility::EndAbility(const FGameplayAbilitySpecHandle Handle,
     }
 }
 
-UAeonAbilitySystemComponent* UAeonGameplayAbility::GetWarriorAbilitySystemComponentFromActorInfo() const
+UAeonAbilitySystemComponent* UAeonGameplayAbility::GetAeonAbilitySystemComponentFromActorInfo() const
 {
     return CastChecked<UAeonAbilitySystemComponent>(GetAbilitySystemComponentFromActorInfo());
 }

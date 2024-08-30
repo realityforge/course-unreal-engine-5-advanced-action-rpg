@@ -41,7 +41,7 @@ protected:
 
     /** Return the AeonAbilitySystemComponent from the associated Actor */
     UFUNCTION(BlueprintPure, Category = "Aeon|Ability")
-    UAeonAbilitySystemComponent* GetWarriorAbilitySystemComponentFromActorInfo() const;
+    UAeonAbilitySystemComponent* GetAeonAbilitySystemComponentFromActorInfo() const;
 
 public:
     //~Begin UGameplayAbility Interface
