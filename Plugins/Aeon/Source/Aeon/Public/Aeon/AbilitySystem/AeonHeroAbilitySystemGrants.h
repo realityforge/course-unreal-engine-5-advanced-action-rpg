@@ -11,7 +11,7 @@ class AEON_API UAeonHeroAbilitySystemGrants : public UAeonAbilitySystemGrantsBas
 {
     GENERATED_BODY()
 
-    /** Abilities that are granted to the hero at startup. */
+    /** Abilities that are granted to the actor at startup. */
     UPROPERTY(EditDefaultsOnly,
               Category = "Aeon|StartUpData",
               meta = (AllowAbstract = "false", TitleProperty = "InputTag"))
