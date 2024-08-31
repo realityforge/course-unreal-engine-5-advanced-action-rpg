@@ -13,7 +13,7 @@ class WARRIOR_API UWarriorHeroGameplayAbility : public UWarriorGameplayAbility
 {
     GENERATED_BODY()
 
-    // Weak Object References will be reclaimed by Unreal when these objects
+    // Weak Object References will be reclaimed by Unreal when these objects are garbage collected
 
     TWeakObjectPtr<AHeroCharacter> HeroCharacterCache;
     TWeakObjectPtr<AWarriorHeroPlayerController> WarriorHeroPlayerControllerCache;
