@@ -16,7 +16,6 @@ class WARRIOR_API AHeroCharacter : public AWarriorCharacterBase
 {
     GENERATED_BODY()
 
-// Set up folding Region for VS
 #pragma region Components
 
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Camera", meta = (AllowPrivateAccess = "true"))
@@ -30,7 +29,6 @@ class WARRIOR_API AHeroCharacter : public AWarriorCharacterBase
 
 #pragma endregion
 
-// Set up folding Region for VS
 #pragma region Inputs
 
     UPROPERTY(EditDefaultsOnly,
