@@ -8,6 +8,13 @@ class UGameplayAbility;
 class UAeonGameplayAbility;
 class UAeonAbilitySystemComponent;
 
+// TODO: This should have the functionality present in AeonEnemyAbilitySystemGrants and AeonHeroAbilitySystemGrants
+//       merged into the class. Keeping it separate until the end of the course and we can refactor later.
+// TODO: It is unclear why we have multiple AbilitySet arrays given the AbilityActivationPolicy is part of ability and
+//       we could just merge. Keeping it all as is now to follow tutorial. Can refactor later.
+// TODO: We should introduce a structure so that GameplayAbility and ApplyLevel are colocated (as well as potentially a
+// identifying tag and/or input tag)
+
 /**
  * Abstract DataAsset that describes abilities that can be granted to an actor.
  */
