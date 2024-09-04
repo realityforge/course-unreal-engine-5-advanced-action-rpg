@@ -5,6 +5,7 @@
 #include "EnemyCharacter.generated.h"
 
 class UEnemyCombatComponent;
+
 /**
  * Base class for Enemy characters
  */
