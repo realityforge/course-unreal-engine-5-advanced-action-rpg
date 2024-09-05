@@ -96,7 +96,7 @@ bool URuleRangerRule::Match(URuleRangerActionContext* ActionContext, UObject* Ob
                 {
                     UE_LOG(RuleRanger,
                            Verbose,
-                           TEXT("TryMatch(%s) on rule %s exited early as matcher %s did not match"),
+                           TEXT("Match(%s) on rule %s exited early as matcher %s did not match"),
                            *Object->GetName(),
                            *GetName(),
                            *Matcher->GetName());
