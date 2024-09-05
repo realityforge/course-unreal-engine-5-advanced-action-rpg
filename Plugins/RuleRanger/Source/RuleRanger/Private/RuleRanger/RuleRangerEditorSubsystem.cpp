@@ -276,6 +276,30 @@ bool URuleRangerEditorSubsystem::IsMatchingRulePresentForObject(URuleRangerConfi
            TEXT("IsMatchingRulePresent: Processing Rule Set %s for object %s"),
            *RuleSet->GetName(),
            *InObject->GetName());
+
+    int RuleSetIndex = 0;
+    for (auto RuleSetIt = RuleSet->RuleSets.CreateIterator(); RuleSetIt; ++RuleSetIt)
+    {
+        if (const auto ChildRuleSet = RuleSetIt->Get())
+        {
+            if (IsMatchingRulePresentForObject(Config, ChildRuleSet, InObject, ProcessRuleFunction))
+            {
+                return true;
+            }
+        }
+        else
+        {
+            UE_LOG(RuleRanger,
+                   Error,
+                   TEXT("IsMatchingRulePresentForObject: Invalid RuleSet skipped at index %d "
+                        "processing child rulesets of ruleset named %s for object %s"),
+                   RuleSetIndex,
+                   *RuleSet->GetName(),
+                   *InObject->GetName());
+        }
+        RuleSetIndex++;
+    }
+
     int RuleIndex = 0;
     for (const auto RulePtr : RuleSet->Rules)
     {
