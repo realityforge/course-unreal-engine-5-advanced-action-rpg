@@ -4,6 +4,8 @@
 #include "CoreMinimal.h"
 #include "AeonAttributeSet.generated.h"
 
+class UAeonAbilitySystemComponent;
+
 /**
  * The base AttributeSet in Aeon.
  */
@@ -11,4 +13,12 @@ UCLASS(Abstract, meta = (ShortTooltip = "The base AttributeSet used in Aeon."))
 class AEON_API UAeonAttributeSet : public UAttributeSet
 {
     GENERATED_BODY()
+
+protected:
+    /**
+     * Return the owning AeonAbilitySystemComponent.
+     *
+     * @return the owning AeonAbilitySystemComponent
+     */
+    UAeonAbilitySystemComponent* GetAeonAbilitySystemComponent() const;
 };
