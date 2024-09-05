@@ -12,9 +12,7 @@ class AEON_API UAeonEnemyAbilitySystemGrants : public UAeonAbilitySystemGrantsBa
     GENERATED_BODY()
 
     /** Abilities that are granted to the actor at startup. */
-    UPROPERTY(EditDefaultsOnly,
-              Category = "Aeon|StartUpData",
-              meta = (AllowAbstract = "false", TitleProperty = "InputTag"))
+    UPROPERTY(EditDefaultsOnly, Category = "Aeon|StartUpData", meta = (AllowAbstract = "false"))
     TArray<TSubclassOf<UAeonGameplayAbility>> StartUpAbilities;
 
 public:
