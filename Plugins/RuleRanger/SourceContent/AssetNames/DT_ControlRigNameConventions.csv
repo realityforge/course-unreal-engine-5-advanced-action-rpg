@@ -1,2 +1,3 @@
 ---,ObjectType,Variant,Prefix,Suffix
-ControlRig,"/Script/ControlRig.ControlRig","","CR_",""
+GameplayAbility,"/Script/GameplayAbilities.GameplayAbility","","GA_",""
+GameplayEffect,"/Script/GameplayAbilities.GameplayEffect","","GE_",""
