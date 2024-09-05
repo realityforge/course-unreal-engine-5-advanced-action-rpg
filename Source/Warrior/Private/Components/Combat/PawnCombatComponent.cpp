@@ -14,6 +14,10 @@ void UPawnCombatComponent::RegisterSpawnedWeapon(const FGameplayTag InGameplayTa
            *WeaponInventory.FindChecked(InGameplayTag)->GetName(),
            *InGameplayTag.ToString(),
            *InWeapon->GetName());
+    AEON_INFO_LOG(TEXT("Registering weapon named %s under tag %s for actor %s"),
+                  *InWeapon->GetName(),
+                  *InGameplayTag.ToString(),
+                  *GetOwner()->GetName());
     WeaponInventory.Emplace(InGameplayTag, InWeapon);
 
     if (bInEquipWeapon)
