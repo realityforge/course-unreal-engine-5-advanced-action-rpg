@@ -162,12 +162,8 @@ bool URuleRangerEditorValidator::CanValidateAsset_Implementation(const FAssetDat
                 && Rule->Match(ActionContext, InObject))
             {
                 Result = true;
-                return true;
             }
-            else
-            {
-                return false;
-            }
+            return true;
         });
     }
     else
