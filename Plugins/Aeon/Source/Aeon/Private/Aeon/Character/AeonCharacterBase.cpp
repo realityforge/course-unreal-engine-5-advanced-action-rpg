@@ -28,7 +28,8 @@ void AAeonCharacterBase::GiveStartUpDataToAbilitySystem() const
     {
         if (const auto Data = CharacterStartUpData.LoadSynchronous())
         {
-            Data->GiveToAbilitySystemComponent(AeonAbilitySystemComponent);
+            constexpr int32 ApplyLevel = 1;
+            Data->GiveToAbilitySystemComponent(AeonAbilitySystemComponent, ApplyLevel);
         }
         else
         {
