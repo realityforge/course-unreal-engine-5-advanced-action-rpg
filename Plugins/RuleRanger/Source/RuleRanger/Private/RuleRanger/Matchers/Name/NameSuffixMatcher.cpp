@@ -14,7 +14,7 @@
 #include "NameSuffixMatcher.h"
 #include "Editor.h"
 
-bool UNameSuffixMatcher::Test_Implementation(UObject* Object)
+bool UNameSuffixMatcher::Test_Implementation(UObject* Object) const
 {
     return Object->GetName().EndsWith(Suffix, bCaseSensitive ? ESearchCase::CaseSensitive : ESearchCase::IgnoreCase);
 }

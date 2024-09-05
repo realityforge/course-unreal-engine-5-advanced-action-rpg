@@ -14,7 +14,7 @@
 #include "DataOnlyBlueprintMatcher.h"
 #include "Kismet2/BlueprintEditorUtils.h"
 
-bool UDataOnlyBlueprintMatcher::Test_Implementation(UObject* Object)
+bool UDataOnlyBlueprintMatcher::Test_Implementation(UObject* Object) const
 {
     const UBlueprint* Blueprint = Cast<UBlueprint>(Object);
     return Blueprint && FBlueprintEditorUtils::IsDataOnlyBlueprint(Blueprint);

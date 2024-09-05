@@ -14,7 +14,7 @@
 #include "NameRegexMatcher.h"
 #include "Editor.h"
 
-bool UNameRegexMatcher::Test_Implementation(UObject* Object)
+bool UNameRegexMatcher::Test_Implementation(UObject* Object) const
 {
     const FRegexPattern Pattern(RegexPattern,
                                 bCaseSensitive ? ERegexPatternFlags::None : ERegexPatternFlags::CaseInsensitive);

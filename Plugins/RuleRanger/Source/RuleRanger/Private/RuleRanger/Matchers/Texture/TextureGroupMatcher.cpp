@@ -14,7 +14,7 @@
 
 #include "TextureGroupMatcher.h"
 
-bool UTextureGroupMatcher::Test_Implementation(UObject* Object)
+bool UTextureGroupMatcher::Test_Implementation(UObject* Object) const
 {
     const UTexture2D* Texture = Cast<UTexture2D>(Object);
     return Texture ? TextureGroups.Contains(Texture->LODGroup) : false;

@@ -13,7 +13,7 @@
  */
 #include "OrMatcher.h"
 
-bool UOrMatcher::Test_Implementation(UObject* Object)
+bool UOrMatcher::Test_Implementation(UObject* Object) const
 {
     if (IsValid(Object))
     {

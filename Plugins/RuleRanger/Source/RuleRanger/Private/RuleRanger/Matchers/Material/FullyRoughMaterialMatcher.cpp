@@ -13,7 +13,7 @@
  */
 #include "FullyRoughMaterialMatcher.h"
 
-bool UFullyRoughMaterialMatcher::Test_Implementation(UObject* Object)
+bool UFullyRoughMaterialMatcher::Test_Implementation(UObject* Object) const
 {
     const UMaterial* Material = Cast<UMaterial>(Object);
     return Material && Material->bFullyRough == bFullyRough;

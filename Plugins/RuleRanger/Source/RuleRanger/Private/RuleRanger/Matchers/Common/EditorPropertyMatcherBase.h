@@ -38,5 +38,5 @@ protected:
     virtual bool TestEditorProperty(UObject* Object, UObject* Instance, FProperty* Property);
 
 public:
-    virtual bool Test_Implementation(UObject* Object) override;
+    bool Test_Implementation(UObject* Object) const override;
 };

@@ -14,7 +14,7 @@
 #include "NameWildcardMatcher.h"
 #include "Editor.h"
 
-bool UNameWildcardMatcher::Test_Implementation(UObject* Object)
+bool UNameWildcardMatcher::Test_Implementation(UObject* Object) const
 {
     return Object->GetName().MatchesWildcard(WildcardPattern,
                                              bCaseSensitive ? ESearchCase::CaseSensitive : ESearchCase::IgnoreCase);

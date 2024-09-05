@@ -13,7 +13,7 @@
  */
 #include "RuleRangerMatcher.h"
 
-bool URuleRangerMatcher::Test_Implementation(UObject* Object)
+bool URuleRangerMatcher::Test_Implementation(UObject* Object) const
 {
     return false;
 }

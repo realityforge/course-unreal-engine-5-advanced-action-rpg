@@ -15,7 +15,7 @@
 #include "Editor.h"
 #include "RuleRanger/RuleRangerUtilities.h"
 
-bool UObjectTypeMatcher::Test_Implementation(UObject* Object)
+bool UObjectTypeMatcher::Test_Implementation(UObject* Object) const
 {
     return bTraverseAllTypeHierarchies ? FRuleRangerUtilities::IsA(Object, ObjectType) : Object->IsA(ObjectType);
 }

@@ -14,7 +14,7 @@
 #include "ContentDirMatcher.h"
 #include "Editor.h"
 
-bool UContentDirMatcher::Test_Implementation(UObject* Object)
+bool UContentDirMatcher::Test_Implementation(UObject* Object) const
 {
     return Object->GetPathName().StartsWith(Dir.Path);
 }

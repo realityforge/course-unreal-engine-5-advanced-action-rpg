@@ -31,5 +31,5 @@ class RULERANGER_API UMetadataTagPresent final : public URuleRangerMatcher
     FName Key{ TEXT("") };
 
 public:
-    virtual bool Test_Implementation(UObject* Object) override;
+    bool Test_Implementation(UObject* Object) const override;
 };

@@ -13,7 +13,7 @@
  */
 #include "PathFolderMatcher.h"
 
-bool UPathFolderMatcher::Test_Implementation(UObject* Object)
+bool UPathFolderMatcher::Test_Implementation(UObject* Object) const
 {
     TArray<FString> Folders;
     Object->GetPathName().ParseIntoArray(Folders, TEXT("/"), true);

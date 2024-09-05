@@ -15,7 +15,7 @@
 #include "Editor.h"
 #include "Subsystems/EditorAssetSubsystem.h"
 
-bool UMetadataTagMatcher::Test_Implementation(UObject* Object)
+bool UMetadataTagMatcher::Test_Implementation(UObject* Object) const
 {
     if (Key != NAME_None && IsValid(Object))
     {

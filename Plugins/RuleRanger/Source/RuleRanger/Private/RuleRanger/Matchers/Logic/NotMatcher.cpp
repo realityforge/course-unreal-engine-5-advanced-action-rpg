@@ -13,7 +13,7 @@
  */
 #include "NotMatcher.h"
 
-bool UNotMatcher::Test_Implementation(UObject* Object)
+bool UNotMatcher::Test_Implementation(UObject* Object) const
 {
     return IsValid(Object) && IsValid(Matcher) && !Matcher->Test(Object);
 }

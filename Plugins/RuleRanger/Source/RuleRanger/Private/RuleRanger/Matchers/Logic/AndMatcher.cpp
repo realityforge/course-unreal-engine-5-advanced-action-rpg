@@ -13,7 +13,7 @@
  */
 #include "AndMatcher.h"
 
-bool UAndMatcher::Test_Implementation(UObject* Object)
+bool UAndMatcher::Test_Implementation(UObject* Object) const
 {
     if (IsValid(Object))
     {
