@@ -55,7 +55,6 @@ bool URuleRangerEditorValidator::CanValidate_Implementation(const EDataValidatio
 
 bool URuleRangerEditorValidator::CanValidateAsset_Implementation(UObject* InAsset) const
 {
-
     const auto SubSystem = GEditor ? GEditor->GetEditorSubsystem<URuleRangerEditorSubsystem>() : nullptr;
     return SubSystem ? SubSystem->IsMatchingRulePresent(
                InAsset,
