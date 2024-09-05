@@ -4,6 +4,7 @@
 #include "Engine/DataAsset.h"
 #include "AeonAbilitySystemGrantsBase.generated.h"
 
+class UGameplayEffect;
 class UGameplayAbility;
 class UAeonGameplayAbility;
 class UAeonAbilitySystemComponent;
@@ -30,10 +31,17 @@ class AEON_API UAeonAbilitySystemGrantsBase : public UDataAsset
     UPROPERTY(EditDefaultsOnly, Category = "Aeon|StartUpData", meta = (AllowAbstract = "false"))
     TArray<TSubclassOf<UGameplayAbility>> ReactiveAbilities;
 
+    UPROPERTY(EditDefaultsOnly, Category = "Aeon|StartUpData", meta = (AllowAbstract = "false", BlueprintBaseOnly))
+    TArray<TSubclassOf<UGameplayEffect>> GameplayEffects;
+
 protected:
     void GrantAbilities(const TArray<TSubclassOf<UGameplayAbility>>& InGameplayAbilities,
                         UAeonAbilitySystemComponent* InAbilitySystemComponent,
-                        int32 ApplyLevel);
+                        int32 ApplyLevel) const;
+
+    void GrantEffects(const TArray<TSubclassOf<UGameplayEffect>>& InGameplayEffects,
+                      UAeonAbilitySystemComponent* InAbilitySystemComponent,
+                      const int32 ApplyLevel) const;
 
 public:
     virtual void GiveToAbilitySystemComponent(UAeonAbilitySystemComponent* InAbilitySystemComponent,
