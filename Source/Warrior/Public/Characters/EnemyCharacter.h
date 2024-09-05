@@ -24,5 +24,7 @@ class WARRIOR_API AEnemyCharacter : public AWarriorCharacterBase
 public:
     AEnemyCharacter();
 
+    virtual void PossessedBy(AController* NewController) override;
+
     FORCEINLINE UEnemyCombatComponent* GetCombatComponent() const { return CombatComponent; }
 };

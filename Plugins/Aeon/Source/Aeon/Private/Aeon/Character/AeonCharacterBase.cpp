@@ -3,6 +3,8 @@
 #include "Aeon/AbilitySystem/AeonAbilitySystemGrantsBase.h"
 #include "Aeon/AbilitySystem/AeonAttributeSet.h"
 #include "Aeon/Logging.h"
+#include "Engine/AssetManager.h"
+#include "Engine/StreamableManager.h"
 
 AAeonCharacterBase::AAeonCharacterBase()
 {
@@ -35,6 +37,35 @@ void AAeonCharacterBase::GiveStartUpDataToAbilitySystem() const
         {
             ensureMsgf(false, TEXT("CharacterStartUpData %s failed to load"), *CharacterStartUpData.GetAssetName());
         }
+    }
+}
+
+void AAeonCharacterBase::GiveStartUpDataToAbilitySystemAsync() const
+{
+    if (ensureMsgf(!CharacterStartUpData.IsNull(), TEXT("CharacterStartUpData has not been assigned")))
+    {
+        constexpr int32 ApplyLevel = 1;
+        auto& StreamableManager = UAssetManager::GetStreamableManager();
+        const auto Result = StreamableManager.RequestAsyncLoad(
+            CharacterStartUpData.ToSoftObjectPath(),
+            FStreamableDelegate::CreateLambda([this, ApplyLevel]() {
+                if (const auto Data = CharacterStartUpData.Get())
+                {
+                    Data->GiveToAbilitySystemComponent(AeonAbilitySystemComponent, ApplyLevel);
+                    AEON_INFO_ALOG("Loaded CharacterStartUpData %s and granted to AbilitySystemComponent for Actor %s",
+                                   *CharacterStartUpData.GetAssetName(),
+                                   *GetName());
+                }
+                else
+                {
+                    ensureMsgf(false,
+                               TEXT("CharacterStartUpData %s failed to load async"),
+                               *CharacterStartUpData.GetAssetName());
+                }
+            }));
+        ensureMsgf(Result.IsValid(),
+                   TEXT("RequestAsyncLoad for CharacterStartUpData %s failed"),
+                   *CharacterStartUpData.GetAssetName());
     }
 }
 

@@ -14,3 +14,9 @@ AEnemyCharacter::AEnemyCharacter()
 
     CombatComponent = CreateDefaultSubobject<UEnemyCombatComponent>("CombatComponent");
 }
+
+void AEnemyCharacter::PossessedBy(AController* NewController)
+{
+    Super::PossessedBy(NewController);
+    GiveStartUpDataToAbilitySystemAsync();
+}

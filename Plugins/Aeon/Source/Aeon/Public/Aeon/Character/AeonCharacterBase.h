@@ -28,6 +28,7 @@ class AEON_API AAeonCharacterBase : public ACharacter, public IAbilitySystemInte
 
 protected:
     void GiveStartUpDataToAbilitySystem() const;
+    void GiveStartUpDataToAbilitySystemAsync() const;
 
     void InitAbilityActorInfo();
 
