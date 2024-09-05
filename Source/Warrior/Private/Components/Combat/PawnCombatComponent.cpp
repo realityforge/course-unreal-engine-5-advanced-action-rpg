@@ -9,9 +9,11 @@ void UPawnCombatComponent::RegisterSpawnedWeapon(const FGameplayTag InGameplayTa
     check(InWeapon);
     check(InGameplayTag.IsValid());
     checkf(!WeaponInventory.Contains(InGameplayTag),
-           TEXT("A weapon named %s has already been registered under the tag named %s"),
-           *InWeapon->GetName(),
-           *InGameplayTag.ToString());
+           TEXT("A weapon named %s has already been registered under the "
+                "tag named %s when attempting to register %s"),
+           *WeaponInventory.FindChecked(InGameplayTag)->GetName(),
+           *InGameplayTag.ToString(),
+           *InWeapon->GetName());
     WeaponInventory.Emplace(InGameplayTag, InWeapon);
 
     if (bInEquipWeapon)
