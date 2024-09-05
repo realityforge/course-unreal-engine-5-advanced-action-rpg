@@ -17,9 +17,6 @@ class AEON_API AAeonCharacterBase : public ACharacter, public IAbilitySystemInte
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Aeon|Ability", meta = (AllowPrivateAccess = "true"))
     TObjectPtr<UAeonAbilitySystemComponent> AeonAbilitySystemComponent{ nullptr };
 
-    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Aeon|AbilitySystem", meta = (AllowPrivateAccess = "true"))
-    TObjectPtr<UAeonAttributeSet> AeonAttributeSet{ nullptr };
-
     UPROPERTY(EditDefaultsOnly,
               BlueprintReadOnly,
               Category = "Aeon|AbilitySystem",
@@ -43,6 +40,4 @@ public:
     {
         return AeonAbilitySystemComponent;
     }
-
-    FORCEINLINE UAeonAttributeSet* GetAeonAttributeSet() const { return AeonAttributeSet; }
 };

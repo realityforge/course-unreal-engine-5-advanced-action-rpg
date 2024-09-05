@@ -15,8 +15,6 @@ AAeonCharacterBase::AAeonCharacterBase()
 
     AeonAbilitySystemComponent =
         CreateDefaultSubobject<UAeonAbilitySystemComponent>(TEXT("AeonAbilitySystemComponent"));
-
-    AeonAttributeSet = CreateDefaultSubobject<UAeonAttributeSet>(TEXT("AeonAttributeSet"));
 }
 
 UAbilitySystemComponent* AAeonCharacterBase::GetAbilitySystemComponent() const
