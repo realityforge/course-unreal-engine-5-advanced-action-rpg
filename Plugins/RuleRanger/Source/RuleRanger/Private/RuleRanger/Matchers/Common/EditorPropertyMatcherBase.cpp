@@ -15,13 +15,15 @@
 #include "Editor.h"
 #include "RuleRanger/RuleRangerUtilities.h"
 
-bool UEditorPropertyMatcherBase::TestEditorProperty(UObject* Object, UObject* const Instance, FProperty* const Property)
+bool UEditorPropertyMatcherBase::TestEditorProperty(UObject* Object,
+                                                    UObject* const Instance,
+                                                    FProperty* const Property) const
 {
     LogError(Object, TEXT("Matcher failed to override TestEditorProperty."));
     return false;
 }
 
-bool UEditorPropertyMatcherBase::Test_Implementation(UObject* Object)
+bool UEditorPropertyMatcherBase::Test_Implementation(UObject* Object) const
 {
     if (Name != NAME_None && IsValid(Object))
     {

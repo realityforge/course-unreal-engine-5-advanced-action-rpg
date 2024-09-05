@@ -14,7 +14,7 @@
 
 #include "EditorPropertyPresentMatcher.h"
 
-bool UEditorPropertyPresentMatcher::TestEditorProperty(UObject* Object, UObject* Instance, FProperty* Property)
+bool UEditorPropertyPresentMatcher::TestEditorProperty(UObject* Object, UObject* Instance, FProperty* Property) const
 {
     if (const auto ObjectProperty = CastField<FObjectPropertyBase>(Property))
     {

@@ -15,7 +15,7 @@
 #include "EditorFramework/AssetImportData.h"
 #include "UObject/PropertyAccessUtil.h"
 
-bool USourcePathMatcherBase::Test_Implementation(UObject* Object)
+bool USourcePathMatcherBase::Test_Implementation(UObject* Object) const
 {
     if (IsValid(Object))
     {
@@ -37,7 +37,7 @@ bool USourcePathMatcherBase::Test_Implementation(UObject* Object)
     return false;
 }
 
-bool USourcePathMatcherBase::Match(UObject* Object, const FString& SourcePath, bool bInCaseSensitive)
+bool USourcePathMatcherBase::Match(UObject* Object, const FString& SourcePath, bool bInCaseSensitive) const
 {
     check(false);
     return false;

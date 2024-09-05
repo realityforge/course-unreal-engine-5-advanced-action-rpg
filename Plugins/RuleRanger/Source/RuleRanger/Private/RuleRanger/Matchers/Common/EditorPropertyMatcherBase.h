@@ -35,8 +35,8 @@ class RULERANGER_API UEditorPropertyMatcherBase : public URuleRangerMatcher
     bool bTraverseInstanceHierarchy{ true };
 
 protected:
-    virtual bool TestEditorProperty(UObject* Object, UObject* Instance, FProperty* Property);
+    virtual bool TestEditorProperty(UObject* Object, UObject* Instance, FProperty* Property) const;
 
 public:
-    bool Test_Implementation(UObject* Object) const override;
+    virtual bool Test_Implementation(UObject* Object) const override;
 };

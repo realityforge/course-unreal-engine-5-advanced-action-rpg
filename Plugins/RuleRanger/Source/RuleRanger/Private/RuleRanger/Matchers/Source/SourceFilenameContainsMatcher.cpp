@@ -13,7 +13,9 @@
  */
 #include "SourceFilenameContainsMatcher.h"
 
-bool USourceFilenameContainsMatcher::Match(UObject* Object, const FString& SourcePath, bool bInCaseSensitive)
+bool USourceFilenameContainsMatcher::Match(UObject* Object,
+                                           const FString& SourcePath,
+                                           const bool bInCaseSensitive) const
 {
     const auto Filename = FPaths::GetBaseFilename(SourcePath);
     return Filename.Contains(Text, bInCaseSensitive ? ESearchCase::CaseSensitive : ESearchCase::IgnoreCase);

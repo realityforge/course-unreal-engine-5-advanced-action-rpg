@@ -22,10 +22,6 @@ URuleRangerEditorValidator::URuleRangerEditorValidator()
     bIsEnabled = true;
 }
 
-// Cached value ... assuming this is valid and that CanValidateAsset is only invoked after
-// CanValidate invoked and there is only one instance ... so maybe this horrible hack is ok?
-static EDataValidationUsecase DataValidationUsecase{ EDataValidationUsecase::None };
-
 static FString DescribeDataValidationUsecase(const EDataValidationUsecase InDataValidationUsecase)
 {
     switch (InDataValidationUsecase)
@@ -46,24 +42,9 @@ static FString DescribeDataValidationUsecase(const EDataValidationUsecase InData
     }
 }
 
-bool URuleRangerEditorValidator::CanValidate_Implementation(const EDataValidationUsecase InUsecase) const
-{
-    UE_LOG(RuleRanger, VeryVerbose, TEXT("CanValidate(%s)"), *DescribeDataValidationUsecase(InUsecase));
-    DataValidationUsecase = InUsecase;
-    return true;
-}
-
-bool URuleRangerEditorValidator::CanValidateAsset_Implementation(UObject* InAsset) const
-{
-    const auto SubSystem = GEditor ? GEditor->GetEditorSubsystem<URuleRangerEditorSubsystem>() : nullptr;
-    return SubSystem ? SubSystem->IsMatchingRulePresent(
-               InAsset,
-               [this](URuleRangerRule* Rule, UObject* InObject) { return WillRuleRun(Rule, InObject); })
-                     : false;
-}
-
-EDataValidationResult URuleRangerEditorValidator::ValidateLoadedAsset_Implementation(UObject* InAsset,
-                                                                                     TArray<FText>& ValidationErrors)
+EDataValidationResult URuleRangerEditorValidator::ValidateLoadedAsset_Implementation(const FAssetData& InAssetData,
+                                                                                     UObject* InAsset,
+                                                                                     FDataValidationContext& Context)
 {
     if (!ActionContext)
     {
@@ -75,8 +56,8 @@ EDataValidationResult URuleRangerEditorValidator::ValidateLoadedAsset_Implementa
     const auto SubSystem = GEditor ? GEditor->GetEditorSubsystem<URuleRangerEditorSubsystem>() : nullptr;
     if (SubSystem)
     {
-        SubSystem->ProcessRule(InAsset, [this](URuleRangerRule* Rule, UObject* InObject) mutable {
-            return ProcessRule(Rule, InObject);
+        SubSystem->ProcessRule(InAsset, [this, &Context](URuleRangerRule* Rule, UObject* InObject) mutable {
+            return ProcessRule(Rule, InObject, Context);
         });
     }
     else
@@ -94,10 +75,10 @@ EDataValidationResult URuleRangerEditorValidator::ValidateLoadedAsset_Implementa
     return GetValidationResult();
 }
 
-bool URuleRangerEditorValidator::ProcessRule(URuleRangerRule* Rule, UObject* InObject)
+bool URuleRangerEditorValidator::ProcessRule(URuleRangerRule* Rule, UObject* InObject, FDataValidationContext& Context)
 {
     // ReSharper disable once CppTooWideScopeInitStatement
-    const bool bIsSave = EDataValidationUsecase::Save == DataValidationUsecase;
+    const bool bIsSave = EDataValidationUsecase::Save == Context.GetValidationUsecase();
     if ((!bIsSave && Rule->bApplyOnValidate) || (bIsSave && Rule->bApplyOnSave))
     {
         UE_LOG(RuleRanger,
@@ -136,8 +117,10 @@ bool URuleRangerEditorValidator::ProcessRule(URuleRangerRule* Rule, UObject* InO
 }
 
 // ReSharper disable once CppMemberFunctionMayBeStatic
-// ReSharper disable 2 CppParameterMayBeConstPtrOrRef
-bool URuleRangerEditorValidator::WillRuleRun(URuleRangerRule* Rule, UObject* InObject) const
+bool URuleRangerEditorValidator::WillRuleRunInDataValidationUsecase(
+    const URuleRangerRule* Rule,
+    const UObject* InObject,
+    const EDataValidationUsecase DataValidationUsecase) const
 {
     // ReSharper disable once CppTooWideScopeInitStatement
     const bool bIsSave = EDataValidationUsecase::Save == DataValidationUsecase;
@@ -165,4 +148,35 @@ bool URuleRangerEditorValidator::WillRuleRun(URuleRangerRule* Rule, UObject* InO
     {
         return false;
     }
+}
+
+bool URuleRangerEditorValidator::CanValidateAsset_Implementation(const FAssetData& InAssetData,
+                                                                 UObject* InAsset,
+                                                                 FDataValidationContext& InContext) const
+{
+    bool Result = false;
+    if (const auto SubSystem = GEditor ? GEditor->GetEditorSubsystem<URuleRangerEditorSubsystem>() : nullptr)
+    {
+        SubSystem->ProcessRule(InAsset, [this, &InContext, &Result](const URuleRangerRule* Rule, UObject* InObject) {
+            if (WillRuleRunInDataValidationUsecase(Rule, InObject, InContext.GetValidationUsecase())
+                && Rule->Match(ActionContext, InObject))
+            {
+                Result = true;
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        });
+    }
+    else
+    {
+        UE_LOG(RuleRanger,
+               Error,
+               TEXT("CanValidateAsset_Implementation(%s) unable to locate RuleRangerEditorSubsystem."),
+               *InAsset->GetName());
+    }
+
+    return Result;
 }

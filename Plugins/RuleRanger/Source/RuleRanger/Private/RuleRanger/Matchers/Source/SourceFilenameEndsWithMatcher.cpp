@@ -13,7 +13,9 @@
  */
 #include "SourceFilenameEndsWithMatcher.h"
 
-bool USourceFilenameEndsWithMatcher::Match(UObject* Object, const FString& SourcePath, bool bInCaseSensitive)
+bool USourceFilenameEndsWithMatcher::Match(UObject* Object,
+                                           const FString& SourcePath,
+                                           const bool bInCaseSensitive) const
 {
     const auto Filename = FPaths::GetBaseFilename(SourcePath);
     return Filename.EndsWith(Text, bInCaseSensitive ? ESearchCase::CaseSensitive : ESearchCase::IgnoreCase);

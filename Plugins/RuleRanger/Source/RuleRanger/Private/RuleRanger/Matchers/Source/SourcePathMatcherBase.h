@@ -34,5 +34,5 @@ protected:
     UPROPERTY(EditAnywhere)
     bool bCaseSensitive{ false };
 
-    virtual bool Match(UObject* Object, const FString& SourcePath, bool bInCaseSensitive);
+    virtual bool Match(UObject* Object, const FString& SourcePath, bool bInCaseSensitive) const;
 };
