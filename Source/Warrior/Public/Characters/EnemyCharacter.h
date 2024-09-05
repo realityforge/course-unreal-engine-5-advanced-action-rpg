@@ -14,8 +14,12 @@ class WARRIOR_API AEnemyCharacter : public AWarriorCharacterBase
 {
     GENERATED_BODY()
 
+#pragma region Properties
+
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Combat", meta = (AllowPrivateAccess = "true"))
     TObjectPtr<UEnemyCombatComponent> CombatComponent;
+
+#pragma endregion
 
 public:
     AEnemyCharacter();
