@@ -10,9 +10,9 @@ void UAeonEnemyAbilitySystemGrants::GiveToAbilitySystemComponent(UAeonAbilitySys
 
     for (int32 i = 0; i < StartUpAbilities.Num(); i++)
     {
-        if (const auto& Ability = StartUpAbilities[i])
+        if (const auto& AbilityClass = StartUpAbilities[i])
         {
-            FGameplayAbilitySpec AbilitySpec{ Ability, ApplyLevel };
+            FGameplayAbilitySpec AbilitySpec{ AbilityClass, ApplyLevel };
             AbilitySpec.SourceObject = InAbilitySystemComponent->GetAvatarActor();
 
             InAbilitySystemComponent->GiveAbility(AbilitySpec);
