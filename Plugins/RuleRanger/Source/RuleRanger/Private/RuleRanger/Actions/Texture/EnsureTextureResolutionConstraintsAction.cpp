@@ -125,7 +125,7 @@ void UEnsureTextureResolutionConstraintsAction::Apply_Implementation(URuleRanger
     {
         CheckPowerOfTwo(ActionContext, Texture);
     }
-    else
+    else if (ETextureResolutionConstraint::Auto != Constraint)
     {
         CheckDivisibleConstraint(ActionContext, Texture);
     }
