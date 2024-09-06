@@ -75,6 +75,6 @@ void UEnsureTextureGroupValidAction::Apply_Implementation(URuleRangerActionConte
     }
     else
     {
-        LogInfo(Texture, TEXT("Texture has a valid TextureGroup. No Aciton required."));
+        LogInfo(Texture, TEXT("Texture has a valid TextureGroup. No Action required."));
     }
 }

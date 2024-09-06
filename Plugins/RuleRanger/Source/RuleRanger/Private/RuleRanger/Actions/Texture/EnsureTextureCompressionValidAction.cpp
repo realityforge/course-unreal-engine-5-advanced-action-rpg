@@ -78,6 +78,6 @@ void UEnsureTextureCompressionValidAction::Apply_Implementation(URuleRangerActio
     }
     else
     {
-        LogInfo(Texture, TEXT("Texture has a valid Texture Compression Setting. No Aciton required."));
+        LogInfo(Texture, TEXT("Texture has a valid Texture Compression Setting. No Action required."));
     }
 }

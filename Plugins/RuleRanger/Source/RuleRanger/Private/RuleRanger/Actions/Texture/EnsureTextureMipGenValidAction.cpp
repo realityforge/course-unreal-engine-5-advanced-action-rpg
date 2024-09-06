@@ -77,6 +77,6 @@ void UEnsureTextureMipGenValidAction::Apply_Implementation(URuleRangerActionCont
     }
     else
     {
-        LogInfo(Texture, TEXT("Texture has a valid MipGen Setting. No Aciton required."));
+        LogInfo(Texture, TEXT("Texture has a valid MipGen Setting. No Action required."));
     }
 }

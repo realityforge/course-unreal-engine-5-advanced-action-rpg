@@ -59,7 +59,7 @@ void UEnsureTextureResolutionConstraintsAction::CheckPowerOfTwo(URuleRangerActio
     }
     else
     {
-        LogInfo(Texture, TEXT("Texture dimensions are a power of two. No Aciton required."));
+        LogInfo(Texture, TEXT("Texture dimensions are a power of two. No Action required."));
     }
 }
 
@@ -113,7 +113,7 @@ void UEnsureTextureResolutionConstraintsAction::CheckDivisibleConstraint(URuleRa
     else
     {
         LogInfo(Texture,
-                FString::Printf(TEXT(" Texture dimensions are divisible by %d. No Aciton required."), Divisor));
+                FString::Printf(TEXT(" Texture dimensions are divisible by %d. No Action required."), Divisor));
     }
 }
 

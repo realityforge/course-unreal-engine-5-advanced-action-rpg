@@ -49,6 +49,6 @@ void UEnsureNeverStreamValidAction::Apply_Implementation(URuleRangerActionContex
     }
     else
     {
-        LogInfo(Texture, TEXT("Texture has a valid NeverStream setting. No Aciton required."));
+        LogInfo(Texture, TEXT("Texture has a valid NeverStream setting. No Action required."));
     }
 }

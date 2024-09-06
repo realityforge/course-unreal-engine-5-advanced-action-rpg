@@ -48,6 +48,6 @@ void UEnsureSRGBValidAction::Apply_Implementation(URuleRangerActionContext* Acti
     }
     else
     {
-        LogInfo(Texture, TEXT("Texture has a valid sRGB. No Aciton required."));
+        LogInfo(Texture, TEXT("Texture has a valid sRGB. No Action required."));
     }
 }
