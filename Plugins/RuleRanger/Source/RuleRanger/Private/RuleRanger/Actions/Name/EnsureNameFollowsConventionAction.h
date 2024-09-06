@@ -67,10 +67,8 @@ class RULERANGER_API UEnsureNameFollowsConventionAction : public URuleRangerActi
     GENERATED_BODY()
 
     /** The array of tables that contains the object naming rules */
-    UPROPERTY(EditAnywhere,
-
-              meta = (RequiredAssetDataTags = "RowStructure=/Script/RuleRanger.NameConvention"))
-    TArray<UDataTable*> NameConventionsTables;
+    UPROPERTY(EditAnywhere, meta = (RequiredAssetDataTags = "RowStructure=/Script/RuleRanger.NameConvention"))
+    TArray<TObjectPtr<UDataTable>> NameConventionsTables;
 
     /** Should the action issue a message log when it attempts to process an object that has no naming convention? */
     UPROPERTY(EditAnywhere)
