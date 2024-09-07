@@ -18,6 +18,8 @@
 #include "EditorValidatorBase.h"
 #include "RuleRangerEditorValidator.generated.h"
 
+class URuleRangerRuleSet;
+class URuleRangerConfig;
 class URuleRangerActionContext;
 class URuleRangerRule;
 
@@ -45,12 +47,18 @@ private:
     /**
      * Function invoked when each rule is applied to an object.
      *
+     * @param Config The config that transitively contained the Rule.
+     * @param RuleSet The RuleSet that directly contained the Rule.
      * @param Rule The rule to apply.
      * @param InObject the object to apply rule to.
      * @param Context the validation context.
      * @return true to keep processing, false if no more rules should be applied to object.
      */
-    bool ProcessRule(URuleRangerRule* Rule, UObject* InObject, FDataValidationContext& Context);
+    bool ProcessRule(URuleRangerConfig* const Config,
+                     URuleRangerRuleSet* const RuleSet,
+                     URuleRangerRule* Rule,
+                     UObject* InObject,
+                     FDataValidationContext& Context);
 
     bool WillRuleRunInDataValidationUsecase(const URuleRangerRule* Rule,
                                             const UObject* InObject,
