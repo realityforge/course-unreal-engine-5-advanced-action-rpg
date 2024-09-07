@@ -2,7 +2,6 @@
 
 Shorthand notes of where to go next with this experiment:
 
-* Enhance UEnsureTextureFollowsConventionAction so that the adding of variant based on the file extension is included in action.
 * Add optional check to UEnsureTextureFollowsConventionAction that errors if no variant applicable. (a.k.a. RRR_Texture_AlertOnMissingVariant)
 * Update NameConventions action to also grab data from context
 * Add concept of ExclusionSet that is a set of Rules and RuleSets that can be excluded? So we can have a common exclude for all ThirdParty stuff across projects?

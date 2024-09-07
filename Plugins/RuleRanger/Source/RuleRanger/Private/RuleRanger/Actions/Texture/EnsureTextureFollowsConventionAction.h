@@ -62,6 +62,9 @@ class RULERANGER_API UEnsureTextureFollowsConventionAction final : public UTextu
     /** Method to build cache if necessary. */
     void RebuildConventionsCacheIfNecessary();
 
+    /** Method to build ConfigConventionsTables. */
+    void RebuildConfigConventionsTables(const URuleRangerActionContext* ActionContext);
+
     /**
      * Method to check that the texture has resolution that is power of two.
      *
@@ -80,26 +83,28 @@ class RULERANGER_API UEnsureTextureFollowsConventionAction final : public UTextu
     void CheckDivisibleConstraint(URuleRangerActionContext* ActionContext,
                                   const ETextureResolutionConstraint Constraint,
                                   const UTexture2D* Texture) const;
+    void PerformSetVariantMetaDataCheck(URuleRangerActionContext* ActionContext,
+                                        UTexture2D* Texture,
+                                        const FName& ConventionKey) const;
+    void PerformNameSuffixCheck(URuleRangerActionContext* ActionContext,
+                                UTexture2D* Texture,
+                                const FRuleRangerTextureConvention* Convention);
     void PerformTextureResolutionConstraintCheck(URuleRangerActionContext* ActionContext,
-                                                 const FRuleRangerTextureConvention* Convention,
-                                                 const UTexture2D* Texture) const;
+                                                 const UTexture2D* Texture,
+                                                 const FRuleRangerTextureConvention* Convention) const;
     void PerformTextureGroupCheck(URuleRangerActionContext* ActionContext,
-                                  const UObject* Object,
-                                  FRuleRangerTextureConvention* Convention,
-                                  UTexture2D* Texture) const;
+                                  UTexture2D* Texture,
+                                  FRuleRangerTextureConvention* Convention) const;
     void PerformColorSpaceCheck(URuleRangerActionContext* ActionContext,
-                                const UObject* Object,
-                                const FRuleRangerTextureConvention* Convention,
-                                UTexture2D* Texture) const;
+                                UTexture2D* Texture,
+                                const FRuleRangerTextureConvention* Convention) const;
     void PerformMipGenSettingsCheck(URuleRangerActionContext* ActionContext,
-                                    const UObject* Object,
-                                    const FRuleRangerTextureConvention* Convention,
-                                    UTexture2D* Texture) const;
+                                    UTexture2D* Texture,
+                                    const FRuleRangerTextureConvention* Convention) const;
     void PerformTextureCompressionCheck(URuleRangerActionContext* ActionContext,
-                                        const UObject* Object,
-                                        FRuleRangerTextureConvention* Convention,
-                                        UTexture2D* Texture) const;
-    void RebuildConfigConventionsTables(const URuleRangerActionContext* ActionContext);
+                                        UTexture2D* Texture,
+                                        FRuleRangerTextureConvention* Convention) const;
+    FName FindVariantBySuffix(const UTexture2D* Texture);
 
 public:
     virtual void Apply_Implementation(URuleRangerActionContext* ActionContext, UObject* Object) override;

@@ -13,8 +13,11 @@
  */
 
 #include "EnsureTextureFollowsConventionAction.h"
+#include "RuleRanger/RuleRangerUtilities.h"
 #include "RuleRangerConfig.h"
 #include "Subsystems/EditorAssetSubsystem.h"
+
+static FName NAME_RuleRanger_Variant("RuleRanger.Variant");
 
 void UEnsureTextureFollowsConventionAction::PostEditChangeProperty(FPropertyChangedEvent& PropertyChangedEvent)
 {
@@ -212,8 +215,8 @@ void UEnsureTextureFollowsConventionAction::CheckDivisibleConstraint(URuleRanger
 
 void UEnsureTextureFollowsConventionAction::PerformTextureResolutionConstraintCheck(
     URuleRangerActionContext* ActionContext,
-    const FRuleRangerTextureConvention* const Convention,
-    const UTexture2D* const Texture) const
+    const UTexture2D* const Texture,
+    const FRuleRangerTextureConvention* const Convention) const
 {
     if (ETextureResolutionConstraint::PowerOfTwo == Convention->TextureResolutionConstraint)
     {
@@ -225,10 +228,10 @@ void UEnsureTextureFollowsConventionAction::PerformTextureResolutionConstraintCh
     }
 }
 
-void UEnsureTextureFollowsConventionAction::PerformTextureGroupCheck(URuleRangerActionContext* ActionContext,
-                                                                     const UObject* Object,
-                                                                     FRuleRangerTextureConvention* const Convention,
-                                                                     UTexture2D* const Texture) const
+void UEnsureTextureFollowsConventionAction::PerformTextureGroupCheck(
+    URuleRangerActionContext* ActionContext,
+    UTexture2D* const Texture,
+    FRuleRangerTextureConvention* const Convention) const
 {
     if (!Convention->TextureGroups.IsEmpty() && !Convention->TextureGroups.Contains(Texture->LODGroup))
     {
@@ -259,8 +262,8 @@ void UEnsureTextureFollowsConventionAction::PerformTextureGroupCheck(URuleRanger
 
                 Texture->LODGroup = Convention->TextureGroups[0];
 
-                ensure(Object->MarkPackageDirty());
-                ensure(Object->GetOuter()->MarkPackageDirty());
+                ensure(Texture->MarkPackageDirty());
+                ensure(Texture->GetOuter()->MarkPackageDirty());
             }
         }
         else
@@ -291,10 +294,10 @@ void UEnsureTextureFollowsConventionAction::PerformTextureGroupCheck(URuleRanger
     }
 }
 
-void UEnsureTextureFollowsConventionAction::PerformColorSpaceCheck(URuleRangerActionContext* ActionContext,
-                                                                   const UObject* Object,
-                                                                   const FRuleRangerTextureConvention* const Convention,
-                                                                   UTexture2D* const Texture) const
+void UEnsureTextureFollowsConventionAction::PerformColorSpaceCheck(
+    URuleRangerActionContext* ActionContext,
+    UTexture2D* const Texture,
+    const FRuleRangerTextureConvention* const Convention) const
 {
     if (ERuleRangerTextureColorSpace::Auto != Convention->ColorSpace)
     {
@@ -324,8 +327,8 @@ void UEnsureTextureFollowsConventionAction::PerformColorSpaceCheck(URuleRangerAc
 
                 Texture->SRGB = bSRGB;
 
-                ensure(Object->MarkPackageDirty());
-                ensure(Object->GetOuter()->MarkPackageDirty());
+                ensure(Texture->MarkPackageDirty());
+                ensure(Texture->GetOuter()->MarkPackageDirty());
             }
         }
         else
@@ -337,9 +340,8 @@ void UEnsureTextureFollowsConventionAction::PerformColorSpaceCheck(URuleRangerAc
 
 void UEnsureTextureFollowsConventionAction::PerformMipGenSettingsCheck(
     URuleRangerActionContext* ActionContext,
-    const UObject* Object,
-    const FRuleRangerTextureConvention* const Convention,
-    UTexture2D* const Texture) const
+    UTexture2D* const Texture,
+    const FRuleRangerTextureConvention* const Convention) const
 {
     if (!Convention->TextureMipGenSettings.IsEmpty()
         && !Convention->TextureMipGenSettings.Contains(Texture->MipGenSettings))
@@ -371,8 +373,8 @@ void UEnsureTextureFollowsConventionAction::PerformMipGenSettingsCheck(
 
                 Texture->MipGenSettings = Convention->TextureMipGenSettings[0];
 
-                ensure(Object->MarkPackageDirty());
-                ensure(Object->GetOuter()->MarkPackageDirty());
+                ensure(Texture->MarkPackageDirty());
+                ensure(Texture->GetOuter()->MarkPackageDirty());
             }
         }
         else
@@ -407,9 +409,8 @@ void UEnsureTextureFollowsConventionAction::PerformMipGenSettingsCheck(
 
 void UEnsureTextureFollowsConventionAction::PerformTextureCompressionCheck(
     URuleRangerActionContext* ActionContext,
-    const UObject* Object,
-    FRuleRangerTextureConvention* const Convention,
-    UTexture2D* const Texture) const
+    UTexture2D* const Texture,
+    FRuleRangerTextureConvention* const Convention) const
 {
     if (!Convention->TextureCompressionSettings.IsEmpty()
         && !Convention->TextureCompressionSettings.Contains(Texture->CompressionSettings))
@@ -443,8 +444,8 @@ void UEnsureTextureFollowsConventionAction::PerformTextureCompressionCheck(
 
                 Texture->CompressionSettings = Convention->TextureCompressionSettings[0];
 
-                ensure(Object->MarkPackageDirty());
-                ensure(Object->GetOuter()->MarkPackageDirty());
+                ensure(Texture->MarkPackageDirty());
+                ensure(Texture->GetOuter()->MarkPackageDirty());
             }
         }
         else
@@ -476,6 +477,25 @@ void UEnsureTextureFollowsConventionAction::PerformTextureCompressionCheck(
     }
 }
 
+FName UEnsureTextureFollowsConventionAction::FindVariantBySuffix(const UTexture2D* Texture)
+{
+    const FString OriginalName{ Texture->GetName() };
+
+    TArray<FName> Keys;
+    ConventionsCache.GetKeys(Keys);
+    for (const auto Key : Keys)
+    {
+        // ReSharper disable once CppTooWideScopeInitStatement
+        const auto& TextureConvention = ConventionsCache.FindChecked(Key);
+        if (!TextureConvention.Suffix.IsEmpty()
+            && OriginalName.EndsWith(TextureConvention.Suffix, ESearchCase::CaseSensitive))
+        {
+            return Key;
+        }
+    }
+    return NAME_None;
+}
+
 void UEnsureTextureFollowsConventionAction::RebuildConfigConventionsTables(
     const URuleRangerActionContext* ActionContext)
 {
@@ -497,6 +517,102 @@ void UEnsureTextureFollowsConventionAction::RebuildConfigConventionsTables(
     }
 }
 
+void UEnsureTextureFollowsConventionAction::PerformSetVariantMetaDataCheck(URuleRangerActionContext* ActionContext,
+                                                                           UTexture2D* Texture,
+                                                                           const FName& ConventionKey) const
+{
+    const auto Subsystem = GEditor->GetEditorSubsystem<UEditorAssetSubsystem>();
+    // ReSharper disable once CppTooWideScopeInitStatement
+    const FString ExistingValue = Subsystem->GetMetadataTag(Texture, NAME_RuleRanger_Variant);
+    if (ExistingValue.Equals(ConventionKey.ToString()))
+    {
+        LogInfo(Texture,
+                FString::Printf(TEXT("MetaDataTag %s=%s already exists on Object. No action required"),
+                                *NAME_RuleRanger_Variant.ToString(),
+                                *ConventionKey.ToString()));
+    }
+    else
+    {
+        if (ActionContext->IsDryRun())
+        {
+            FFormatNamedArguments Arguments;
+            Arguments.Add(TEXT("Key"), FText::FromString(NAME_RuleRanger_Variant.ToString()));
+            Arguments.Add(TEXT("Value"), FText::FromString(ConventionKey.ToString()));
+            const FText Message = FText::Format(NSLOCTEXT("RuleRanger",
+                                                          "MetaDataTagAddOmitted",
+                                                          "MetaData tag {Key}={Value} is not present. This tag would "
+                                                          "be added if RuleRanger was not in DryRun mode"),
+                                                Arguments);
+
+            ActionContext->Error(Message);
+        }
+        else
+        {
+            FFormatNamedArguments Arguments;
+            Arguments.Add(TEXT("Key"), FText::FromString(NAME_RuleRanger_Variant.ToString()));
+            Arguments.Add(TEXT("Value"), FText::FromString(ConventionKey.ToString()));
+            const FText Message = FText::Format(
+                NSLOCTEXT("RuleRanger", "SetMetaDataTag", "MetaData tag {Key}={Value} is not present. Adding tag."),
+                Arguments);
+
+            ActionContext->Info(Message);
+            Subsystem->SetMetadataTag(Texture, NAME_RuleRanger_Variant, ConventionKey.ToString());
+            // This should not be called during loads of the object, so neither of these functions should
+            // return false
+            ensure(Texture->MarkPackageDirty());
+            ensure(Texture->GetOuter()->MarkPackageDirty());
+        }
+    }
+}
+
+// ReSharper disable once CppMemberFunctionMayBeStatic
+void UEnsureTextureFollowsConventionAction::PerformNameSuffixCheck(URuleRangerActionContext* ActionContext,
+                                                                   UTexture2D* const Texture,
+                                                                   const FRuleRangerTextureConvention* const Convention)
+{
+    // ReSharper disable once CppTooWideScopeInitStatement
+    const FString OriginalName{ Texture->GetName() };
+    if (!Convention->Suffix.IsEmpty() && !OriginalName.EndsWith(Convention->Suffix, ESearchCase::CaseSensitive))
+    {
+        const FString NewName{ FString::Printf(TEXT("%s%s"), *OriginalName, *Convention->Suffix) };
+        if (ActionContext->IsDryRun())
+        {
+            FFormatNamedArguments Arguments;
+            Arguments.Add(TEXT("OriginalName"), FText::FromString(OriginalName));
+            Arguments.Add(TEXT("NewName"), FText::FromString(NewName));
+            const FText Message = FText::Format(NSLOCTEXT("RuleRanger",
+                                                          "ObjectRenameOmitted",
+                                                          "Object needs to be renamed from '{OriginalName}' "
+                                                          "to '{NewName}'. Action skipped in DryRun mode"),
+                                                Arguments);
+
+            ActionContext->Warning(Message);
+        }
+        else
+        {
+            FFormatNamedArguments Arguments;
+            Arguments.Add(TEXT("OriginalName"), FText::FromString(OriginalName));
+            Arguments.Add(TEXT("NewName"), FText::FromString(NewName));
+            const auto Message = FText::Format(NSLOCTEXT("RuleRanger",
+                                                         "ObjectRenamed",
+                                                         "Object named {OriginalName} has been renamed "
+                                                         "to {NewName} to match convention."),
+                                               Arguments);
+
+            ActionContext->Info(Message);
+
+            if (!FRuleRangerUtilities::RenameAsset(Texture, NewName))
+            {
+                const auto InMessage = FText::Format(
+                    NSLOCTEXT("RuleRanger", "ObjectRenameFailed", "Attempt to rename object '{0}' to '{1}' failed."),
+                    FText::FromString(OriginalName),
+                    FText::FromString(NewName));
+                ActionContext->Error(InMessage);
+            }
+        }
+    }
+}
+
 void UEnsureTextureFollowsConventionAction::Apply_Implementation(URuleRangerActionContext* ActionContext,
                                                                  UObject* Object)
 {
@@ -508,19 +624,25 @@ void UEnsureTextureFollowsConventionAction::Apply_Implementation(URuleRangerActi
 
         const auto Texture = CastChecked<UTexture2D>(Object);
         const auto Subsystem = GEditor->GetEditorSubsystem<UEditorAssetSubsystem>();
-        const auto Variant = Subsystem ? Subsystem->GetMetadataTag(Object, FName("RuleRanger.Variant")) : TEXT("");
+        const auto DeclaredVariant =
+            Subsystem ? FName(Subsystem->GetMetadataTag(Object, NAME_RuleRanger_Variant)) : NAME_None;
+        const auto Variant = NAME_None == DeclaredVariant ? FindVariantBySuffix(Texture) : DeclaredVariant;
 
-        if (const auto Convention = ConventionsCache.Find(FName(Variant)))
+        if (const auto Convention = ConventionsCache.Find(Variant))
         {
-            PerformTextureCompressionCheck(ActionContext, Object, Convention, Texture);
-            PerformColorSpaceCheck(ActionContext, Object, Convention, Texture);
-            PerformTextureGroupCheck(ActionContext, Object, Convention, Texture);
-            PerformTextureResolutionConstraintCheck(ActionContext, Convention, Texture);
-            PerformMipGenSettingsCheck(ActionContext, Object, Convention, Texture);
+            PerformSetVariantMetaDataCheck(ActionContext, Texture, Variant);
+            PerformNameSuffixCheck(ActionContext, Texture, Convention);
+            PerformTextureCompressionCheck(ActionContext, Texture, Convention);
+            PerformColorSpaceCheck(ActionContext, Texture, Convention);
+            PerformTextureGroupCheck(ActionContext, Texture, Convention);
+            PerformTextureResolutionConstraintCheck(ActionContext, Texture, Convention);
+            PerformMipGenSettingsCheck(ActionContext, Texture, Convention);
         }
         else
         {
-            LogInfo(Object, FString::Printf(TEXT("Object with variant '%s' has no associated conventions"), *Variant));
+            LogInfo(
+                Object,
+                FString::Printf(TEXT("Object with variant '%s' has no associated conventions"), *Variant.ToString()));
         }
     }
 }

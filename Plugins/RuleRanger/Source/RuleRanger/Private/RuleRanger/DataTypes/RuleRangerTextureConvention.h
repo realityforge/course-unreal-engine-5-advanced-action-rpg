@@ -37,6 +37,10 @@ struct FRuleRangerTextureConvention final : public FTableRowBase
     UPROPERTY(EditAnywhere)
     FString Description;
 
+    /** The Suffix associated with this texture type. */
+    UPROPERTY(EditAnywhere)
+    FString Suffix{ TEXT("") };
+
     /** The colorspace to apply (if any). */
     UPROPERTY(EditAnywhere)
     ERuleRangerTextureColorSpace ColorSpace{ ERuleRangerTextureColorSpace::Auto };
