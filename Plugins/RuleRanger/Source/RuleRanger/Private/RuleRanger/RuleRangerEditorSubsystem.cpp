@@ -255,10 +255,9 @@ void URuleRangerEditorSubsystem::ProcessRule(UObject* Object, const FRuleRangerR
         }
     }
 
-    // We need to check the context as there are cases when Object is not valid
-    // on the first call through (i.e. another subsystem has already renamed/modified object or
-    // it is a fbx with no animation or mesh data etc) and
-    // thus ActionContext is not yet initialized
+    // We need to check that the ActionContext is valid as it may not have been initialized.
+    // This happens when Object is not valid, gets renamed or removed by an action or we are importing
+    // from an FBX that has no animation or mesh data.
     if (IsValid(ActionContext))
     {
         ActionContext->ClearContext();
