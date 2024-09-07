@@ -67,7 +67,7 @@ void URuleRangerEditorSubsystem::OnAssetPostImport([[maybe_unused]] UFactory* Fa
     const auto Subsystem = GEditor->GetEditorSubsystem<UEditorAssetSubsystem>();
 
     const static FName NAME_ImportMarkerKey = FName(TEXT("RuleRanger.ImportProcessed"));
-    // Use a metadata tag when we have imported an asset so that when we try to reimport asset we can
+    // Use a metadata tag when we have imported an asset so that when we try to reimport asset, we can
     // identify this through the presence of tag.
     const bool bIsReimport = Subsystem && Subsystem->GetMetadataTag(Object, NAME_ImportMarkerKey) == ImportMarkerValue;
 
