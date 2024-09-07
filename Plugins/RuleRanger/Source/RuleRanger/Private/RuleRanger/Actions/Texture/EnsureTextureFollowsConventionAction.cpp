@@ -499,16 +499,15 @@ void UEnsureTextureFollowsConventionAction::RebuildConfigConventionsTables(URule
 void UEnsureTextureFollowsConventionAction::Apply_Implementation(URuleRangerActionContext* ActionContext,
                                                                  UObject* Object)
 {
-    const auto Texture = CastChecked<UTexture2D>(Object);
-
-    const auto Subsystem = GEditor->GetEditorSubsystem<UEditorAssetSubsystem>();
-    const auto Variant = Subsystem ? Subsystem->GetMetadataTag(Object, FName("RuleRanger.Variant")) : TEXT("");
-
     RebuildConfigConventionsTables(ActionContext);
 
     if (!ConventionsTables.IsEmpty() || !ConfigConventionsTables.IsEmpty())
     {
         RebuildConventionsCacheIfNecessary();
+
+        const auto Texture = CastChecked<UTexture2D>(Object);
+        const auto Subsystem = GEditor->GetEditorSubsystem<UEditorAssetSubsystem>();
+        const auto Variant = Subsystem ? Subsystem->GetMetadataTag(Object, FName("RuleRanger.Variant")) : TEXT("");
 
         if (const auto Convention = ConventionsCache.Find(FName(Variant)))
         {
