@@ -55,5 +55,5 @@ struct FRuleRangerTextureConvention final : public FTableRowBase
 
     /** The constraint to check. */
     UPROPERTY(EditAnywhere)
-    ETextureResolutionConstraint TextureResolutionConstraint{ ETextureResolutionConstraint::Auto };
+    ETextureResolutionConstraint TextureResolutionConstraint{ ETextureResolutionConstraint::PowerOfTwo };
 };
