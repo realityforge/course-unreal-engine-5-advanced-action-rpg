@@ -24,6 +24,7 @@ void URemoveNameSuffixAction::Apply_Implementation(URuleRangerActionContext* Act
     }
     else
     {
+        // ReSharper disable once CppTooWideScopeInitStatement
         const FString OriginalName{ Object->GetName() };
         if (OriginalName.EndsWith(Suffix, bCaseSensitive ? ESearchCase::CaseSensitive : ESearchCase::IgnoreCase))
         {
