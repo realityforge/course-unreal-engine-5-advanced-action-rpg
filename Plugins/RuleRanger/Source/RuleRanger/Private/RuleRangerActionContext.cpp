@@ -39,7 +39,12 @@ void URuleRangerActionContext::ResetContext(URuleRangerConfig* const InConfig,
                                             UObject* const InObject,
                                             const ERuleRangerActionTrigger InActionTrigger)
 {
-    check(nullptr != InObject);
+    check(InConfig);
+    check(InRuleSet);
+    check(InRule);
+    check(InObject);
+    Config = InConfig;
+    RuleSet = InRuleSet;
     Rule = InRule;
     Object = InObject;
     ActionTrigger = InActionTrigger;
