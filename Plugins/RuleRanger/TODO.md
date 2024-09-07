@@ -2,11 +2,15 @@
 
 Shorthand notes of where to go next with this experiment:
 
+* Add an abstraction for logging like used in Aeon
+* Enhance UEnsureTextureFollowsConventionAction so that the adding of variant based on the file extension is included in action.
+* Add optional check to UEnsureTextureFollowsConventionAction that errors if no variant applicable.
+
 * Consider using a separate Plugin+module for Niagara checks so we can have a clean dependency tree.
 * Add rules so that we can enforce constraints about asset referencing.
   * Rules stored in DataTable.
-  * What color should the folder appear in Content Browser!
-  * Rules can apply to a folder or all sub-folders.
+  * What color should the folder appear in the Content Browser?
+  * Rules can apply to a folder or all subfolders.
   * Folders may be explicitly named or declared as named patterns (i.e. `MyGame/Characters/*/Animations`)
   * Rules about max number of elements in directory
   * Rules indicate which folders you are allowed to reference
@@ -14,7 +18,7 @@ Shorthand notes of where to go next with this experiment:
 * Experiment rolling back treating rules/matchers/actions as assets and instead allow them as Blueprint classes
 * Support writing rules as blueprints and thus inlining matcher/action functionality into a single call?
 * Retargeters should be named as RTG_\[Source\]_To_\[Target\]
-* Add ability to add other validators that are invoked on Scan (i.e. no directories without assets)
+* Add the ability to add other validators that are invoked on Scan (i.e. no directories without assets)
 * Add tool to record licenses for assets in MetaData
     * A DataTable that indicates the source (Marketplace project name? Some other project tag), description and license
     * Add metadata to assets to link to this table
@@ -50,12 +54,12 @@ Shorthand notes of where to go next with this experiment:
     but changed at shipping time. For example, Brightness controls set during development phase should be changed to adjusting brightness
     on Texture import when you ship.
 * Material checks:
-  * Ensure that parameters of specific name/type exist on a material ... or a material property? (Useful when using to create dynamic material instance and use strings to match parameters)
-  * Ensure that materials associated with Skeletons that have Material type animation curves, have materials with parameters that match.
+  * Ensure that parameters of a specific name/type exist on a material ... or a material property? (Useful when using to create dynamic material instance and use strings to match parameters)
+  * Ensure that materials associated with specific Skeletons that have Material type animation curves, have materials with parameters that match.
   * Ensure that there are no dangling nodes in material
   * If the material does not specify roughness value/texture then suggest enabling fully rough (as long as metadata "DefaultRoughnessAllowed" metadata key set)
   * If the material does not specify normal map then disable "Tangent Space Normals"
-  * Add rules to check which materials usages are set
+  * Add rules to check which material usages are set
   * Ensure that all Texture Sampler nodes have set the setting "Sampler Source" to "Shared: Wrap" or "Shared: Clamp" if
     the associated Texture has the same sampler settings as the world. Use `FGLTFTextureUtilities::GetDefaultFilter(LODGroup)`
     to derive textures effective filter setting. Or just copy the code:
@@ -97,12 +101,12 @@ TextureFilter FGLTFTextureUtilities::GetDefaultFilter(TextureGroup LODGroup)
   * Ensure animation sequence has a certain FPS
   * Ensure animation sequence contains curve data for specific curves
 * Skeletal Mesh:
-  * Ensure that a AnimationSlot Group and/or name exists
+  * Ensure that an AnimationSlot Group and/or name exists
   * Ensure that a Curve with name/type exists
   * Ensure that a Curve is attached/not attached to particular bones
   * Ensure naming conventions for AnimationSlot Group/Name
 * Skeleton:
-  * Ensure that a AnimationSlot Group and/or name exists
+  * Ensure that an AnimationSlot Group and/or name exists
   * Ensure that a Curve with name/type exists
   * Ensure that a Curve is attached/not attached to particular bones
   * Ensure naming conventions for AnimationSlot Group/Name
