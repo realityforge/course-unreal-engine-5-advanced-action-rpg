@@ -199,8 +199,6 @@ void URuleRangerEditorSubsystem::ProcessRule(UObject* Object, const FRuleRangerR
         {
             UE_LOG(RuleRanger, VeryVerbose, TEXT("RuleRangerEditorSubsystem: Creating the initial ActionContext"));
             ActionContext = NewObject<URuleRangerActionContext>(this, URuleRangerActionContext::StaticClass());
-
-            // TODO: This will not have correct type when first created
         }
 
         auto Configs = GetCurrentRuleSetConfigs();
