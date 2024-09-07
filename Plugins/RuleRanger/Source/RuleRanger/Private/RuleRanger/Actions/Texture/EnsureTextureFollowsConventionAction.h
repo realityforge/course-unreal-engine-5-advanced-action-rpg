@@ -36,6 +36,10 @@ class RULERANGER_API UEnsureTextureFollowsConventionAction final : public UTextu
               meta = (RequiredAssetDataTags = "RowStructure=/Script/RuleRanger.RuleRangerTextureConvention"))
     TArray<TObjectPtr<UDataTable>> ConventionsTables;
 
+    /** Cache of DataTables from Config. */
+    UPROPERTY(Transient)
+    TArray<TObjectPtr<UDataTable>> ConfigConventionsTables;
+
     /** Cache for looking up rules. */
     TMap<FName, FRuleRangerTextureConvention> ConventionsCache;
 

@@ -13,14 +13,18 @@
  */
 
 #include "EnsureTextureFollowsConventionAction.h"
+#include "RuleRangerConfig.h"
 #include "Subsystems/EditorAssetSubsystem.h"
 
 void UEnsureTextureFollowsConventionAction::PostEditChangeProperty(FPropertyChangedEvent& PropertyChangedEvent)
 {
-    const FName PropertyName = PropertyChangedEvent.Property ? PropertyChangedEvent.Property->GetFName() : NAME_None;
     // ReSharper disable once CppTooWideScopeInitStatement
-    const FName TableName = GET_MEMBER_NAME_CHECKED(UEnsureTextureFollowsConventionAction, ConventionsTables);
-    if (TableName == PropertyName)
+    const FName PropertyName = PropertyChangedEvent.Property ? PropertyChangedEvent.Property->GetFName() : NAME_None;
+    if ((GET_MEMBER_NAME_CHECKED(UEnsureTextureFollowsConventionAction, ConventionsTables)) == PropertyName)
+    {
+        ResetConventionsCache();
+    }
+    else if ((GET_MEMBER_NAME_CHECKED(URuleRangerConfig, DataTables)) == PropertyName)
     {
         ResetConventionsCache();
     }
@@ -30,10 +34,22 @@ void UEnsureTextureFollowsConventionAction::PostEditChangeProperty(FPropertyChan
 // ReSharper disable once CppParameterMayBeConstPtrOrRef
 void UEnsureTextureFollowsConventionAction::ResetCacheIfTableModified(UObject* Object)
 {
-    // This is called on any object edit in editor so match against conventions tables and bust cache as appropriate;
-    if (Object && ConventionsTables.Contains(Object))
+    if (Object)
     {
-        ResetConventionsCache();
+        // This is called on any object edited in the editor so cache and bust cache as appropriate;
+        if (ConventionsTables.Contains(Object) || ConfigConventionsTables.Contains(Object))
+        {
+            LogInfo(nullptr,
+                    FString::Printf(TEXT("ResetCacheIfTableModified invoked for %s and caused a reset"),
+                                    *Object->GetName()));
+            ResetConventionsCache();
+        }
+        else
+        {
+            LogInfo(nullptr,
+                    FString::Printf(TEXT("ResetCacheIfTableModified invoked for %s and did not cause a reset"),
+                                    *Object->GetName()));
+        }
     }
 }
 
@@ -48,34 +64,46 @@ void UEnsureTextureFollowsConventionAction::ResetConventionsCache()
 
 void UEnsureTextureFollowsConventionAction::RebuildConventionsCacheIfNecessary()
 {
-    check(!ConventionsTables.IsEmpty());
+    check(!ConventionsTables.IsEmpty() || !ConfigConventionsTables.IsEmpty());
+
+    TArray<UDataTable*> Tables;
+    Tables.Append(ConventionsTables);
+    Tables.Append(ConfigConventionsTables);
 
     bool bTableDataPresent = false;
-    for (const auto& ConventionsTable : ConventionsTables)
+    for (const auto& ConventionsTable : Tables)
     {
-        if (0 != ConventionsTable->GetTableData().Num())
+        if (IsValid(ConventionsTable) && 0 != ConventionsTable->GetTableData().Num())
         {
             bTableDataPresent = true;
             break;
         }
     }
-    if (bTableDataPresent)
+
+    if (ConventionsCache.IsEmpty() && bTableDataPresent)
     {
         ResetConventionsCache();
         // Add a callback for when ANY object is modified in the editor so that we can bust the cache
         OnObjectModifiedDelegateHandle = FCoreUObjectDelegates::OnObjectModified.AddUObject(
             this,
             &UEnsureTextureFollowsConventionAction::ResetCacheIfTableModified);
-        for (const auto& ConventionsTable : ConventionsTables)
+        for (const auto& ConventionsTable : Tables)
         {
-            for (const auto& RowName : ConventionsTable->GetRowNames())
+            if (IsValid(ConventionsTable))
             {
-                if (const auto& Convention = ConventionsTable->FindRow<FRuleRangerTextureConvention>(RowName, TEXT("")))
+                for (const auto& RowName : ConventionsTable->GetRowNames())
                 {
-                    ConventionsCache.Emplace(RowName, *Convention);
+                    if (const auto& Convention =
+                            ConventionsTable->FindRow<FRuleRangerTextureConvention>(RowName, TEXT("")))
+                    {
+                        ConventionsCache.Emplace(RowName, *Convention);
+                    }
                 }
             }
         }
+        LogInfo(nullptr,
+                FString::Printf(TEXT("RebuildConventionsCacheIfNecessary rebuilt cache and added %d conventions"),
+                                ConventionsCache.Num()));
     }
 }
 
@@ -456,7 +484,24 @@ void UEnsureTextureFollowsConventionAction::Apply_Implementation(URuleRangerActi
     const auto Subsystem = GEditor->GetEditorSubsystem<UEditorAssetSubsystem>();
     const auto Variant = Subsystem ? Subsystem->GetMetadataTag(Object, FName("RuleRanger.Variant")) : TEXT("");
 
-    if (!ConventionsTables.IsEmpty())
+    ConfigConventionsTables.Reset();
+    for (const auto DataTable : ActionContext->GetOwnerConfig()->DataTables)
+    {
+        if (IsValid(DataTable))
+        {
+            if (FRuleRangerTextureConvention::StaticStruct() == DataTable->RowStruct)
+            {
+                LogInfo(
+                    nullptr,
+                    FString::Printf(TEXT("Adding DataTable '%s' registered in Config %s to set of conventions applied"),
+                                    *DataTable.GetName(),
+                                    *ActionContext->GetOwnerConfig()->GetName()));
+                ConfigConventionsTables.Add(DataTable);
+            }
+        }
+    }
+
+    if (!ConventionsTables.IsEmpty() || !ConfigConventionsTables.IsEmpty())
     {
         RebuildConventionsCacheIfNecessary();
 
@@ -467,6 +512,10 @@ void UEnsureTextureFollowsConventionAction::Apply_Implementation(URuleRangerActi
             PerformTextureGroupCheck(ActionContext, Object, Convention, Texture);
             PerformTextureResolutionConstraintCheck(ActionContext, Convention, Texture);
             PerformMipGenSettingsCheck(ActionContext, Object, Convention, Texture);
+        }
+        else
+        {
+            LogInfo(Object, FString::Printf(TEXT("Object with variant '%s' has no associated conventions"), *Variant));
         }
     }
 }
