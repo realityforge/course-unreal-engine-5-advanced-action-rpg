@@ -476,14 +476,8 @@ void UEnsureTextureFollowsConventionAction::PerformTextureCompressionCheck(
     }
 }
 
-void UEnsureTextureFollowsConventionAction::Apply_Implementation(URuleRangerActionContext* ActionContext,
-                                                                 UObject* Object)
+void UEnsureTextureFollowsConventionAction::RebuildConfigConventionsTables(URuleRangerActionContext* ActionContext)
 {
-    const auto Texture = CastChecked<UTexture2D>(Object);
-
-    const auto Subsystem = GEditor->GetEditorSubsystem<UEditorAssetSubsystem>();
-    const auto Variant = Subsystem ? Subsystem->GetMetadataTag(Object, FName("RuleRanger.Variant")) : TEXT("");
-
     ConfigConventionsTables.Reset();
     for (const auto DataTable : ActionContext->GetOwnerConfig()->DataTables)
     {
@@ -500,6 +494,17 @@ void UEnsureTextureFollowsConventionAction::Apply_Implementation(URuleRangerActi
             }
         }
     }
+}
+
+void UEnsureTextureFollowsConventionAction::Apply_Implementation(URuleRangerActionContext* ActionContext,
+                                                                 UObject* Object)
+{
+    const auto Texture = CastChecked<UTexture2D>(Object);
+
+    const auto Subsystem = GEditor->GetEditorSubsystem<UEditorAssetSubsystem>();
+    const auto Variant = Subsystem ? Subsystem->GetMetadataTag(Object, FName("RuleRanger.Variant")) : TEXT("");
+
+    RebuildConfigConventionsTables(ActionContext);
 
     if (!ConventionsTables.IsEmpty() || !ConfigConventionsTables.IsEmpty())
     {
