@@ -476,7 +476,8 @@ void UEnsureTextureFollowsConventionAction::PerformTextureCompressionCheck(
     }
 }
 
-void UEnsureTextureFollowsConventionAction::RebuildConfigConventionsTables(URuleRangerActionContext* ActionContext)
+void UEnsureTextureFollowsConventionAction::RebuildConfigConventionsTables(
+    const URuleRangerActionContext* ActionContext)
 {
     ConfigConventionsTables.Reset();
     for (const auto DataTable : ActionContext->GetOwnerConfig()->DataTables)

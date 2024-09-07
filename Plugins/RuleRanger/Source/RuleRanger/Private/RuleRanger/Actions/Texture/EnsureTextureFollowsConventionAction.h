@@ -99,7 +99,7 @@ class RULERANGER_API UEnsureTextureFollowsConventionAction final : public UTextu
                                         const UObject* Object,
                                         FRuleRangerTextureConvention* Convention,
                                         UTexture2D* Texture) const;
-    void RebuildConfigConventionsTables(URuleRangerActionContext* ActionContext);
+    void RebuildConfigConventionsTables(const URuleRangerActionContext* ActionContext);
 
 public:
     virtual void Apply_Implementation(URuleRangerActionContext* ActionContext, UObject* Object) override;
