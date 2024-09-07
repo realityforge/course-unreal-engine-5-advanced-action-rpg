@@ -33,8 +33,8 @@ bool URuleRangerActionContext::IsDryRun()
              || ERuleRangerActionTrigger::AT_Fix == ActionTrigger);
 }
 
-void URuleRangerActionContext::ResetContext(URuleRangerConfig* const Config,
-                                            URuleRangerRuleSet* const RuleSet,
+void URuleRangerActionContext::ResetContext(URuleRangerConfig* const InConfig,
+                                            URuleRangerRuleSet* const InRuleSet,
                                             URuleRangerRule* const InRule,
                                             UObject* const InObject,
                                             const ERuleRangerActionTrigger InActionTrigger)

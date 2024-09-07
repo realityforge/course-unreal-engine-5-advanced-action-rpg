@@ -121,8 +121,8 @@ public:
     UFUNCTION(BlueprintCallable, Category = "Rule Ranger")
     virtual void Fatal(const FText& InMessage);
 
-    void ResetContext(URuleRangerConfig* const Config,
-                      URuleRangerRuleSet* const RuleSet,
+    void ResetContext(URuleRangerConfig* const InConfig,
+                      URuleRangerRuleSet* const InRuleSet,
                       URuleRangerRule* InRule,
                       UObject* InObject,
                       ERuleRangerActionTrigger InActionTrigger);
