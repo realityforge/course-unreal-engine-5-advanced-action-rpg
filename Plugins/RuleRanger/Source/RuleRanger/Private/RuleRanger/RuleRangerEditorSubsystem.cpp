@@ -149,8 +149,10 @@ bool URuleRangerEditorSubsystem::ProcessRuleSetForObject(URuleRangerConfig* cons
                     {
                         UE_LOG(RuleRanger,
                                VeryVerbose,
-                               TEXT("ProcessRule: Rule %s excluded for object %s due to exclusion rule. Reason: %s"),
+                               TEXT("ProcessRule: Rule %s from RuleSet %s was excluded for "
+                                    "object %s due to exclusion rule. Reason: %s"),
                                *Rule->GetName(),
+                               *RuleSet->GetName(),
                                *Object->GetName(),
                                *Exclusion->Description.ToString());
                         bSkipRule = true;
@@ -160,11 +162,14 @@ bool URuleRangerEditorSubsystem::ProcessRuleSetForObject(URuleRangerConfig* cons
 
             if (!bSkipRule && !ProcessRuleFunction(Rule, Object))
             {
-                UE_LOG(RuleRanger,
-                       VeryVerbose,
-                       TEXT("ProcessRule: Rule %s indicated that following rules should be skipped for %s"),
-                       *RuleSet->GetName(),
-                       *Object->GetName());
+                UE_LOG(
+                    RuleRanger,
+                    VeryVerbose,
+                    TEXT(
+                        "ProcessRule: Rule %s from RuleSet %s indicated that following rules should be skipped for %s"),
+                    *Rule->GetName(),
+                    *RuleSet->GetName(),
+                    *Object->GetName());
                 ActionContext->ClearContext();
                 return false;
             }
