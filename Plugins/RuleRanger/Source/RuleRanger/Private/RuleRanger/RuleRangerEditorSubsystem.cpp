@@ -50,15 +50,23 @@ void URuleRangerEditorSubsystem::Deinitialize()
 
 void URuleRangerEditorSubsystem::ScanObject(UObject* InObject)
 {
-    ProcessRule(InObject,
-                [this](URuleRangerRule* Rule, UObject* InObject) mutable { return ProcessDemandScan(Rule, InObject); });
+    ProcessRule(
+        InObject,
+        [this](URuleRangerConfig* const Config,
+               URuleRangerRuleSet* const RuleSet,
+               URuleRangerRule* Rule,
+               UObject* InnerInObject) mutable { return ProcessDemandScan(Config, RuleSet, Rule, InnerInObject); });
 }
 
 void URuleRangerEditorSubsystem::ScanAndFixObject(UObject* InObject)
 {
-    ProcessRule(InObject, [this](URuleRangerRule* Rule, UObject* InObject) mutable {
-        return ProcessDemandScanAndFix(Rule, InObject);
-    });
+    ProcessRule(InObject,
+                [this](URuleRangerConfig* const Config,
+                       URuleRangerRuleSet* const RuleSet,
+                       URuleRangerRule* Rule,
+                       UObject* InnerInObject) mutable {
+                    return ProcessDemandScanAndFix(Config, RuleSet, Rule, InnerInObject);
+                });
 }
 
 // ReSharper disable once CppMemberFunctionMayBeStatic
@@ -71,9 +79,13 @@ void URuleRangerEditorSubsystem::OnAssetPostImport([[maybe_unused]] UFactory* Fa
     // identify this through the presence of tag.
     const bool bIsReimport = Subsystem && Subsystem->GetMetadataTag(Object, NAME_ImportMarkerKey) == ImportMarkerValue;
 
-    ProcessRule(Object, [this, bIsReimport](URuleRangerRule* Rule, UObject* InObject) {
-        return ProcessOnAssetPostImportRule(bIsReimport, Rule, InObject);
-    });
+    ProcessRule(Object,
+                [this, bIsReimport](URuleRangerConfig* const Config,
+                                    URuleRangerRuleSet* const RuleSet,
+                                    URuleRangerRule* Rule,
+                                    UObject* InObject) {
+                    return ProcessOnAssetPostImportRule(Config, RuleSet, Rule, bIsReimport, InObject);
+                });
 }
 
 bool URuleRangerEditorSubsystem::ProcessRuleSetForObject(URuleRangerConfig* const Config,
@@ -160,7 +172,7 @@ bool URuleRangerEditorSubsystem::ProcessRuleSetForObject(URuleRangerConfig* cons
                 }
             }
 
-            if (!bSkipRule && !ProcessRuleFunction(Rule, Object))
+            if (!bSkipRule && !ProcessRuleFunction(Config, RuleSet, Rule, Object))
             {
                 UE_LOG(
                     RuleRanger,
@@ -308,7 +320,7 @@ bool URuleRangerEditorSubsystem::IsMatchingRulePresentForObject(URuleRangerConfi
         // ReSharper disable once CppTooWideScopeInitStatement
         if (const auto Rule = RulePtr.Get(); IsValid(Rule))
         {
-            if (ProcessRuleFunction(Rule, InObject))
+            if (ProcessRuleFunction(Config, RuleSet, Rule, InObject))
             {
                 return true;
             }
@@ -387,9 +399,11 @@ TArray<TSoftObjectPtr<URuleRangerConfig>> URuleRangerEditorSubsystem::GetCurrent
     return DeveloperSettings->Configs;
 }
 
-bool URuleRangerEditorSubsystem::ProcessOnAssetPostImportRule(const bool bIsReimport,
+bool URuleRangerEditorSubsystem::ProcessOnAssetPostImportRule(URuleRangerConfig* const Config,
+                                                              URuleRangerRuleSet* const RuleSet,
                                                               URuleRangerRule* Rule,
-                                                              UObject* InObject)
+                                                              const bool bIsReimport,
+                                                              UObject* InObject) const
 {
     check(ActionContext);
 
@@ -403,7 +417,7 @@ bool URuleRangerEditorSubsystem::ProcessOnAssetPostImportRule(const bool bIsReim
                bIsReimport ? TEXT("reimport") : TEXT("import"));
         const ERuleRangerActionTrigger Trigger =
             bIsReimport ? ERuleRangerActionTrigger::AT_Reimport : ERuleRangerActionTrigger::AT_Import;
-        ActionContext->ResetContext(Rule, InObject, Trigger);
+        ActionContext->ResetContext(Config, RuleSet, Rule, InObject, Trigger);
 
         Rule->Apply(ActionContext, InObject);
 
@@ -445,7 +459,10 @@ bool URuleRangerEditorSubsystem::ProcessOnAssetPostImportRule(const bool bIsReim
     return true;
 }
 
-bool URuleRangerEditorSubsystem::ProcessDemandScan(URuleRangerRule* Rule, UObject* InObject)
+bool URuleRangerEditorSubsystem::ProcessDemandScan(URuleRangerConfig* const Config,
+                                                   URuleRangerRuleSet* const RuleSet,
+                                                   URuleRangerRule* Rule,
+                                                   UObject* InObject) const
 {
     check(ActionContext);
 
@@ -456,7 +473,7 @@ bool URuleRangerEditorSubsystem::ProcessDemandScan(URuleRangerRule* Rule, UObjec
                TEXT("ProcessDemandScan(%s) applying rule %s."),
                *InObject->GetName(),
                *Rule->GetName());
-        ActionContext->ResetContext(Rule, InObject, ERuleRangerActionTrigger::AT_Validate);
+        ActionContext->ResetContext(Config, RuleSet, Rule, InObject, ERuleRangerActionTrigger::AT_Validate);
 
         Rule->Apply(ActionContext, InObject);
 
@@ -497,7 +514,10 @@ bool URuleRangerEditorSubsystem::ProcessDemandScan(URuleRangerRule* Rule, UObjec
     return true;
 }
 
-bool URuleRangerEditorSubsystem::ProcessDemandScanAndFix(URuleRangerRule* Rule, UObject* InObject)
+bool URuleRangerEditorSubsystem::ProcessDemandScanAndFix(URuleRangerConfig* const Config,
+                                                         URuleRangerRuleSet* const RuleSet,
+                                                         URuleRangerRule* Rule,
+                                                         UObject* InObject) const
 {
     check(ActionContext);
 
@@ -508,7 +528,7 @@ bool URuleRangerEditorSubsystem::ProcessDemandScanAndFix(URuleRangerRule* Rule, 
                TEXT("ProcessDemandScanAndFix(%s) applying rule %s."),
                *InObject->GetName(),
                *Rule->GetName());
-        ActionContext->ResetContext(Rule, InObject, ERuleRangerActionTrigger::AT_Fix);
+        ActionContext->ResetContext(Config, RuleSet, Rule, InObject, ERuleRangerActionTrigger::AT_Fix);
 
         Rule->Apply(ActionContext, InObject);
 
