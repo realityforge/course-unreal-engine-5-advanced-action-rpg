@@ -32,6 +32,7 @@ void USetMetadataTagsAction::Apply_Implementation(URuleRangerActionContext* Acti
             }
             else
             {
+                // ReSharper disable once CppTooWideScopeInitStatement
                 FString ExistingValue = Subsystem->GetMetadataTag(Object, MetadataTag.Key);
                 if (ExistingValue.Equals(MetadataTag.Value))
                 {
