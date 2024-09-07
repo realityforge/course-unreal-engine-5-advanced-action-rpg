@@ -267,6 +267,7 @@ void URuleRangerEditorSubsystem::ProcessRule(UObject* Object, const FRuleRangerR
     }
 }
 
+// ReSharper disable once CppMemberFunctionMayBeStatic
 bool URuleRangerEditorSubsystem::IsMatchingRulePresentForObject(URuleRangerConfig* const Config,
                                                                 URuleRangerRuleSet* const RuleSet,
                                                                 UObject* InObject,
