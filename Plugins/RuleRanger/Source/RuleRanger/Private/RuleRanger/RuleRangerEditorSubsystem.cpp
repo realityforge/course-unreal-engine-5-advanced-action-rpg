@@ -212,7 +212,6 @@ void URuleRangerEditorSubsystem::ProcessRule(UObject* Object, const FRuleRangerR
             {
                 if (Config->ConfigMatches(Path))
                 {
-
                     TArray<URuleRangerRuleExclusion*> Exclusions;
                     for (auto ExclusionIt = Config->Exclusions.CreateIterator(); ExclusionIt; ++ExclusionIt)
                     {
