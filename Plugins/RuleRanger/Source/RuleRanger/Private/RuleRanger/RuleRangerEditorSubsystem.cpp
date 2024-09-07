@@ -94,11 +94,7 @@ bool URuleRangerEditorSubsystem::ProcessRuleSetForObject(URuleRangerConfig* cons
                                                          UObject* Object,
                                                          const FRuleRangerRuleFn& ProcessRuleFunction)
 {
-    UE_LOG(RuleRanger,
-           VeryVerbose,
-           TEXT("ProcessRule: Processing Rule Set %s for object %s"),
-           *RuleSet->GetName(),
-           *Object->GetName());
+    RR_VERY_VERBOSE_ALOG("ProcessRule: Processing Rule Set %s for object %s", *RuleSet->GetName(), *Object->GetName());
 
     for (auto ExclusionIt = Exclusions.CreateIterator(); ExclusionIt; ++ExclusionIt)
     {
@@ -106,12 +102,11 @@ bool URuleRangerEditorSubsystem::ProcessRuleSetForObject(URuleRangerConfig* cons
         {
             if (Exclusion->RuleSets.Contains(RuleSet))
             {
-                UE_LOG(RuleRanger,
-                       VeryVerbose,
-                       TEXT("ProcessRule: Rule Set %s excluded for object %s due to exclusion rule. Reason: %s"),
-                       *RuleSet->GetName(),
-                       *Object->GetName(),
-                       *Exclusion->Description.ToString());
+                RR_VERY_VERBOSE_ALOG(
+                    "ProcessRule: Rule Set %s excluded for object %s due to exclusion rule. Reason: %s",
+                    *RuleSet->GetName(),
+                    *Object->GetName(),
+                    *Exclusion->Description.ToString());
                 return true;
             }
         }
@@ -121,28 +116,22 @@ bool URuleRangerEditorSubsystem::ProcessRuleSetForObject(URuleRangerConfig* cons
     {
         if (const auto NestedRuleSet = RuleSetIt->Get())
         {
-            UE_LOG(RuleRanger,
-                   VeryVerbose,
-                   TEXT("ProcessRule: Processing Nested Rule Set %s for object %s"),
-                   *NestedRuleSet->GetName(),
-                   *Object->GetName());
+            RR_VERY_VERBOSE_ALOG("ProcessRule: Processing Nested Rule Set %s for object %s",
+                                 *NestedRuleSet->GetName(),
+                                 *Object->GetName());
             if (!ProcessRuleSetForObject(Config, NestedRuleSet, Exclusions, Object, ProcessRuleFunction))
             {
                 return false;
             }
-            UE_LOG(RuleRanger,
-                   VeryVerbose,
-                   TEXT("ProcessRule: Completed processing of Nested Rule Set %s for object %s"),
-                   *NestedRuleSet->GetName(),
-                   *Object->GetName());
+            RR_VERY_VERBOSE_ALOG("ProcessRule: Completed processing of Nested Rule Set %s for object %s",
+                                 *NestedRuleSet->GetName(),
+                                 *Object->GetName());
         }
         else
         {
-            UE_LOG(RuleRanger,
-                   Error,
-                   TEXT("ProcessRule: Invalid RuleSet skipped when processing rules for %s in config %s"),
-                   *Object->GetName(),
-                   *Config->GetName());
+            RR_ERROR_ALOG("ProcessRule: Invalid RuleSet skipped when processing rules for %s in config %s",
+                          *Object->GetName(),
+                          *Config->GetName());
         }
     }
 
@@ -159,14 +148,12 @@ bool URuleRangerEditorSubsystem::ProcessRuleSetForObject(URuleRangerConfig* cons
                 {
                     if (Exclusion->Rules.Contains(Rule))
                     {
-                        UE_LOG(RuleRanger,
-                               VeryVerbose,
-                               TEXT("ProcessRule: Rule %s from RuleSet %s was excluded for "
-                                    "object %s due to exclusion rule. Reason: %s"),
-                               *Rule->GetName(),
-                               *RuleSet->GetName(),
-                               *Object->GetName(),
-                               *Exclusion->Description.ToString());
+                        RR_VERY_VERBOSE_ALOG("ProcessRule: Rule %s from RuleSet %s was excluded for "
+                                             "object %s due to exclusion rule. Reason: %s",
+                                             *Rule->GetName(),
+                                             *RuleSet->GetName(),
+                                             *Object->GetName(),
+                                             *Exclusion->Description.ToString());
                         bSkipRule = true;
                     }
                 }
@@ -174,11 +161,8 @@ bool URuleRangerEditorSubsystem::ProcessRuleSetForObject(URuleRangerConfig* cons
 
             if (!bSkipRule && !ProcessRuleFunction(Config, RuleSet, Rule, Object))
             {
-                UE_LOG(
-                    RuleRanger,
-                    VeryVerbose,
-                    TEXT(
-                        "ProcessRule: Rule %s from RuleSet %s indicated that following rules should be skipped for %s"),
+                RR_VERY_VERBOSE_ALOG(
+                    "ProcessRule: Rule %s from RuleSet %s indicated that following rules should be skipped for %s",
                     *Rule->GetName(),
                     *RuleSet->GetName(),
                     *Object->GetName());
@@ -188,14 +172,12 @@ bool URuleRangerEditorSubsystem::ProcessRuleSetForObject(URuleRangerConfig* cons
         }
         else
         {
-            UE_LOG(RuleRanger,
-                   Error,
-                   TEXT("ProcessRule: Invalid Rule skipped at index %d in rule set '%s' "
-                        "from config '%s' when analyzing object '%s'"),
-                   RuleIndex,
-                   *RuleSet->GetName(),
-                   *Config->GetName(),
-                   *Object->GetName());
+            RR_ERROR_ALOG("ProcessRule: Invalid Rule skipped at index %d in rule set '%s' "
+                          "from config '%s' when analyzing object '%s'",
+                          RuleIndex,
+                          *RuleSet->GetName(),
+                          *Config->GetName(),
+                          *Object->GetName());
         }
         RuleIndex++;
     }
@@ -209,18 +191,16 @@ void URuleRangerEditorSubsystem::ProcessRule(UObject* Object, const FRuleRangerR
     {
         if (!ActionContext)
         {
-            UE_LOG(RuleRanger, VeryVerbose, TEXT("RuleRangerEditorSubsystem: Creating the initial ActionContext"));
+            RR_VERY_VERBOSE_ALOG("RuleRangerEditorSubsystem: Creating the initial ActionContext");
             ActionContext = NewObject<URuleRangerActionContext>(this, URuleRangerActionContext::StaticClass());
         }
 
         auto Configs = GetCurrentRuleSetConfigs();
         const auto Path = Object->GetPathName();
-        UE_LOG(RuleRanger,
-               VeryVerbose,
-               TEXT("ProcessRule: Located %d Rule Set Config(s) when discovering rules for object %s at %s"),
-               Configs.Num(),
-               *Object->GetName(),
-               *Path);
+        RR_VERY_VERBOSE_ALOG("ProcessRule: Located %d Rule Set Config(s) when discovering rules for object %s at %s",
+                             Configs.Num(),
+                             *Object->GetName(),
+                             *Path);
         for (auto ConfigIt = Configs.CreateIterator(); ConfigIt; ++ConfigIt)
         {
             if (const auto Config = ConfigIt->LoadSynchronous())
@@ -250,10 +230,8 @@ void URuleRangerEditorSubsystem::ProcessRule(UObject* Object, const FRuleRangerR
                         }
                         else
                         {
-                            UE_LOG(
-                                RuleRanger,
-                                Error,
-                                TEXT("ProcessRule: Invalid RuleSet skipped when processing rules for %s in config %s"),
+                            RR_ERROR_ALOG(
+                                "ProcessRule: Invalid RuleSet skipped when processing rules for %s in config %s",
                                 *Object->GetName(),
                                 *Config->GetName());
                         }
@@ -262,10 +240,7 @@ void URuleRangerEditorSubsystem::ProcessRule(UObject* Object, const FRuleRangerR
             }
             else
             {
-                UE_LOG(RuleRanger,
-                       Error,
-                       TEXT("Invalid RuleSetConfig skipped when processing rules for %s"),
-                       *Object->GetName());
+                RR_ERROR_ALOG("Invalid RuleSetConfig skipped when processing rules for %s", *Object->GetName());
             }
         }
     }
@@ -285,11 +260,9 @@ bool URuleRangerEditorSubsystem::IsMatchingRulePresentForObject(URuleRangerConfi
                                                                 UObject* InObject,
                                                                 const FRuleRangerRuleFn& ProcessRuleFunction)
 {
-    UE_LOG(RuleRanger,
-           VeryVerbose,
-           TEXT("IsMatchingRulePresent: Processing Rule Set %s for object %s"),
-           *RuleSet->GetName(),
-           *InObject->GetName());
+    RR_VERY_VERBOSE_ALOG("IsMatchingRulePresent: Processing Rule Set %s for object %s",
+                         *RuleSet->GetName(),
+                         *InObject->GetName());
 
     int RuleSetIndex = 0;
     for (auto RuleSetIt = RuleSet->RuleSets.CreateIterator(); RuleSetIt; ++RuleSetIt)
@@ -303,13 +276,11 @@ bool URuleRangerEditorSubsystem::IsMatchingRulePresentForObject(URuleRangerConfi
         }
         else
         {
-            UE_LOG(RuleRanger,
-                   Error,
-                   TEXT("IsMatchingRulePresentForObject: Invalid RuleSet skipped at index %d "
-                        "processing child rulesets of ruleset named %s for object %s"),
-                   RuleSetIndex,
-                   *RuleSet->GetName(),
-                   *InObject->GetName());
+            RR_ERROR_ALOG("IsMatchingRulePresentForObject: Invalid RuleSet skipped at index %d "
+                          "processing child rulesets of ruleset named %s for object %s",
+                          RuleSetIndex,
+                          *RuleSet->GetName(),
+                          *InObject->GetName());
         }
         RuleSetIndex++;
     }
@@ -327,15 +298,13 @@ bool URuleRangerEditorSubsystem::IsMatchingRulePresentForObject(URuleRangerConfi
         }
         else
         {
-            UE_LOG(RuleRanger,
-                   Error,
-                   TEXT("IsMatchingRulePresent: Invalid Rule skipped at index %d in "
-                        "rule set '%s' "
-                        "from config '%s' when analyzing object '%s'"),
-                   RuleIndex,
-                   *RuleSet->GetName(),
-                   *Config->GetName(),
-                   *InObject->GetName());
+            RR_ERROR_ALOG("IsMatchingRulePresent: Invalid Rule skipped at index %d in "
+                          "rule set '%s' "
+                          "from config '%s' when analyzing object '%s'",
+                          RuleIndex,
+                          *RuleSet->GetName(),
+                          *Config->GetName(),
+                          *InObject->GetName());
         }
         RuleIndex++;
     }
@@ -347,11 +316,10 @@ bool URuleRangerEditorSubsystem::IsMatchingRulePresent(UObject* InObject, const 
     if (IsValid(InObject))
     {
         auto Configs = GetCurrentRuleSetConfigs();
-        UE_LOG(RuleRanger,
-               VeryVerbose,
-               TEXT("IsMatchingRulePresent: Located %d Rule Set Config(s) when discovering rules for object %s"),
-               Configs.Num(),
-               *InObject->GetName());
+        RR_VERY_VERBOSE_ALOG(
+            "IsMatchingRulePresent: Located %d Rule Set Config(s) when discovering rules for object %s",
+            Configs.Num(),
+            *InObject->GetName());
         for (auto ConfigIt = Configs.CreateIterator(); ConfigIt; ++ConfigIt)
         {
             if (const auto Config = ConfigIt->LoadSynchronous())
@@ -369,22 +337,18 @@ bool URuleRangerEditorSubsystem::IsMatchingRulePresent(UObject* InObject, const 
                         }
                         else
                         {
-                            UE_LOG(RuleRanger,
-                                   Error,
-                                   TEXT("IsMatchingRulePresent: Invalid RuleSet skipped when processing "
-                                        "rules for %s in config %s"),
-                                   *InObject->GetName(),
-                                   *Config->GetName());
+                            RR_ERROR_ALOG("IsMatchingRulePresent: Invalid RuleSet skipped when processing "
+                                          "rules for %s in config %s",
+                                          *InObject->GetName(),
+                                          *Config->GetName());
                         }
                     }
                 }
             }
             else
             {
-                UE_LOG(RuleRanger,
-                       Error,
-                       TEXT("IsMatchingRulePresent: Invalid RuleSetConfig skipped when processing rules for %s"),
-                       *InObject->GetName());
+                RR_ERROR_ALOG("IsMatchingRulePresent: Invalid RuleSetConfig skipped when processing rules for %s",
+                              *InObject->GetName());
             }
         }
     }
@@ -409,12 +373,10 @@ bool URuleRangerEditorSubsystem::ProcessOnAssetPostImportRule(URuleRangerConfig*
 
     if ((!bIsReimport && Rule->bApplyOnImport) || (bIsReimport && Rule->bApplyOnReimport))
     {
-        UE_LOG(RuleRanger,
-               VeryVerbose,
-               TEXT("OnAssetPostImport(%s) applying rule %s during %s."),
-               *InObject->GetName(),
-               *Rule->GetName(),
-               bIsReimport ? TEXT("reimport") : TEXT("import"));
+        RR_VERY_VERBOSE_ALOG("OnAssetPostImport(%s) applying rule %s during %s.",
+                             *InObject->GetName(),
+                             *Rule->GetName(),
+                             bIsReimport ? TEXT("reimport") : TEXT("import"));
         const ERuleRangerActionTrigger Trigger =
             bIsReimport ? ERuleRangerActionTrigger::AT_Reimport : ERuleRangerActionTrigger::AT_Import;
         ActionContext->ResetContext(Config, RuleSet, Rule, InObject, Trigger);
@@ -425,36 +387,30 @@ bool URuleRangerEditorSubsystem::ProcessOnAssetPostImportRule(URuleRangerConfig*
         const auto State = ActionContext->GetState();
         if (ERuleRangerActionState::AS_Fatal == State)
         {
-            UE_LOG(RuleRanger,
-                   VeryVerbose,
-                   TEXT("OnAssetPostImport(%s) applied rule %s which resulted in fatal error. "
-                        "Processing rules will not continue."),
-                   *InObject->GetName(),
-                   *Rule->GetName());
+            RR_VERY_VERBOSE_ALOG("OnAssetPostImport(%s) applied rule %s which resulted in fatal error. "
+                                 "Processing rules will not continue.",
+                                 *InObject->GetName(),
+                                 *Rule->GetName());
             ActionContext->ClearContext();
             return false;
         }
         if (!Rule->bContinueOnError && ERuleRangerActionState::AS_Error == State)
         {
-            UE_LOG(RuleRanger,
-                   VeryVerbose,
-                   TEXT("OnAssetPostImport(%s) applied rule %s which resulted in error. "
-                        "Processing rules will not continue as ContinueOnError=False."),
-                   *InObject->GetName(),
-                   *Rule->GetName());
+            RR_VERY_VERBOSE_ALOG("OnAssetPostImport(%s) applied rule %s which resulted in error. "
+                                 "Processing rules will not continue as ContinueOnError=False.",
+                                 *InObject->GetName(),
+                                 *Rule->GetName());
             ActionContext->ClearContext();
             return false;
         }
     }
     else
     {
-        UE_LOG(RuleRanger,
-               VeryVerbose,
-               TEXT("OnAssetPostImport(%s) skipped rule %s as flag on "
-                    "rule does not enable rule during %s."),
-               *InObject->GetName(),
-               *Rule->GetName(),
-               bIsReimport ? TEXT("reimport") : TEXT("import"));
+        RR_VERY_VERBOSE_ALOG("OnAssetPostImport(%s) skipped rule %s as flag on "
+                             "rule does not enable rule during %s.",
+                             *InObject->GetName(),
+                             *Rule->GetName(),
+                             bIsReimport ? TEXT("reimport") : TEXT("import"));
     }
     return true;
 }
@@ -468,11 +424,7 @@ bool URuleRangerEditorSubsystem::ProcessDemandScan(URuleRangerConfig* const Conf
 
     if (Rule->bApplyOnDemand)
     {
-        UE_LOG(RuleRanger,
-               VeryVerbose,
-               TEXT("ProcessDemandScan(%s) applying rule %s."),
-               *InObject->GetName(),
-               *Rule->GetName());
+        RR_VERY_VERBOSE_ALOG("ProcessDemandScan(%s) applying rule %s.", *InObject->GetName(), *Rule->GetName());
         ActionContext->ResetContext(Config, RuleSet, Rule, InObject, ERuleRangerActionTrigger::AT_Validate);
 
         Rule->Apply(ActionContext, InObject);
@@ -481,35 +433,29 @@ bool URuleRangerEditorSubsystem::ProcessDemandScan(URuleRangerConfig* const Conf
         const auto State = ActionContext->GetState();
         if (ERuleRangerActionState::AS_Fatal == State)
         {
-            UE_LOG(RuleRanger,
-                   VeryVerbose,
-                   TEXT("ProcessDemandScan(%s) applied rule %s which resulted in fatal error. "
-                        "Processing rules will not continue."),
-                   *InObject->GetName(),
-                   *Rule->GetName());
+            RR_VERY_VERBOSE_ALOG("ProcessDemandScan(%s) applied rule %s which resulted in fatal error. "
+                                 "Processing rules will not continue.",
+                                 *InObject->GetName(),
+                                 *Rule->GetName());
             ActionContext->ClearContext();
             return false;
         }
         if (!Rule->bContinueOnError && ERuleRangerActionState::AS_Error == State)
         {
-            UE_LOG(RuleRanger,
-                   VeryVerbose,
-                   TEXT("ProcessDemandScan(%s) applied rule %s which resulted in error. "
-                        "Processing rules will not continue as ContinueOnError=False."),
-                   *InObject->GetName(),
-                   *Rule->GetName());
+            RR_VERY_VERBOSE_ALOG("ProcessDemandScan(%s) applied rule %s which resulted in error. "
+                                 "Processing rules will not continue as ContinueOnError=False.",
+                                 *InObject->GetName(),
+                                 *Rule->GetName());
             ActionContext->ClearContext();
             return false;
         }
     }
     else
     {
-        UE_LOG(RuleRanger,
-               VeryVerbose,
-               TEXT("ProcessDemandScan(%s) skipped rule %s as flag on "
-                    "rule does not enable rule on demand."),
-               *InObject->GetName(),
-               *Rule->GetName());
+        RR_VERY_VERBOSE_ALOG("ProcessDemandScan(%s) skipped rule %s as flag on "
+                             "rule does not enable rule on demand.",
+                             *InObject->GetName(),
+                             *Rule->GetName());
     }
     return true;
 }
@@ -523,11 +469,7 @@ bool URuleRangerEditorSubsystem::ProcessDemandScanAndFix(URuleRangerConfig* cons
 
     if (Rule->bApplyOnDemand)
     {
-        UE_LOG(RuleRanger,
-               VeryVerbose,
-               TEXT("ProcessDemandScanAndFix(%s) applying rule %s."),
-               *InObject->GetName(),
-               *Rule->GetName());
+        RR_VERY_VERBOSE_ALOG("ProcessDemandScanAndFix(%s) applying rule %s.", *InObject->GetName(), *Rule->GetName());
         ActionContext->ResetContext(Config, RuleSet, Rule, InObject, ERuleRangerActionTrigger::AT_Fix);
 
         Rule->Apply(ActionContext, InObject);
@@ -537,35 +479,29 @@ bool URuleRangerEditorSubsystem::ProcessDemandScanAndFix(URuleRangerConfig* cons
         const auto State = ActionContext->GetState();
         if (ERuleRangerActionState::AS_Fatal == State)
         {
-            UE_LOG(RuleRanger,
-                   VeryVerbose,
-                   TEXT("ProcessDemandScanAndFix(%s) applied rule %s which resulted in fatal error. "
-                        "Processing rules will not continue."),
-                   *InObject->GetName(),
-                   *Rule->GetName());
+            RR_VERY_VERBOSE_ALOG("ProcessDemandScanAndFix(%s) applied rule %s which resulted in fatal error. "
+                                 "Processing rules will not continue.",
+                                 *InObject->GetName(),
+                                 *Rule->GetName());
             ActionContext->ClearContext();
             return false;
         }
         if (!Rule->bContinueOnError && ERuleRangerActionState::AS_Error == State)
         {
-            UE_LOG(RuleRanger,
-                   VeryVerbose,
-                   TEXT("ProcessDemandScanAndFix(%s) applied rule %s which resulted in error. "
-                        "Processing rules will not continue as ContinueOnError=False."),
-                   *InObject->GetName(),
-                   *Rule->GetName());
+            RR_VERY_VERBOSE_ALOG("ProcessDemandScanAndFix(%s) applied rule %s which resulted in error. "
+                                 "Processing rules will not continue as ContinueOnError=False.",
+                                 *InObject->GetName(),
+                                 *Rule->GetName());
             ActionContext->ClearContext();
             return false;
         }
     }
     else
     {
-        UE_LOG(RuleRanger,
-               VeryVerbose,
-               TEXT("ProcessDemandScanAndFix(%s) skipped rule %s as flag on "
-                    "rule does not enable rule on demand."),
-               *InObject->GetName(),
-               *Rule->GetName());
+        RR_VERY_VERBOSE_ALOG("ProcessDemandScanAndFix(%s) skipped rule %s as flag on "
+                             "rule does not enable rule on demand.",
+                             *InObject->GetName(),
+                             *Rule->GetName());
     }
     return true;
 }

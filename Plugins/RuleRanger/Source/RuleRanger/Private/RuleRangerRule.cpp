@@ -50,24 +50,20 @@ void URuleRangerRule::Apply_Implementation(URuleRangerActionContext* ActionConte
                     const auto State = ActionContext->GetState();
                     if (ERuleRangerActionState::AS_Fatal == State)
                     {
-                        UE_LOG(RuleRanger,
-                               Verbose,
-                               TEXT("ApplyRule(%s) on rule %s applied action %s which resulted in fatal error. "
-                                    "Processing rules will not continue."),
-                               *Object->GetName(),
-                               *GetName(),
-                               *Action->GetName());
+                        RR_VERBOSE_ALOG("ApplyRule(%s) on rule %s applied action %s which resulted in fatal error. "
+                                        "Processing rules will not continue.",
+                                        *Object->GetName(),
+                                        *GetName(),
+                                        *Action->GetName());
                         return;
                     }
                     else if (!bContinueOnError && ERuleRangerActionState::AS_Error == State)
                     {
-                        UE_LOG(RuleRanger,
-                               Verbose,
-                               TEXT("ApplyRule(%s) on rule %s applied action %s which resulted in error. "
-                                    "Processing rules will not continue as ContinueOnError=False."),
-                               *Object->GetName(),
-                               *GetName(),
-                               *Action->GetName());
+                        RR_VERBOSE_ALOG("ApplyRule(%s) on rule %s applied action %s which resulted in error. "
+                                        "Processing rules will not continue as ContinueOnError=False.",
+                                        *Object->GetName(),
+                                        *GetName(),
+                                        *Action->GetName());
                         return;
                     }
                 }
@@ -94,12 +90,10 @@ bool URuleRangerRule::Match(URuleRangerActionContext* ActionContext, UObject* Ob
             {
                 if (!Matcher->Test(Object))
                 {
-                    UE_LOG(RuleRanger,
-                           Verbose,
-                           TEXT("Match(%s) on rule %s exited early as matcher %s did not match"),
-                           *Object->GetName(),
-                           *GetName(),
-                           *Matcher->GetName());
+                    RR_VERBOSE_ALOG("Match(%s) on rule %s exited early as matcher %s did not match",
+                                    *Object->GetName(),
+                                    *GetName(),
+                                    *Matcher->GetName());
                     return false;
                 }
             }
