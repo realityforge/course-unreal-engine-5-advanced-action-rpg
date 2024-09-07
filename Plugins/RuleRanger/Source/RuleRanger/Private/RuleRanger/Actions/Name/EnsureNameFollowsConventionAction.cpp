@@ -197,7 +197,7 @@ void UEnsureNameFollowsConventionAction::RebuildNameConventionsCacheIfNecessary(
     bool bTableDataPresent = false;
     for (const auto& NameConventionsTable : NameConventionsTables)
     {
-        if (0 != NameConventionsTable->GetTableData().Num())
+        if (NameConventionsTable && 0 != NameConventionsTable->GetTableData().Num())
         {
             bTableDataPresent = true;
             break;
@@ -212,16 +212,19 @@ void UEnsureNameFollowsConventionAction::RebuildNameConventionsCacheIfNecessary(
             &UEnsureNameFollowsConventionAction::ResetCacheIfTableModified);
         for (const auto& NameConventionsTable : NameConventionsTables)
         {
-            for (const auto& RowName : NameConventionsTable->GetRowNames())
+            if (IsValid(NameConventionsTable))
             {
-                const auto& NameConvention = NameConventionsTable->FindRow<FNameConvention>(RowName, TEXT(""));
-                // ReSharper disable once CppTooWideScopeInitStatement
-                const auto& ObjectType = NameConvention->ObjectType.Get();
-                if (NameConvention && IsValid(ObjectType))
+                for (const auto& RowName : NameConventionsTable->GetRowNames())
                 {
-                    TArray<FNameConvention>& TypeConventions = NameConventionsCache.FindOrAdd(ObjectType);
-                    TypeConventions.Add(*NameConvention);
-                    TypeConventions.Sort();
+                    const auto& NameConvention = NameConventionsTable->FindRow<FNameConvention>(RowName, TEXT(""));
+                    // ReSharper disable once CppTooWideScopeInitStatement
+                    const auto& ObjectType = NameConvention->ObjectType.Get();
+                    if (NameConvention && IsValid(ObjectType))
+                    {
+                        TArray<FNameConvention>& TypeConventions = NameConventionsCache.FindOrAdd(ObjectType);
+                        TypeConventions.Add(*NameConvention);
+                        TypeConventions.Sort();
+                    }
                 }
             }
         }
