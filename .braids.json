@@ -4,7 +4,7 @@
     "Plugins/RuleRanger": {
       "url": "https://github.com/realityforge/RuleRanger.git",
       "branch": "main",
-      "revision": "0d1dda186a2fdad20d9ec2749035313b54dbe79d"
+      "revision": "8f63771895f6c5be805d80537ef3a5ca955c9f5d"
     }
   }
 }
