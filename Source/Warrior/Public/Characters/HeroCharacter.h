@@ -54,6 +54,9 @@ protected:
 public:
     AHeroCharacter();
 
+    //~ Begin PawnCombatInterface Interface.
+    virtual UPawnCombatComponent* GetPawnCombatComponent() const override;
+    //~ End PawnCombatInterface Interface
     virtual void PossessedBy(AController* NewController) override;
 
     FORCEINLINE UHeroCombatComponent* GetCombatComponent() const { return CombatComponent; }

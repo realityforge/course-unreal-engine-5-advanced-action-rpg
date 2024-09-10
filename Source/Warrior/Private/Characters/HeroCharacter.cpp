@@ -115,3 +115,8 @@ void AHeroCharacter::Input_AbilityInputReleased(const FGameplayTag InGameplayTag
 {
     GetAeonAbilitySystemComponent()->OnAbilityInputReleased(InGameplayTag);
 }
+
+UPawnCombatComponent* AHeroCharacter::GetPawnCombatComponent() const
+{
+    return CombatComponent;
+}

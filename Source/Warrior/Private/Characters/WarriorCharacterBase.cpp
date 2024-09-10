@@ -15,3 +15,10 @@ void AWarriorCharacterBase::PossessedBy(AController* NewController)
     Super::PossessedBy(NewController);
     InitAbilityActorInfo();
 }
+
+UPawnCombatComponent* AWarriorCharacterBase::GetPawnCombatComponent() const
+{
+    checkf(false,
+           TEXT("AWarriorCharacterBase::GetPawnCombatComponent invoked when it is expected to have been overridden"));
+    return nullptr;
+}

@@ -20,3 +20,8 @@ void AEnemyCharacter::PossessedBy(AController* NewController)
     Super::PossessedBy(NewController);
     GiveStartUpDataToAbilitySystemAsync();
 }
+
+UPawnCombatComponent* AEnemyCharacter::GetPawnCombatComponent() const
+{
+    return CombatComponent;
+}
