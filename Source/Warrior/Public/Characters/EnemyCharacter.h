@@ -21,10 +21,14 @@ class WARRIOR_API AEnemyCharacter : public AWarriorCharacterBase
 
 #pragma endregion
 
+protected:
+    //~ Begin APawn Interface.
+    virtual void PossessedBy(AController* NewController) override;
+    //~ End APawn Interface.
+
 public:
     AEnemyCharacter();
 
-    virtual void PossessedBy(AController* NewController) override;
 
     FORCEINLINE UEnemyCombatComponent* GetCombatComponent() const { return CombatComponent; }
 };

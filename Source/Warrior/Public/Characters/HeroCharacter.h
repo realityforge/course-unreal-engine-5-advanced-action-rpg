@@ -51,13 +51,16 @@ protected:
 
     virtual void SetupPlayerInputComponent(UInputComponent* PlayerInputComponent) override;
 
+    //~ Begin APawn Interface.
+    virtual void PossessedBy(AController* NewController) override;
+    //~ End APawn Interface.
+
 public:
     AHeroCharacter();
 
     //~ Begin PawnCombatInterface Interface.
     virtual UPawnCombatComponent* GetPawnCombatComponent() const override;
     //~ End PawnCombatInterface Interface
-    virtual void PossessedBy(AController* NewController) override;
 
     FORCEINLINE UHeroCombatComponent* GetCombatComponent() const { return CombatComponent; }
 };
