@@ -2,17 +2,11 @@
 
 #include "CoreMinimal.h"
 #include "Kismet/BlueprintFunctionLibrary.h"
+#include "WarriorTypes/WarriorEnumTypes.h"
 #include "WarriorFunctionLibrary.generated.h"
 
 struct FGameplayTag;
 class UAeonAbilitySystemComponent;
-
-UENUM()
-enum class EWarriorConfirmType : uint8
-{
-    Yes,
-    No
-};
 
 /**
  * Blueprint function library exposing useful functions used within this project.
