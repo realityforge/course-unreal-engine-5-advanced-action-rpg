@@ -33,4 +33,11 @@ public:
     BP_IsGameplayTagPresentOnActor(AActor* InActor, FGameplayTag InGameplayTag, EWarriorConfirmType& OutConfirmType);
 
     static bool NativeIsGameplayTagPresentOnActor(AActor* InActor, FGameplayTag InGameplayTag);
+
+    UFUNCTION(BlueprintCallable,
+              Category = "Warrior|FunctionLibrary",
+              meta = (DisplayName = "Get Pawn Combat Component From Actor", ExpandEnumAsExecs = "OutValidType"))
+    static UPawnCombatComponent* BP_GetPawnCombatComponentFromActor(AActor* InActor, EWarriorValidType& OutValidType);
+
+    static UPawnCombatComponent* NativeGetPawnCombatComponentFromActor(AActor* InActor);
 };
