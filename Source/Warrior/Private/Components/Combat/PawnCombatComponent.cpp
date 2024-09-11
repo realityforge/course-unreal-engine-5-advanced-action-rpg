@@ -1,5 +1,6 @@
 #include "Components/Combat/PawnCombatComponent.h"
 #include "Aeon/Logging.h"
+#include "Components/BoxComponent.h"
 #include "Items/Weapons/WarriorWeaponBase.h"
 
 void UPawnCombatComponent::RegisterSpawnedWeapon(const FGameplayTag InGameplayTag,
@@ -34,4 +35,36 @@ AWarriorWeaponBase* UPawnCombatComponent::GetWeaponInInventoryByTag(const FGamep
 AWarriorWeaponBase* UPawnCombatComponent::GetEquippedWeapon() const
 {
     return EquippedWeaponTag.IsValid() ? GetWeaponInInventoryByTag(EquippedWeaponTag) : nullptr;
+}
+
+void UPawnCombatComponent::ToggleWeaponCollision(const bool bShouldEnable,
+                                                 const EToggleDamageType ToggleDamageType) const
+{
+    if (EToggleDamageType::CurrentEquippedWeapon == ToggleDamageType)
+    {
+        // ReSharper disable once CppTooWideScopeInitStatement
+        const auto Weapon = GetEquippedWeapon();
+        if (ensureAlwaysMsgf(Weapon,
+                             TEXT("UPawnCombatComponent::ToggleWeaponCollision "
+                                  "invoked when no weapon equipped")))
+        {
+            if (bShouldEnable)
+            {
+                Weapon->GetWeaponCollisionBox()->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
+                AEON_SHOW_MESSAGE(FColor::Green, TEXT("%s collision enabled"), *Weapon->GetName());
+            }
+            else
+            {
+                Weapon->GetWeaponCollisionBox()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+                AEON_SHOW_MESSAGE(FColor::Red, TEXT("%s collision disabled"), *Weapon->GetName());
+            }
+        }
+    }
+    else
+    {
+        ensureAlwaysMsgf(false,
+                         TEXT("UPawnCombatComponent::ToggleWeaponCollision invoked "
+                              "with unknown ToggleDamageType %d"),
+                         ToggleDamageType);
+    }
 }
