@@ -74,3 +74,6 @@ DerivedDataCache/*
 
 # Ignore everything in temp directory
 tmp/
+
+# Ignore user-specific project settings
+*.uproject.DotSettings.user
