@@ -37,10 +37,10 @@ void AWarriorWeaponBase::OnCollisionBoxBeginOverlap(UPrimitiveComponent* Overlap
     const auto PawnInstigator = GetPawnInstigator();
     if (const auto HitPawn = Cast<APawn>(OtherActor))
     {
+        // You should not be able to hit yourself
         if (PawnInstigator != HitPawn)
         {
-            // You should not be able to hit yourself
-            AEON_SHOW_MESSAGE(FColor::Green, TEXT("%s BeginOverlap of %s"), *GetName(), *HitPawn->GetName());
+            OnWeaponHitTarget.ExecuteIfBound(OtherActor);
         }
     }
 }
@@ -53,10 +53,10 @@ void AWarriorWeaponBase::OnCollisionBoxEndOverlap(UPrimitiveComponent* Overlappe
     const auto PawnInstigator = GetPawnInstigator();
     if (const auto HitPawn = Cast<APawn>(OtherActor))
     {
+        // You should not be able to hit yourself
         if (PawnInstigator != HitPawn)
         {
-            // You should not be able to hit yourself
-            AEON_SHOW_MESSAGE(FColor::Red, TEXT("%s EndOverlap of %s"), *GetName(), *HitPawn->GetName());
+            OnWeaponPulledFromTarget.ExecuteIfBound(OtherActor);
         }
     }
 }

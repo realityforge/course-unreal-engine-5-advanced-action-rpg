@@ -6,6 +6,8 @@
 
 class UBoxComponent;
 
+DECLARE_DELEGATE_OneParam(FOnTargetInteractedDelegate, AActor*);
+
 UCLASS(Abstract, meta = (RuleRangerRequired = "WeaponMesh.StaticMesh"))
 class WARRIOR_API AWarriorWeaponBase : public AActor
 {
@@ -35,6 +37,9 @@ protected:
 
 public:
     AWarriorWeaponBase();
+
+    FOnTargetInteractedDelegate OnWeaponHitTarget;
+    FOnTargetInteractedDelegate OnWeaponPulledFromTarget;
 
     FORCEINLINE UBoxComponent* GetWeaponCollisionBox() const { return WeaponCollisionBox; }
 };

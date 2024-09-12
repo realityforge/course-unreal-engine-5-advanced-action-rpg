@@ -30,6 +30,11 @@ class WARRIOR_API UPawnCombatComponent : public UAeonPawnComponentBase
     UPROPERTY(BlueprintReadWrite, Category = "Warrior|Combat", meta = (AllowPrivateAccess = "true"))
     FGameplayTag EquippedWeaponTag{ FGameplayTag::EmptyTag };
 
+protected:
+    virtual void OnHitTargetActor(AActor* HitActor);
+
+    virtual void OnWeaponPulledFromTargetActor(AActor* InteractedActor);
+
 public:
     UFUNCTION(BlueprintCallable, Category = "Warrior|Combat")
     void RegisterSpawnedWeapon(FGameplayTag InGameplayTag, AWarriorWeaponBase* InWeapon, bool bInEquipWeapon = false);

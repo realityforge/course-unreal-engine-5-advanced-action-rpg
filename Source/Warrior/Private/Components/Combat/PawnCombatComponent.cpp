@@ -21,6 +21,9 @@ void UPawnCombatComponent::RegisterSpawnedWeapon(const FGameplayTag InGameplayTa
                   *GetOwner()->GetName());
     WeaponInventory.Emplace(InGameplayTag, InWeapon);
 
+    InWeapon->OnWeaponHitTarget.BindUObject(this, &UPawnCombatComponent::OnHitTargetActor);
+    InWeapon->OnWeaponPulledFromTarget.BindUObject(this, &UPawnCombatComponent::OnWeaponPulledFromTargetActor);
+
     if (bInEquipWeapon)
     {
         EquippedWeaponTag = InGameplayTag;
@@ -66,3 +69,7 @@ void UPawnCombatComponent::ToggleWeaponCollision(const bool bShouldEnable,
                          ToggleDamageType);
     }
 }
+
+void UPawnCombatComponent::OnHitTargetActor(AActor* HitActor) {}
+
+void UPawnCombatComponent::OnWeaponPulledFromTargetActor(AActor* InteractedActor) {}
