@@ -32,3 +32,22 @@ void UEnsureMaterialParametersHaveDescriptionsAction::AnalyzeParameter(URuleRang
                 FString::Printf(TEXT("Parameter named '%s' has a description as expected."), *Info.Name.ToString()));
     }
 }
+
+bool UEnsureMaterialParametersHaveDescriptionsAction::ShouldAnalyzeParameters(
+    URuleRangerActionContext* ActionContext,
+    const UMaterial* const Material,
+    const TMap<FMaterialParameterInfo, FMaterialParameterMetadata>& Parameters) const
+{
+    const int32 ParameterCount = Parameters.Num();
+    const bool bAnalyze = ParameterCount >= Threshold;
+    if (!bAnalyze)
+    {
+        LogInfo(Material,
+                FString::Printf(TEXT("The number of parameters in the Material (%d)"
+                                     " is below the threshold (%d) so it is not "
+                                     "necessary to force each parameter to have a description."),
+                                ParameterCount,
+                                Threshold));
+    }
+    return bAnalyze;
+}
