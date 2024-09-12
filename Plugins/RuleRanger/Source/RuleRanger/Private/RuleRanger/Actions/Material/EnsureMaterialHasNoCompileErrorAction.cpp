@@ -32,8 +32,26 @@ void UEnsureMaterialHasNoCompileErrorAction::Apply_Implementation(URuleRangerAct
 
     if (Material->IsCompilingOrHadCompileError(NativeFeatureLevel))
     {
-        ActionContext->Error(
-            FText::FromString(TEXT("Material is compiling or had a compile error. Please rectify the error.")));
+        if (0 == Material->GetExpressions().Num())
+        {
+            if (bErrorIfEmpty)
+            {
+                ActionContext->Error(FText::FromString(
+                    TEXT("Material has 0 expressions and thus will not be compiled. Please rectify the error.")));
+            }
+            else
+            {
+                LogInfo(
+                    Material,
+                    FString::Printf(TEXT("Material has 0 expressions and thus will not be compiled. However the "
+                                         "bErrorIfEmpty is set to false on the action  so ignoring this scenario.")));
+            }
+        }
+        else
+        {
+            ActionContext->Error(
+                FText::FromString(TEXT("Material is compiling or had a compile error. Please rectify the error.")));
+        }
     }
     else
     {

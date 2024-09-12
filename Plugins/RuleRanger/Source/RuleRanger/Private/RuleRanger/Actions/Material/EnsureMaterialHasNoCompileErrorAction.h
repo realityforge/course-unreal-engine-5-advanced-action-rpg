@@ -58,6 +58,10 @@ class RULERANGER_API UEnsureMaterialHasNoCompileErrorAction final : public URule
     UPROPERTY(EditAnywhere)
     EFeatureLevel FeatureLevel{ EFeatureLevel::SM6 };
 
+    /** Should the material generate an error if it is empty? */
+    UPROPERTY(EditAnywhere)
+    bool bErrorIfEmpty{ true };
+
 public:
     virtual void Apply_Implementation(URuleRangerActionContext* ActionContext, UObject* Object) override;
 
