@@ -30,10 +30,15 @@ class WARRIOR_API UPawnCombatComponent : public UAeonPawnComponentBase
     UPROPERTY(BlueprintReadWrite, Category = "Warrior|Combat", meta = (AllowPrivateAccess = "true"))
     FGameplayTag EquippedWeaponTag{ FGameplayTag::EmptyTag };
 
+    UPROPERTY()
+    TArray<TObjectPtr<AActor>> OverlappedActors;
+
 protected:
     virtual void OnHitTargetActor(AActor* HitActor);
 
     virtual void OnWeaponPulledFromTargetActor(AActor* InteractedActor);
+
+    FORCEINLINE TArray<TObjectPtr<AActor>>& GetOverlappedActors() { return OverlappedActors; }
 
 public:
     UFUNCTION(BlueprintCallable, Category = "Warrior|Combat")
@@ -48,5 +53,5 @@ public:
 
     UFUNCTION(BlueprintCallable, Category = "Warrior|Combat")
     void ToggleWeaponCollision(bool bShouldEnable,
-                               EToggleDamageType ToggleDamageType = EToggleDamageType::CurrentEquippedWeapon) const;
+                               EToggleDamageType ToggleDamageType = EToggleDamageType::CurrentEquippedWeapon);
 };

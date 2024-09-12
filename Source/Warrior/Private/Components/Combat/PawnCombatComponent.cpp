@@ -40,8 +40,7 @@ AWarriorWeaponBase* UPawnCombatComponent::GetEquippedWeapon() const
     return EquippedWeaponTag.IsValid() ? GetWeaponInInventoryByTag(EquippedWeaponTag) : nullptr;
 }
 
-void UPawnCombatComponent::ToggleWeaponCollision(const bool bShouldEnable,
-                                                 const EToggleDamageType ToggleDamageType) const
+void UPawnCombatComponent::ToggleWeaponCollision(const bool bShouldEnable, const EToggleDamageType ToggleDamageType)
 {
     if (EToggleDamageType::CurrentEquippedWeapon == ToggleDamageType)
     {
@@ -58,6 +57,9 @@ void UPawnCombatComponent::ToggleWeaponCollision(const bool bShouldEnable,
             else
             {
                 Weapon->GetWeaponCollisionBox()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+                // Clear the list of Overlapped actors so that next time we swing the
+                // weapon we can hit them again
+                OverlappedActors.Empty();
             }
         }
     }
