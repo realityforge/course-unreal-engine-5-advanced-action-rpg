@@ -51,12 +51,10 @@ void UPawnCombatComponent::ToggleWeaponCollision(const bool bShouldEnable,
             if (bShouldEnable)
             {
                 Weapon->GetWeaponCollisionBox()->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
-                AEON_SHOW_MESSAGE(FColor::Green, TEXT("%s collision enabled"), *Weapon->GetName());
             }
             else
             {
                 Weapon->GetWeaponCollisionBox()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
-                AEON_SHOW_MESSAGE(FColor::Red, TEXT("%s collision disabled"), *Weapon->GetName());
             }
         }
     }
