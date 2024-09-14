@@ -52,4 +52,6 @@ public:
     ATTRIBUTE_ACCESSORS(UWarriorAttributeSet, AttackPower)
     ATTRIBUTE_ACCESSORS(UWarriorAttributeSet, DefensePower)
     ATTRIBUTE_ACCESSORS(UWarriorAttributeSet, DamageTaken)
+
+    virtual void PostGameplayEffectExecute(const FGameplayEffectModCallbackData& Data) override;
 };
