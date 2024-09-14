@@ -33,6 +33,10 @@ namespace WarriorGameplayTags
     // Status Tags
     WARRIOR_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_Status_JumpToFinisher)
 
+    // SetByCaller Tags
+    WARRIOR_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_SetByCaller_AttackType_Light)
+    WARRIOR_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_SetByCaller_AttackType_Heavy)
+
     // --------------------------------------------------- //
     // Enemy Tags
     // --------------------------------------------------- //
@@ -45,5 +49,8 @@ namespace WarriorGameplayTags
 
     // Event Tags
     WARRIOR_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Shared_Event_MeleeHit)
+
+    // SetByCaller Tags
+    WARRIOR_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Shared_SetByCaller_BaseDamage)
 
 } // namespace WarriorGameplayTags

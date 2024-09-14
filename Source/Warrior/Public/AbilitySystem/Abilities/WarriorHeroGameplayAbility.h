@@ -30,4 +30,13 @@ public:
     /** Return the CombatComponent from the associated Avatar Actor */
     UFUNCTION(BlueprintPure, Category = "Warrior|Ability")
     UHeroCombatComponent* GetHeroCombatComponentFromActorInfo();
+
+    /** Return the CombatComponent from the associated Avatar Actor */
+    UFUNCTION(BlueprintPure, Category = "Warrior|Ability", meta = (HideSelfPin = "true"))
+    FGameplayEffectSpecHandle
+    MakeHeroDamageEffectSpecHandle(UPARAM(DisplayName = "Effect Class", meta = (AllowAbstract = "false"))
+                                       TSubclassOf<UGameplayEffect> InEffectClass,
+                                   UPARAM(DisplayName = "Weapon Base Damage") float InWeaponBaseDamage,
+                                   UPARAM(DisplayName = "Current Attack Type Tag") FGameplayTag InCurrentAttackTypeTag,
+                                   UPARAM(DisplayName = "Combo Level") int32 InComboLevel) const;
 };

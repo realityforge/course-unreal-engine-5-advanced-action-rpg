@@ -32,6 +32,10 @@ namespace WarriorGameplayTags
     // Status Tags
     UE_DEFINE_GAMEPLAY_TAG(Player_Status_JumpToFinisher, "Player.Status.JumpToFinisher")
 
+    // Set By Caller Tags
+    UE_DEFINE_GAMEPLAY_TAG(Player_SetByCaller_AttackType_Light, "Player.SetByCaller.AttackType.Light")
+    UE_DEFINE_GAMEPLAY_TAG(Player_SetByCaller_AttackType_Heavy, "Player.SetByCaller.AttackType.Heavy")
+
     // --------------------------------------------------- //
     // Enemy Tags
     // --------------------------------------------------- //
@@ -44,5 +48,8 @@ namespace WarriorGameplayTags
 
     // Event Tags
     UE_DEFINE_GAMEPLAY_TAG(Shared_Event_MeleeHit, "Shared.Event.MeleeHit")
+
+    // Set By Caller Tags
+    UE_DEFINE_GAMEPLAY_TAG(Shared_SetByCaller_BaseDamage, "Shared.SetByCaller.BaseDamage")
 
 } // namespace WarriorGameplayTags
