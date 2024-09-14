@@ -9,6 +9,17 @@ AWarriorHeroWeapon* UHeroCombatComponent::GetHeroWeaponInInventoryByTag(FGamepla
     return Cast<AWarriorHeroWeapon>(GetWeaponInInventoryByTag(InGameplayTag));
 }
 
+AWarriorHeroWeapon* UHeroCombatComponent::GetEquippedHeroWeapon() const
+{
+    return Cast<AWarriorHeroWeapon>(GetEquippedWeapon());
+}
+
+float UHeroCombatComponent::GetEquippedHeroWeaponDamageAtLevel(const int32 InLevel) const
+{
+    const auto EquippedHeroWeapon = GetEquippedHeroWeapon();
+    return EquippedHeroWeapon ? EquippedHeroWeapon->HeroWeaponData.WeaponBaseDamage.GetValueAtLevel(InLevel) : 0.f;
+}
+
 void UHeroCombatComponent::OnHitTargetActor(AActor* HitActor)
 {
     // Make sure that we can only damage an actor at most once

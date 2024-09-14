@@ -20,4 +20,10 @@ protected:
 public:
     UFUNCTION(BlueprintCallable, Category = "Warrior|Combat")
     AWarriorHeroWeapon* GetHeroWeaponInInventoryByTag(FGameplayTag InGameplayTag) const;
+
+    UFUNCTION(BlueprintCallable, Category = "Warrior|Combat")
+    AWarriorHeroWeapon* GetEquippedHeroWeapon() const;
+
+    UFUNCTION(BlueprintCallable, Category = "Warrior|Combat")
+    float GetEquippedHeroWeaponDamageAtLevel(int32 InLevel) const;
 };
