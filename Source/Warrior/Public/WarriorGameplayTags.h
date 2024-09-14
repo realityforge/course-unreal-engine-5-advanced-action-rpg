@@ -43,6 +43,7 @@ namespace WarriorGameplayTags
     // Shared Tags (Used by both the Enemy and the Player)
     // --------------------------------------------------- //
 
+    // Event Tags
     WARRIOR_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Shared_Event_MeleeHit)
 
 } // namespace WarriorGameplayTags

@@ -42,6 +42,7 @@ namespace WarriorGameplayTags
     // Shared Tags (Used by both the Enemy and the Player)
     // --------------------------------------------------- //
 
+    // Event Tags
     UE_DEFINE_GAMEPLAY_TAG(Shared_Event_MeleeHit, "Shared.Event.MeleeHit")
 
 } // namespace WarriorGameplayTags
