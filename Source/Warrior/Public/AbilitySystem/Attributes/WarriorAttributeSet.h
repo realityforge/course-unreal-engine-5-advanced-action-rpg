@@ -12,35 +12,37 @@ class WARRIOR_API UWarriorAttributeSet : public UAeonAttributeSet
 {
     GENERATED_BODY()
 
+public:
     /** The current health of the character. */
-    UPROPERTY(BlueprintReadOnly, Category = "Health", meta = (AllowPrivateAccess = "true"))
+    UPROPERTY(BlueprintReadOnly, Category = "Health")
     FGameplayAttributeData CurrentHealth;
 
     /** The maximum health of the character. */
-    UPROPERTY(BlueprintReadOnly, Category = "Health", meta = (AllowPrivateAccess = "true"))
+    UPROPERTY(BlueprintReadOnly, Category = "Health")
     FGameplayAttributeData MaxHealth;
 
     /** The current rage of the character. */
-    UPROPERTY(BlueprintReadOnly, Category = "Rage", meta = (AllowPrivateAccess = "true"))
+    UPROPERTY(BlueprintReadOnly, Category = "Rage")
     FGameplayAttributeData CurrentRage;
 
     /** The maximum rage of the character. */
-    UPROPERTY(BlueprintReadOnly, Category = "Rage", meta = (AllowPrivateAccess = "true"))
+    UPROPERTY(BlueprintReadOnly, Category = "Rage")
     FGameplayAttributeData MaxRage;
 
+    // Public temporarily to capture in UGEExecCalc_DamageTaken
+
     /** The attack power of the character. */
-    UPROPERTY(BlueprintReadOnly, Category = "Damage", meta = (AllowPrivateAccess = "true"))
+    UPROPERTY(BlueprintReadOnly, Category = "Damage")
     FGameplayAttributeData AttackPower;
 
     /** The defense power of the character. */
-    UPROPERTY(BlueprintReadOnly, Category = "Damage", meta = (AllowPrivateAccess = "true"))
+    UPROPERTY(BlueprintReadOnly, Category = "Damage")
     FGameplayAttributeData DefensePower;
 
     /** The damage taken by the character. */
-    UPROPERTY(BlueprintReadOnly, Category = "Damage", meta = (AllowPrivateAccess = "true"))
+    UPROPERTY(BlueprintReadOnly, Category = "Damage")
     FGameplayAttributeData DamageTaken;
 
-public:
     UWarriorAttributeSet();
 
     ATTRIBUTE_ACCESSORS(UWarriorAttributeSet, CurrentHealth)
