@@ -16,3 +16,11 @@ enum class EWarriorValidType : uint8
     Valid,
     Invalid
 };
+
+// TODO: Migrate to Aeon?
+UENUM()
+enum class EWarriorSuccessType : uint8
+{
+    Successful,
+    Failed
+};
