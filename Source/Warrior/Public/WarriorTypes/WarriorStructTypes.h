@@ -1,6 +1,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "GameplayAbilitySpec.h"
 #include "WarriorStructTypes.generated.h"
 
 struct FAeonGameplayAbilitySet;
@@ -27,4 +28,8 @@ struct FWarriorHeroWeaponData
     /** The Abilities that are granted to the owner when the weapon is equipped */
     UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, meta = (TitleProperty = "InputTag"))
     TArray<FAeonGameplayAbilitySet> DefaultWeaponAbilities;
+
+    /** The Base Damage of the Weapon. */
+    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+    FScalableFloat WeaponBaseDamage;
 };
