@@ -27,11 +27,6 @@ void UHeroCombatComponent::OnHitTargetActor(AActor* HitActor)
     {
         GetOverlappedActors().AddUnique(HitActor);
 
-        AEON_SHOW_MESSAGE(FColor::Green,
-                          TEXT("%s hit %s"),
-                          *GetOwningPawn()->GetActorNameOrLabel(),
-                          *HitActor->GetActorNameOrLabel())
-
         // Send a gameplay event to indicate that damage occurred.
         // It is then the responsibility of a Gameplay Ability
         // to listen for the event.
@@ -50,10 +45,4 @@ void UHeroCombatComponent::OnHitTargetActor(AActor* HitActor)
     }
 }
 
-void UHeroCombatComponent::OnWeaponPulledFromTargetActor(AActor* InteractedActor)
-{
-    AEON_SHOW_MESSAGE(FColor::Red,
-                      TEXT("%s pulled weapon from %s"),
-                      *GetOwningPawn()->GetActorNameOrLabel(),
-                      *InteractedActor->GetActorNameOrLabel())
-}
+void UHeroCombatComponent::OnWeaponPulledFromTargetActor(AActor* InteractedActor) {}
