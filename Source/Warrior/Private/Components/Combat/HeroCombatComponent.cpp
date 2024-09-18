@@ -1,6 +1,5 @@
 #include "Components/Combat/HeroCombatComponent.h"
 #include "AbilitySystemBlueprintLibrary.h"
-#include "Aeon/Logging.h"
 #include "Items/Weapons/WarriorHeroWeapon.h"
 #include "WarriorGameplayTags.h"
 
