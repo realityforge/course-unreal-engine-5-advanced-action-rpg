@@ -47,12 +47,6 @@ void UEnsureTextureFollowsConventionAction::ResetCacheIfTableModified(UObject* O
                                     *Object->GetName()));
             ResetConventionsCache();
         }
-        else
-        {
-            LogInfo(nullptr,
-                    FString::Printf(TEXT("ResetCacheIfTableModified invoked for %s and did not cause a reset"),
-                                    *Object->GetName()));
-        }
     }
 }
 
