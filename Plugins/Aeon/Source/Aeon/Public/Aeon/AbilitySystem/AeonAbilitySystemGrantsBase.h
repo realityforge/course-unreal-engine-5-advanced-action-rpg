@@ -28,6 +28,7 @@ class AEON_API UAeonAbilitySystemGrantsBase : public UDataAsset
     UPROPERTY(EditDefaultsOnly, Category = "Aeon|StartUpData", meta = (AllowAbstract = "false"))
     TArray<TSubclassOf<UGameplayAbility>> ActivateOnGivenAbilities;
 
+    /** Activities that are granted to the actor and are activated through other means such as via a Gameplay Event. */
     UPROPERTY(EditDefaultsOnly, Category = "Aeon|StartUpData", meta = (AllowAbstract = "false"))
     TArray<TSubclassOf<UGameplayAbility>> ReactiveAbilities;
 
