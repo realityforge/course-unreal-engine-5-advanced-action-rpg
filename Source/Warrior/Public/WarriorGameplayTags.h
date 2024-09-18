@@ -41,14 +41,22 @@ namespace WarriorGameplayTags
     // Enemy Tags
     // --------------------------------------------------- //
 
+    // Ability Tags
+    WARRIOR_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Enemy_Ability_Melee)
+    WARRIOR_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Enemy_Ability_Ranged)
+
     WARRIOR_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Enemy_Weapon)
 
     // --------------------------------------------------- //
     // Shared Tags (Used by both the Enemy and the Player)
     // --------------------------------------------------- //
 
+    // Ability Tags
+    WARRIOR_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Shared_Ability_HitReact)
+
     // Event Tags
     WARRIOR_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Shared_Event_MeleeHit)
+    WARRIOR_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Shared_Event_HitReact)
 
     // SetByCaller Tags
     WARRIOR_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Shared_SetByCaller_BaseDamage)
