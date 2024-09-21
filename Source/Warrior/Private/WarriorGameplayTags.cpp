@@ -13,6 +13,12 @@ namespace WarriorGameplayTags
     UE_DEFINE_GAMEPLAY_TAG(Input_Ability_HeavyAttack_Axe, "Input.Ability.HeavyAttack.Axe")
 
     // --------------------------------------------------- //
+    // GameplayCue Tags
+    // --------------------------------------------------- //
+
+    UE_DEFINE_GAMEPLAY_TAG(GameplayCue_Sounds_MeleeHit_Axe, "GameplayCue.Sounds.MeleeHit.Axe")
+
+    // --------------------------------------------------- //
     // Player Tags
     // --------------------------------------------------- //
 

@@ -14,6 +14,12 @@ namespace WarriorGameplayTags
     WARRIOR_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Input_Ability_HeavyAttack_Axe)
 
     // --------------------------------------------------- //
+    // GameplayCue Tags
+    // --------------------------------------------------- //
+
+    WARRIOR_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(GameplayCue_Sounds_MeleeHit_Axe)
+
+    // --------------------------------------------------- //
     // Player Tags
     // --------------------------------------------------- //
 
