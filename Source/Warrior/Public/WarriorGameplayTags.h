@@ -5,7 +5,10 @@
 
 namespace WarriorGameplayTags
 {
+    // --------------------------------------------------- //
     // Input Tags
+    // --------------------------------------------------- //
+
     WARRIOR_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Input_Native_Move)
     WARRIOR_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Input_Native_Look)
     WARRIOR_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Input_Ability_EquipAxe)
