@@ -27,6 +27,9 @@ class WARRIOR_API AHeroCharacter : public AWarriorCharacterBase
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Combat", meta = (AllowPrivateAccess = "true"))
     TObjectPtr<UHeroCombatComponent> CombatComponent;
 
+    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "UI", meta = (AllowPrivateAccess = "true"))
+    TObjectPtr<UHeroUIComponent> HeroUIComponent;
+
 #pragma endregion
 
 #pragma region Inputs
@@ -61,6 +64,10 @@ public:
     //~ Begin PawnCombatInterface Interface.
     virtual UPawnCombatComponent* GetPawnCombatComponent() const override;
     //~ End PawnCombatInterface Interface
+
+    //~ Begin IPawnUIInterface Interface.
+    virtual UPawnUIComponent* GetPawnUIComponent() const override;
+    //~ End IPawnUIInterface Interface
 
     FORCEINLINE UHeroCombatComponent* GetCombatComponent() const { return CombatComponent; }
 };

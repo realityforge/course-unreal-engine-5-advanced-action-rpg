@@ -5,6 +5,7 @@
 #include "Camera/CameraComponent.h"
 #include "Components/CapsuleComponent.h"
 #include "Components/Combat/HeroCombatComponent.h"
+#include "Components/UI/HeroUIComponent.h"
 #include "EnhancedInputSubsystems.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/SpringArmComponent.h"
@@ -34,6 +35,7 @@ AHeroCharacter::AHeroCharacter()
     GetCharacterMovement()->BrakingDecelerationWalking = 2000.f;
 
     CombatComponent = CreateDefaultSubobject<UHeroCombatComponent>(TEXT("CombatComponent"));
+    HeroUIComponent = CreateDefaultSubobject<UHeroUIComponent>("HeroUIComponent");
 }
 
 void AHeroCharacter::PossessedBy(AController* NewController)
@@ -119,4 +121,9 @@ void AHeroCharacter::Input_AbilityInputReleased(const FGameplayTag InGameplayTag
 UPawnCombatComponent* AHeroCharacter::GetPawnCombatComponent() const
 {
     return CombatComponent;
+}
+
+UPawnUIComponent* AHeroCharacter::GetPawnUIComponent() const
+{
+    return HeroUIComponent;
 }

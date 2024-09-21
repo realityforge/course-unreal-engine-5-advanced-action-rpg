@@ -1,5 +1,6 @@
 #include "Characters/EnemyCharacter.h"
 #include "Components/Combat/EnemyCombatComponent.h"
+#include "Components/UI/EnemyUIComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 
 AEnemyCharacter::AEnemyCharacter()
@@ -13,6 +14,7 @@ AEnemyCharacter::AEnemyCharacter()
     GetCharacterMovement()->BrakingDecelerationWalking = 1000.f;
 
     CombatComponent = CreateDefaultSubobject<UEnemyCombatComponent>("CombatComponent");
+    EnemyUIComponent = CreateDefaultSubobject<UEnemyUIComponent>("EnemyUIComponent");
 }
 
 void AEnemyCharacter::PossessedBy(AController* NewController)
@@ -24,4 +26,9 @@ void AEnemyCharacter::PossessedBy(AController* NewController)
 UPawnCombatComponent* AEnemyCharacter::GetPawnCombatComponent() const
 {
     return CombatComponent;
+}
+
+UPawnUIComponent* AEnemyCharacter::GetPawnUIComponent() const
+{
+    return EnemyUIComponent;
 }

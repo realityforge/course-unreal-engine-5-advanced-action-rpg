@@ -22,3 +22,10 @@ UPawnCombatComponent* AWarriorCharacterBase::GetPawnCombatComponent() const
            TEXT("AWarriorCharacterBase::GetPawnCombatComponent invoked when it is expected to have been overridden"));
     return nullptr;
 }
+
+UPawnUIComponent* AWarriorCharacterBase::GetPawnUIComponent() const
+{
+    checkf(false,
+           TEXT("AWarriorCharacterBase::GetPawnUIComponent invoked when it is expected to have been overridden"));
+    return nullptr;
+}
