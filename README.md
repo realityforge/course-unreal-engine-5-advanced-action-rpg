@@ -18,3 +18,4 @@ This the project developed in the course [Unreal Engine 5 C++: Advanced Action R
 * Document how to give player equipment at start
 * Document how equipment when equipped will give the player an ability
 * Document how to give player an input action
+* Consider converting `BPI_EnemyDeath` to C++ interface
