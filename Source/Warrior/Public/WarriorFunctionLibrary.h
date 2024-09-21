@@ -5,6 +5,7 @@
 #include "WarriorTypes/WarriorEnumTypes.h"
 #include "WarriorFunctionLibrary.generated.h"
 
+class UPawnCombatComponent;
 struct FGameplayTag;
 class UAeonAbilitySystemComponent;
 
