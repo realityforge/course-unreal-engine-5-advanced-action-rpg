@@ -20,6 +20,7 @@ namespace WarriorGameplayTags
     // --------------------------------------------------- //
 
     UE_DEFINE_GAMEPLAY_TAG(GameplayCue_Sounds_MeleeHit_Axe, "GameplayCue.Sounds.MeleeHit.Axe")
+    UE_DEFINE_GAMEPLAY_TAG(GameplayCue_Sounds_Death_Guardian, "GameplayCue.Sounds.Death.Guardian")
 
     // --------------------------------------------------- //
     // Player Tags
@@ -63,6 +64,7 @@ namespace WarriorGameplayTags
 
     // Ability Tags
     UE_DEFINE_GAMEPLAY_TAG(Shared_Ability_HitReact, "Shared.Ability.HitReact")
+    UE_DEFINE_GAMEPLAY_TAG(Shared_Ability_Death, "Shared.Ability.Death")
 
     // Event Tags
     UE_DEFINE_GAMEPLAY_TAG(Shared_Event_MeleeHit, "Shared.Event.MeleeHit")
@@ -70,5 +72,8 @@ namespace WarriorGameplayTags
 
     // Set By Caller Tags
     UE_DEFINE_GAMEPLAY_TAG(Shared_SetByCaller_BaseDamage, "Shared.SetByCaller.BaseDamage")
+
+    // Status Tags
+    UE_DEFINE_GAMEPLAY_TAG(Shared_Status_Dead, "Shared.Status.Dead")
 
 } // namespace WarriorGameplayTags

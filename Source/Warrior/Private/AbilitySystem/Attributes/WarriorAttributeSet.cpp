@@ -1,5 +1,7 @@
 #include "AbilitySystem/Attributes/WarriorAttributeSet.h"
 #include "GameplayEffectExtension.h"
+#include "WarriorFunctionLibrary.h"
+#include "WarriorGameplayTags.h"
 
 UWarriorAttributeSet::UWarriorAttributeSet()
 {
@@ -34,7 +36,8 @@ void UWarriorAttributeSet::PostGameplayEffectExecute(const FGameplayEffectModCal
 
             if (0.f == GetCurrentHealth())
             {
-                // TODO: Handle Character Death
+                UWarriorFunctionLibrary::AddGameplayTagToActorIfNotPresent(Data.Target.GetAvatarActor(),
+                                                                           WarriorGameplayTags::Shared_Status_Dead);
             }
             SetDamageTaken(0.f);
         }
