@@ -1,0 +1,3 @@
+<component name="DependencyValidationManager">
+  <scope name="Warrior" pattern="file:*.uproject||file:bin//*||file:Source/Warrior//*||file:Source/Warrior*||file:Plugins/Aeon//*||file:Plugins/RuleRanger//*" />
+</component>
