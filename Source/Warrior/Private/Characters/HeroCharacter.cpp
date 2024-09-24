@@ -127,3 +127,8 @@ UPawnUIComponent* AHeroCharacter::GetPawnUIComponent() const
 {
     return HeroUIComponent;
 }
+
+UHeroUIComponent* AHeroCharacter::GetHeroUIComponent() const
+{
+    return HeroUIComponent;
+}

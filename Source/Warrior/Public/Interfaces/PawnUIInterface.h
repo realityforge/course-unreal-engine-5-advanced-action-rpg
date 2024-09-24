@@ -20,4 +20,6 @@ class WARRIOR_API IPawnUIInterface
 
 public:
     virtual UPawnUIComponent* GetPawnUIComponent() const = 0;
+
+    virtual UHeroUIComponent* GetHeroUIComponent() const;
 };

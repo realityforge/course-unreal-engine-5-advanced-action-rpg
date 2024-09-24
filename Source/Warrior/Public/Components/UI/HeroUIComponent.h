@@ -11,4 +11,11 @@ UCLASS()
 class WARRIOR_API UHeroUIComponent : public UPawnUIComponent
 {
     GENERATED_BODY()
+
+    /** Delegate invoked when rage changes. */
+    UPROPERTY(BlueprintAssignable, meta = (AllowPrivateAccess = "true"))
+    FOnPercentChangedDelegate OnCurrentRageChanged;
+
+public:
+    FORCEINLINE const FOnPercentChangedDelegate& GetOnCurrentRageChanged() const { return OnCurrentRageChanged; }
 };

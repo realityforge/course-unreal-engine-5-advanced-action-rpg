@@ -4,6 +4,7 @@
 #include "Aeon/AbilitySystem/AeonAttributeSet.h"
 #include "WarriorAttributeSet.generated.h"
 
+class IPawnUIInterface;
 /**
  * Attributes used within Warrior game.
  */
@@ -11,6 +12,10 @@ UCLASS()
 class WARRIOR_API UWarriorAttributeSet : public UAeonAttributeSet
 {
     GENERATED_BODY()
+
+    // Cache the PawnUIInterface associated with attributes
+    // so we don't have to keep unnecessarily casting
+    TWeakInterfacePtr<IPawnUIInterface> CachedPawnUIInterface;
 
 public:
     /** The current health of the character. */
