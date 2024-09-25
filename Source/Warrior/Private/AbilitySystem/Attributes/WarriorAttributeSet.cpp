@@ -29,7 +29,7 @@ void UWarriorAttributeSet::PostGameplayEffectExecute(const FGameplayEffectModCal
                                                               TEXT("Expected Actor %s to implement IPawnUIInterface"),
 
                                                               *TargetAvatarActor->GetActorNameOrLabel());
-    UPawnUIComponent* PawnUIComponent{ nullptr };
+    const UPawnUIComponent* PawnUIComponent{ nullptr };
     if (bCachedPawnUIInterfaceValid)
     {
         PawnUIComponent = CachedPawnUIInterface->GetPawnUIComponent();
