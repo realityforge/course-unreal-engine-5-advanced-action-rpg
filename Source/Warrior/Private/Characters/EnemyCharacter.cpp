@@ -32,3 +32,8 @@ UPawnUIComponent* AEnemyCharacter::GetPawnUIComponent() const
 {
     return EnemyUIComponent;
 }
+
+UEnemyUIComponent* AEnemyCharacter::GetEnemyUIComponent() const
+{
+    return EnemyUIComponent;
+}
