@@ -23,9 +23,9 @@ try:
     files_to_format = []
     files_to_format_assuming_json = []
     for file in files:
-        if (file.lower().endswith(".uplugin") or file.lower().endswith(".uproject")):
+        if file.lower().endswith(".uplugin") or file.lower().endswith(".uproject"):
             files_to_format_assuming_json.append(file)
-        elif (file.lower().endswith(".h") or file.lower().endswith(".cpp") or file.lower().endswith(".cs")):
+        elif file.lower().endswith(".h") or file.lower().endswith(".cpp") or file.lower().endswith(".cs"):
             if file.startswith("Source/"):
                 files_to_format.append(file)
             elif file.startswith("Plugins/"):
