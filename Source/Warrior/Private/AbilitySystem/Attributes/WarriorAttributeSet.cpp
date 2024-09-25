@@ -60,7 +60,10 @@ void UWarriorAttributeSet::PostGameplayEffectExecute(const FGameplayEffectModCal
         {
             SetCurrentHealth(FMath::Clamp(GetCurrentHealth() - CurrentDamageTaken, 0.f, GetMaxHealth()));
 
-            // TODO: Update UI?
+            if (PawnUIComponent)
+            {
+                PawnUIComponent->GetOnCurrentHealthChanged().Broadcast(GetCurrentHealth() / GetMaxHealth());
+            }
 
             if (0.f == GetCurrentHealth())
             {
