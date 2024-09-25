@@ -24,12 +24,12 @@ if 1 != len(sys.argv):
         direct_matches.append(arg.replace('\\', '/'))
 
 try:
-    changed_files = subprocess.check_output(["git", "diff", "--name-only", "HEAD", *direct_matches],
-                                            universal_newlines=True).splitlines()
+    files = subprocess.check_output(["git", "diff", "--name-only", "HEAD", *direct_matches],
+                                    universal_newlines=True).splitlines()
 
     files_to_format = []
     files_to_format_assuming_json = []
-    for file in changed_files:
+    for file in files:
         if file.lower().endswith(".uplugin") or file.lower().endswith(".uproject"):
             files_to_format_assuming_json.append(file)
         elif file.lower().endswith(".h") or file.lower().endswith(".cpp") or file.lower().endswith(".cs"):
