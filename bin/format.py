@@ -13,18 +13,24 @@
 # limitations under the License.
 
 import subprocess
-import sys
+import argparse
 
 plugins_to_process = ["RuleRanger", "Aeon"]
 
-# If files are passed in then restrict formatting to those
-direct_matches = []
-if 1 != len(sys.argv):
-    for arg in sys.argv[1:]:
-        direct_matches.append(arg.replace('\\', '/'))
+parser = argparse.ArgumentParser(description="Unreal Source Code Formatter")
+
+parser.add_argument('--verbose', action='store_true', help='Increase output verbosity')
+parser.add_argument('--scope', type=str, choices=['all', 'selected'], default='all', help='The scope of source code analysis')
+parser.add_argument('files', type=str, nargs='*', help='The file to analyze')
+
+args = parser.parse_args()
+
+if args.verbose:
+    print(f"Performing Source Code Formatting. Scope= {args.scope}. Files: {args.files}")
+
 
 try:
-    files = subprocess.check_output(["git", "ls-tree", "--name-only", "HEAD", *direct_matches],
+    files = subprocess.check_output(["git", "ls-tree", "--name-only", "HEAD", *args.files],
                                     universal_newlines=True).splitlines()
 
     files_to_format = []
@@ -50,12 +56,13 @@ try:
     if 0 != len(files_to_format):
         subprocess.run(["clang-format", "-i", *files_to_format], check=True)
 
-    if 0 != len(files_to_format) or 0 != len(files_to_format_assuming_json):
-        print("Formatted the following files:")
-        for file in files_to_format_assuming_json:
-            print(file)
-        for file in files_to_format:
-            print(file)
+    if args.verbose:
+        if 0 != len(files_to_format) or 0 != len(files_to_format_assuming_json):
+            print("Formatted the following files:")
+            for file in files_to_format_assuming_json:
+                print(file)
+            for file in files_to_format:
+                print(file)
 
 except subprocess.CalledProcessError as e:
     print(f"Error executing process: {e}")
