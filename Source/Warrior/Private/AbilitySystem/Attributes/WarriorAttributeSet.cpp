@@ -33,9 +33,9 @@ void UWarriorAttributeSet::PostGameplayEffectExecute(const FGameplayEffectModCal
     if (bCachedPawnUIInterfaceValid)
     {
         PawnUIComponent = CachedPawnUIInterface->GetPawnUIComponent();
-        checkf(PawnUIComponent,
-               TEXT("Actor named %s returned nullptr for GetPawnUIComponent()"),
-               *TargetAvatarActor->GetActorNameOrLabel())
+        ensureAlwaysMsgf(PawnUIComponent,
+                         TEXT("Actor named %s returned nullptr for GetPawnUIComponent()"),
+                         *TargetAvatarActor->GetActorNameOrLabel());
     }
 
     if (GetCurrentHealthAttribute() == Data.EvaluatedData.Attribute)
