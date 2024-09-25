@@ -30,7 +30,7 @@ try:
     files_to_format = []
     files_to_format_assuming_json = []
     for file in changed_files:
-        if (file.lower().endswith(".uplugin") or file.lower().endswith(".uproject")):
+        if file.lower().endswith(".uplugin") or file.lower().endswith(".uproject"):
             files_to_format_assuming_json.append(file)
         elif file.lower().endswith(".h") or file.lower().endswith(".cpp") or file.lower().endswith(".cs"):
             if file.startswith("Source/"):
