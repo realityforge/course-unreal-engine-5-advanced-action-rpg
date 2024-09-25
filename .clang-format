@@ -100,3 +100,4 @@ BasedOnStyle:  Microsoft
 ---
 Language: Json
 SpaceBeforeJsonColon: false
+InsertNewlineAtEOF: true
