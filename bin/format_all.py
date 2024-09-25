@@ -49,6 +49,7 @@ try:
             print(file)
         for file in files_to_format:
             print(file)
+
 except subprocess.CalledProcessError as e:
     print(f"Error executing process: {e}")
     exit(e.returncode)
