@@ -24,7 +24,7 @@ if 1 != len(sys.argv):
         direct_matches.append(arg.replace('\\', '/'))
 
 try:
-    files = subprocess.check_output(["git", "diff", "--name-only", "HEAD", *direct_matches],
+    files = subprocess.check_output(["git", "ls-tree", "--name-only", "HEAD", *direct_matches],
                                     universal_newlines=True).splitlines()
 
     files_to_format = []
