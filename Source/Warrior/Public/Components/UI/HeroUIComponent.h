@@ -11,7 +11,7 @@ DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnEquippedWeaponChangedDelegate,
 /**
  * Component with UI related functionality for the hero.
  */
-UCLASS()
+UCLASS(NotBlueprintable)
 class WARRIOR_API UHeroUIComponent final : public UPawnUIComponent
 {
     GENERATED_BODY()
