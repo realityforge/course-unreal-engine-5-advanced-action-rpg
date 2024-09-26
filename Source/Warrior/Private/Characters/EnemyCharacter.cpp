@@ -3,6 +3,7 @@
 #include "Components/UI/EnemyUIComponent.h"
 #include "Components/WidgetComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
+#include "Misc/DataValidation.h"
 #include "Widgets/WarriorWidgetBase.h"
 
 AEnemyCharacter::AEnemyCharacter()
@@ -54,3 +55,23 @@ UEnemyUIComponent* AEnemyCharacter::GetEnemyUIComponent() const
 {
     return EnemyUIComponent;
 }
+
+#if WITH_EDITOR
+EDataValidationResult AEnemyCharacter::IsDataValid(FDataValidationContext& Context) const
+{
+    const EDataValidationResult ExistingResult = Super::IsDataValid(Context);
+    EDataValidationResult Result =
+        (EDataValidationResult::NotValidated == ExistingResult) ? EDataValidationResult::Valid : ExistingResult;
+
+    if (!GetClass()->HasAnyClassFlags(CLASS_Abstract) && !EnemyHealthWidgetComponent->GetWidgetClass())
+    {
+        const auto String = FString::Printf(TEXT("Object %s is not an abstract class but is missing the required "
+                                                 "property HealthWidgetComponent.WidgetClass"),
+                                            *GetActorNameOrLabel());
+        Context.AddError(FText::FromString(String));
+        Result = CombineDataValidationResults(Result, EDataValidationResult::Invalid);
+    }
+
+    return Result;
+}
+#endif // WITH_EDITOR

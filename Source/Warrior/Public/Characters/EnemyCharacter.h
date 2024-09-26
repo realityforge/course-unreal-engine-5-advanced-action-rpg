@@ -37,6 +37,10 @@ protected:
     virtual void PossessedBy(AController* NewController) override;
     //~ End APawn Interface.
 
+#if WITH_EDITOR
+    virtual EDataValidationResult IsDataValid(FDataValidationContext& Context) const override;
+#endif // WITH_EDITOR
+
 public:
     AEnemyCharacter();
 
