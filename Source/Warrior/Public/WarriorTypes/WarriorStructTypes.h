@@ -32,4 +32,8 @@ struct FWarriorHeroWeaponData
     /** The Base Damage of the Weapon. */
     UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
     FScalableFloat WeaponBaseDamage;
+
+    /** The Icon representing the Weapon that can be placed on the HUD. */
+    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+    TSoftObjectPtr<UTexture2D> SoftWeaponIconTexture;
 };
