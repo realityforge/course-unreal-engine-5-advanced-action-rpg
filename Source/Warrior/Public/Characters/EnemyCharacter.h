@@ -4,6 +4,7 @@
 #include "CoreMinimal.h"
 #include "EnemyCharacter.generated.h"
 
+class UWidgetComponent;
 class UEnemyCombatComponent;
 
 /**
@@ -22,9 +23,16 @@ class WARRIOR_API AEnemyCharacter : public AWarriorCharacterBase
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "UI", meta = (AllowPrivateAccess = "true"))
     TObjectPtr<UEnemyUIComponent> EnemyUIComponent;
 
+    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "UI", meta = (AllowPrivateAccess = "true"))
+    TObjectPtr<UWidgetComponent> EnemyHealthWidgetComponent;
+
 #pragma endregion
 
 protected:
+    //~ Begin AActor Interface.
+    virtual void BeginPlay() override;
+    //~ End APawn Interface.
+
     //~ Begin APawn Interface.
     virtual void PossessedBy(AController* NewController) override;
     //~ End APawn Interface.
