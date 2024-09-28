@@ -1,5 +1,8 @@
 #include "Controllers/WarriorAIController.h"
 #include "Aeon/Logging.h"
+#include "BehaviorTree/BehaviorTree.h"
+#include "BehaviorTree/Blackboard/BlackboardKeyType_Object.h"
+#include "BehaviorTree/BlackboardComponent.h"
 #include "Navigation/CrowdFollowingComponent.h"
 #include "Perception/AIPerceptionComponent.h"
 #include "Perception/AISenseConfig_Sight.h"
@@ -34,6 +37,23 @@ AWarriorAIController::AWarriorAIController(const FObjectInitializer& ObjectIniti
 
     // Make sure we explicitly set common team for all AI so that they are on a single team
     AAIController::SetGenericTeamId(FGenericTeamId(1));
+}
+
+void AWarriorAIController::LookupBlackboardKey(const FName KeyName, FBlackboard::FKey& OutKeyID)
+{
+    const auto BlackboardComponent = GetBlackboardComponent();
+    checkf(BlackboardComponent, TEXT("Expected BlackboardComponent to be present"));
+    const FBlackboard::FKey KeyID = BlackboardComponent->GetKeyID(KeyName);
+    ensureAlwaysMsgf(FBlackboard::InvalidKey != KeyID,
+                     TEXT("Failed to retrieve '%s' key from "
+                          "Blackboard named '%s' defined on Controller named '%s' "
+                          "with Behavior Tree named '%s'"),
+                     *KeyName.ToString(),
+                     BlackboardComponent->GetBlackboardAsset() ? *BlackboardComponent->GetBlackboardAsset()->GetName()
+                                                               : TEXT("(None)"),
+                     *GetName(),
+                     *BehaviorTree->GetName());
+    OutKeyID = KeyID;
 }
 
 void AWarriorAIController::OnPossess(APawn* InPawn)
@@ -77,5 +97,13 @@ void AWarriorAIController::OnTargetPerceptionUpdated(AActor* Actor, FAIStimulus 
 {
     if (Stimulus.WasSuccessfullySensed() && Actor)
     {
+        if (const auto BlackboardComponent = GetBlackboardComponent())
+        {
+            BlackboardComponent->SetValue<UBlackboardKeyType_Object>(TargetActorKeyID, Actor);
+        }
+        else
+        {
+            AEON_SHOW_INFO_MESSAGE(TEXT("AWarriorAIController::OnTargetPerceptionUpdated BlackboardComponent invalid"));
+        }
     }
 }

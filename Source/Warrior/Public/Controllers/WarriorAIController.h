@@ -1,6 +1,7 @@
 #pragma once
 
 #include "AIController.h"
+#include "BehaviorTree/Blackboard/BlackboardKey.h"
 #include "CoreMinimal.h"
 #include "WarriorAIController.generated.h"
 
@@ -15,6 +16,16 @@ class WARRIOR_API AWarriorAIController : public AAIController
 {
     GENERATED_BODY()
 
+    /** Behavior tree to use on possession. */
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true", RuleRangerRequired = "true"))
+    TObjectPtr<UBehaviorTree> BehaviorTree;
+
+#pragma region BlackBoard Keys
+    // Cached Blackboard Keys. Populated during possession to minimize
+    // runtime cost when using keys and centralize error handling
+    FBlackboard::FKey TargetActorKeyID;
+#pragma endregion
+
 protected:
 #pragma region Components
 
@@ -28,6 +39,15 @@ protected:
 
     UFUNCTION()
     void OnTargetPerceptionUpdated(AActor* Actor, FAIStimulus Stimulus);
+
+    /**
+     * Lookup and cache Blackboard KeyID with specified name in OutKeyID.
+     * An ensure check will be tripped if the key is not found.
+     *
+     * @param KeyName the name of the key
+     * @param OutKeyID the place to store the cached key
+     */
+    void LookupBlackboardKey(const FName KeyName, FBlackboard::FKey& OutKeyID);
 
     virtual void OnPossess(APawn* InPawn) override;
 
