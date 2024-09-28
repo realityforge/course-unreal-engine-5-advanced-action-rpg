@@ -36,6 +36,29 @@ AWarriorAIController::AWarriorAIController(const FObjectInitializer& ObjectIniti
     AAIController::SetGenericTeamId(FGenericTeamId(1));
 }
 
+void AWarriorAIController::OnPossess(APawn* InPawn)
+{
+    Super::OnPossess(InPawn);
+
+    if (BehaviorTree)
+    {
+        RunBehaviorTree(BehaviorTree);
+        if (GetBlackboardComponent())
+        {
+            LookupBlackboardKey(FName("TargetActor"), TargetActorKeyID);
+        }
+        else
+        {
+            AEON_WARNING_ALOG("AWarriorAIController::OnPossess: Failed to retrieve "
+                              "BlackboardComponent and thus no blackboard keys cached")
+        }
+    }
+    else
+    {
+        AEON_WARNING_ALOG("AWarriorAIController::OnPossess: BehaviorTree not configured")
+    }
+}
+
 ETeamAttitude::Type AWarriorAIController::GetTeamAttitudeTowards(const AActor& Other) const
 {
     const APawn* OtherPawn = Cast<const APawn>(&Other);

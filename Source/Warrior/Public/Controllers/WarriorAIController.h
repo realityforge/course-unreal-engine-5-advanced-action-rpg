@@ -29,6 +29,8 @@ protected:
     UFUNCTION()
     void OnTargetPerceptionUpdated(AActor* Actor, FAIStimulus Stimulus);
 
+    virtual void OnPossess(APawn* InPawn) override;
+
 public:
     explicit AWarriorAIController(const FObjectInitializer& ObjectInitializer);
 
