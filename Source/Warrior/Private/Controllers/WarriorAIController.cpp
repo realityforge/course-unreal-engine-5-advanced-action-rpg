@@ -54,6 +54,5 @@ void AWarriorAIController::OnTargetPerceptionUpdated(AActor* Actor, FAIStimulus 
 {
     if (Stimulus.WasSuccessfullySensed() && Actor)
     {
-        // AEON_SHOW_INFO_MESSAGE(TEXT("OnTargetPerceptionUpdated Sensed %s"), *Actor->GetActorNameOrLabel());
     }
 }
