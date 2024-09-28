@@ -16,7 +16,8 @@ public class Warrior : ModuleRules
 			"InputCore",
 			"GameplayTags",
 			"GameplayTasks",
-            "GameplayAbilities"
+            "GameplayAbilities", 
+            "AIModule"
         });
         // clang-format on
     }
