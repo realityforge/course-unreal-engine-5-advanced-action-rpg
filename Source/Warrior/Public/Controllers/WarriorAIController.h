@@ -17,7 +17,10 @@ class WARRIOR_API AWarriorAIController : public AAIController
     GENERATED_BODY()
 
     /** Behavior tree to use on possession. */
-    UPROPERTY(EditAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true", RuleRangerRequired = "true"))
+    UPROPERTY(EditAnywhere,
+              Category = "Warrior",
+              BlueprintReadOnly,
+              meta = (AllowPrivateAccess = "true", RuleRangerRequired = "true"))
     TObjectPtr<UBehaviorTree> BehaviorTree;
 
 #pragma region BlackBoard Keys
