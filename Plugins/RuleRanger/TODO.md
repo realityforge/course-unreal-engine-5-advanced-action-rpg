@@ -30,6 +30,10 @@ Shorthand notes of where to go next with this experiment:
   * Support RuleRangerRequiredIf="SomeProperty" to meta which will require that the property is non-null if the referenced property is non-null.
 * Possibly extract "Config Overrides" to allow us to configure all the settings in a central place?
   * Is this possible? or we will be have to configure on rule-by-rule basis, at least into the near future. Perhaps we could introspect rule sets and automagically build a config panel.
+* BlackBoard:
+  * Add check to ensure keys follow naming convention
+  * Add check to ensure entries are categorized if threshold count reached
+  * Add check to ensure entries have descriptions if threshold count reached
 * Name checks:
   * Add regex per-type for nested names? or global regex for internal names?
   * Ensure that classes (C++ and Blueprint) have a "basename" that ends with Base rather than starts with Base. i.e. Prefer FooBase over BaseFoo
