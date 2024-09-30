@@ -79,6 +79,35 @@ void AWarriorAIController::OnPossess(APawn* InPawn)
     }
 }
 
+void AWarriorAIController::BeginPlay()
+{
+    Super::BeginPlay();
+    auto CrowdFollowingComponent = CastChecked<UCrowdFollowingComponent>(GetPathFollowingComponent());
+    CrowdFollowingComponent->SetCrowdSimulationState(bEnableDetourCrowdAvoidance ? ECrowdSimulationState::Enabled
+                                                                                 : ECrowdSimulationState::Disabled);
+    switch (DetourCrowdAvoidanceQuality)
+    {
+        case 1:
+            CrowdFollowingComponent->SetCrowdAvoidanceQuality(ECrowdAvoidanceQuality::Low);
+            break;
+        case 2:
+            CrowdFollowingComponent->SetCrowdAvoidanceQuality(ECrowdAvoidanceQuality::Medium);
+            break;
+        case 3:
+            CrowdFollowingComponent->SetCrowdAvoidanceQuality(ECrowdAvoidanceQuality::Good);
+        case 4:
+            CrowdFollowingComponent->SetCrowdAvoidanceQuality(ECrowdAvoidanceQuality::High);
+            break;
+        default:
+            AEON_WARNING_ALOG(
+                " AWarriorAIController::DetourCrowdAvoidanceQuality set to bad value. Expected to be 1-4 but is %d",
+                DetourCrowdAvoidanceQuality);
+    }
+    CrowdFollowingComponent->SetAvoidanceGroup(1);
+    CrowdFollowingComponent->SetGroupsToAvoid(1);
+    CrowdFollowingComponent->SetCrowdCollisionQueryRange(CollisionQueryRange);
+}
+
 ETeamAttitude::Type AWarriorAIController::GetTeamAttitudeTowards(const AActor& Other) const
 {
     const APawn* OtherPawn = Cast<const APawn>(&Other);

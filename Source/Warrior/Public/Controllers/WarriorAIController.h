@@ -23,6 +23,28 @@ class WARRIOR_API AWarriorAIController : public AAIController
               meta = (AllowPrivateAccess = "true", RuleRangerRequired = "true"))
     TObjectPtr<UBehaviorTree> BehaviorTree;
 
+    // The following settings have only been added to make it easier to tweak in Blueprints
+
+    // Flag that we can use to disable detour crows avoidance
+    UPROPERTY(EditDefaultsOnly,
+              Category = "Warrior|Detour Crowd Avoidance Config",
+              meta = (AllowPrivateAccess = "true"))
+    bool bEnableDetourCrowdAvoidance{ true };
+    // The quality that determines how many samples taken when attempting to path around obstacles
+    UPROPERTY(EditDefaultsOnly,
+              Category = "Warrior|Detour Crowd Avoidance Config",
+              meta = (AllowPrivateAccess = "true",
+                      EditCondition = "bEnableDetourCrowdAvoidance",
+                      UIMin = "1",
+                      UIMax = "4",
+                      EditConditionHides))
+    int32 DetourCrowdAvoidanceQuality{ 4 };
+    // The range in which sampling occurs
+    UPROPERTY(EditDefaultsOnly,
+              Category = "Warrior|Detour Crowd Avoidance Config",
+              meta = (AllowPrivateAccess = "true", EditCondition = "bEnableDetourCrowdAvoidance", EditConditionHides))
+    float CollisionQueryRange{ 600.f };
+
 #pragma region BlackBoard Keys
     // Cached Blackboard Keys. Populated during possession to minimize
     // runtime cost when using keys and centralize error handling
@@ -53,6 +75,8 @@ protected:
     void LookupBlackboardKey(const FName KeyName, FBlackboard::FKey& OutKeyID);
 
     virtual void OnPossess(APawn* InPawn) override;
+
+    virtual void BeginPlay() override;
 
 public:
     explicit AWarriorAIController(const FObjectInitializer& ObjectInitializer);
