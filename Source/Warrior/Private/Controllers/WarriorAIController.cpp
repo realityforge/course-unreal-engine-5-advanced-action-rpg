@@ -124,15 +124,18 @@ ETeamAttitude::Type AWarriorAIController::GetTeamAttitudeTowards(const AActor& O
 // ReSharper disable once CppPassValueParameterByConstReference
 void AWarriorAIController::OnTargetPerceptionUpdated(AActor* Actor, FAIStimulus Stimulus)
 {
-    if (Stimulus.WasSuccessfullySensed() && Actor)
+    if (const auto BlackboardComponent = GetBlackboardComponent())
     {
-        if (const auto BlackboardComponent = GetBlackboardComponent())
+        if (!BlackboardComponent->GetValue<UBlackboardKeyType_Object>(TargetActorKeyID))
         {
-            BlackboardComponent->SetValue<UBlackboardKeyType_Object>(TargetActorKeyID, Actor);
+            if (Stimulus.WasSuccessfullySensed() && Actor)
+            {
+                BlackboardComponent->SetValue<UBlackboardKeyType_Object>(TargetActorKeyID, Actor);
+            }
         }
-        else
-        {
-            AEON_SHOW_INFO_MESSAGE(TEXT("AWarriorAIController::OnTargetPerceptionUpdated BlackboardComponent invalid"));
-        }
+    }
+    else
+    {
+        AEON_SHOW_INFO_MESSAGE(TEXT("AWarriorAIController::OnTargetPerceptionUpdated BlackboardComponent invalid"));
     }
 }
