@@ -115,8 +115,8 @@ ETeamAttitude::Type AWarriorAIController::GetTeamAttitudeTowards(const AActor& O
         Cast<const IGenericTeamAgentInterface>(OtherPawn->GetController());
 
     // Enemy AI will consider every team other than their own to be the enemy
-    return OtherTeamAgent && OtherTeamAgent->GetGenericTeamId() != GetGenericTeamId() ? ETeamAttitude::Hostile
-                                                                                      : ETeamAttitude::Friendly;
+    return OtherTeamAgent && OtherTeamAgent->GetGenericTeamId() < GetGenericTeamId() ? ETeamAttitude::Hostile
+                                                                                     : ETeamAttitude::Friendly;
 }
 
 // ReSharper disable once CppMemberFunctionMayBeStatic
