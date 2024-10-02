@@ -85,7 +85,7 @@ void AWarriorAIController::OnPossess(APawn* InPawn)
 void AWarriorAIController::BeginPlay()
 {
     Super::BeginPlay();
-    auto CrowdFollowingComponent = CastChecked<UCrowdFollowingComponent>(GetPathFollowingComponent());
+    const auto CrowdFollowingComponent = CastChecked<UCrowdFollowingComponent>(GetPathFollowingComponent());
     CrowdFollowingComponent->SetCrowdSimulationState(bEnableDetourCrowdAvoidance ? ECrowdSimulationState::Enabled
                                                                                  : ECrowdSimulationState::Disabled);
     switch (DetourCrowdAvoidanceQuality)
