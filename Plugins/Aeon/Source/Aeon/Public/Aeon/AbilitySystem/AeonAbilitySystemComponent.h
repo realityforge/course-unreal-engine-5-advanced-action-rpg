@@ -48,4 +48,16 @@ public:
      */
     UFUNCTION(BlueprintCallable, Category = "Aeon|Ability")
     void RemoveGrantedHeroWeaponAbilities(UPARAM(ref) const TArray<FGameplayAbilitySpecHandle>& InAbilitySpecHandles);
+
+    /**
+     * Activate the ability identified by the AbilityTag.
+     * - If there are multiple abilities that are identified by the tag, then an ability is randomly selected.
+     * - The function will then check costs and requirements before activating the ability.
+     *
+     * @param AbilityTag the Tag identifying the ability.
+     * @return true if the Ability is present and attempt to activate occured, but it may return false positives due to
+     * failure later in activation.
+     */
+    UFUNCTION(BlueprintCallable, Category = "Aeon|Ability")
+    bool TryActivateRandomSingleAbilityByTag(UPARAM(ref) const FGameplayTag& AbilityTag);
 };

@@ -76,3 +76,36 @@ void UAeonAbilitySystemComponent::RemoveGrantedHeroWeaponAbilities(
         ClearAbility(SpecHandle);
     }
 }
+
+bool UAeonAbilitySystemComponent::TryActivateRandomSingleAbilityByTag(const FGameplayTag& AbilityTag)
+{
+    if (ensureAlwaysMsgf(AbilityTag.IsValid(), TEXT("Empty/Invalid tag specified")))
+    {
+        TArray<FGameplayAbilitySpec*> AbilitySpecs;
+        GetActivatableGameplayAbilitySpecsByAllMatchingTags(AbilityTag.GetSingleTagContainer(), AbilitySpecs);
+        if (!AbilitySpecs.IsEmpty())
+        {
+            const auto& AbilitySpec = AbilitySpecs[FMath::RandRange(0, AbilitySpecs.Num() - 1)];
+            check(AbilitySpec);
+            if (!AbilitySpec->IsActive())
+            {
+                return TryActivateAbility(AbilitySpec->Handle);
+            }
+            else
+            {
+                return false;
+            }
+        }
+        else
+        {
+            AEON_VERBOSE_ALOG("UAeonAbilitySystemComponent::TryActivateAbilityByTag invoked with tag %s "
+                              "found no matching AbilitySpecs",
+                              *AbilityTag.GetTagName().ToString());
+            return false;
+        }
+    }
+    else
+    {
+        return false;
+    }
+}
