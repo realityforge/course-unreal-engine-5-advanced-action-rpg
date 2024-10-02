@@ -13,7 +13,7 @@ UAeonAbilitySystemComponent* UWarriorFunctionLibrary::NativeGetAeonAbilitySystem
 void UWarriorFunctionLibrary::AddGameplayTagToActorIfNotPresent(AActor* InActor, const FGameplayTag InGameplayTag)
 {
     // ReSharper disable once CppTooWideScopeInitStatement
-    const auto AbilitySystemComponent = NativeGetAeonAbilitySystemComponentFromActor(InActor);
+    const auto AbilitySystemComponent = UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(InActor);
     if (!AbilitySystemComponent->HasMatchingGameplayTag(InGameplayTag))
     {
         AbilitySystemComponent->AddLooseGameplayTag(InGameplayTag);
@@ -23,7 +23,7 @@ void UWarriorFunctionLibrary::AddGameplayTagToActorIfNotPresent(AActor* InActor,
 void UWarriorFunctionLibrary::RemoveGameplayTagFromActorIfPresent(AActor* InActor, const FGameplayTag InGameplayTag)
 {
     // ReSharper disable once CppTooWideScopeInitStatement
-    const auto AbilitySystemComponent = NativeGetAeonAbilitySystemComponentFromActor(InActor);
+    const auto AbilitySystemComponent = UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(InActor);
     if (AbilitySystemComponent->HasMatchingGameplayTag(InGameplayTag))
     {
         AbilitySystemComponent->RemoveLooseGameplayTag(InGameplayTag);
@@ -32,7 +32,7 @@ void UWarriorFunctionLibrary::RemoveGameplayTagFromActorIfPresent(AActor* InActo
 
 bool UWarriorFunctionLibrary::NativeIsGameplayTagPresentOnActor(AActor* InActor, const FGameplayTag InGameplayTag)
 {
-    return NativeGetAeonAbilitySystemComponentFromActor(InActor)->HasMatchingGameplayTag(InGameplayTag);
+    return UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(InActor)->HasMatchingGameplayTag(InGameplayTag);
 }
 
 void UWarriorFunctionLibrary::BP_IsGameplayTagPresentOnActor(AActor* InActor,
