@@ -19,6 +19,9 @@ public class Warrior : ModuleRules
             "GameplayAbilities", 
             "AIModule"
         });
+        PrivateDependencyModuleNames.AddRange(new[] {
+	        "AnimGraphRuntime" 
+        });
         // clang-format on
     }
 }

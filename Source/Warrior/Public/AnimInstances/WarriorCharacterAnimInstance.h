@@ -30,6 +30,12 @@ class WARRIOR_API UWarriorCharacterAnimInstance : public UWarriorAnimInstanceBas
               meta = (AllowPrivateAccess = "true"))
     bool bHasAcceleration{ false };
 
+    UPROPERTY(EditInstanceOnly,
+              BlueprintReadOnly,
+              Category = "AnimData|LocomotionData",
+              meta = (AllowPrivateAccess = "true"))
+    float LocomotionDirection{ 0.f };
+
 protected:
     FORCEINLINE AWarriorCharacterBase* GetOwningCharacter() const { return OwningCharacter; };
     FORCEINLINE bool HasAcceleration() const { return bHasAcceleration; }
