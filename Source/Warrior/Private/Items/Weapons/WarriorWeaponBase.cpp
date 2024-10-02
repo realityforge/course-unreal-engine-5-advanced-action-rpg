@@ -1,6 +1,7 @@
 #include "Items/Weapons/WarriorWeaponBase.h"
 #include "Aeon/Logging.h"
 #include "Components/BoxComponent.h"
+#include "WarriorFunctionLibrary.h"
 
 AWarriorWeaponBase::AWarriorWeaponBase()
 {
@@ -37,8 +38,8 @@ void AWarriorWeaponBase::OnCollisionBoxBeginOverlap(UPrimitiveComponent* Overlap
     const auto PawnInstigator = GetPawnInstigator();
     if (const auto HitPawn = Cast<APawn>(OtherActor))
     {
-        // You should not be able to hit yourself
-        if (PawnInstigator != HitPawn)
+        // You should not be able to hit yourself or your teammates
+        if (UWarriorFunctionLibrary::IsTargetPawnHostile(PawnInstigator, HitPawn))
         {
             OnWeaponHitTarget.ExecuteIfBound(OtherActor);
         }
@@ -53,8 +54,8 @@ void AWarriorWeaponBase::OnCollisionBoxEndOverlap(UPrimitiveComponent* Overlappe
     const auto PawnInstigator = GetPawnInstigator();
     if (const auto HitPawn = Cast<APawn>(OtherActor))
     {
-        // You should not be able to hit yourself
-        if (PawnInstigator != HitPawn)
+        // You should not be able to hit yourself or your teammates
+        if (UWarriorFunctionLibrary::IsTargetPawnHostile(PawnInstigator, HitPawn))
         {
             OnWeaponPulledFromTarget.ExecuteIfBound(OtherActor);
         }
