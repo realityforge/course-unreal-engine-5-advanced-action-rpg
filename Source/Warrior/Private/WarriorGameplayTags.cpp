@@ -59,6 +59,9 @@ namespace WarriorGameplayTags
     // Weapon Tags
     UE_DEFINE_GAMEPLAY_TAG(Enemy_Weapon, "Enemy.Weapon")
 
+    // Status Tags
+    UE_DEFINE_GAMEPLAY_TAG(Enemy_Status_Strafing, "Enemy.Status.Strafing")
+
     // --------------------------------------------------- //
     // Shared Tags (Used by both the Enemy and the Player)
     // --------------------------------------------------- //

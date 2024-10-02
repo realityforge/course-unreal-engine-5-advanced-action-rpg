@@ -1,8 +1,11 @@
 #include "Controllers/WarriorAIController.h"
 #include "Aeon/Logging.h"
 #include "BehaviorTree/BehaviorTree.h"
+#include "BehaviorTree/Blackboard/BlackboardKeyType_Float.h"
 #include "BehaviorTree/Blackboard/BlackboardKeyType_Object.h"
 #include "BehaviorTree/BlackboardComponent.h"
+#include "GameFramework/Character.h"
+#include "GameFramework/CharacterMovementComponent.h"
 #include "Navigation/CrowdFollowingComponent.h"
 #include "Perception/AIPerceptionComponent.h"
 #include "Perception/AISenseConfig_Sight.h"
@@ -63,9 +66,24 @@ void AWarriorAIController::OnPossess(APawn* InPawn)
     if (BehaviorTree)
     {
         RunBehaviorTree(BehaviorTree);
-        if (GetBlackboardComponent())
+        if (const auto BlackboardComponent = GetBlackboardComponent(); LIKELY(BlackboardComponent))
         {
             LookupBlackboardKey(FName("TargetActor"), TargetActorKeyID);
+            LookupBlackboardKey(FName("DefaultMaxWalkSpeed"), DefaultMaxWalkSpeedKeyID);
+            if (const auto OwnerCharacter = GetCharacter(); LIKELY(OwnerCharacter))
+            {
+                // Cache key for DefaultMaxWalkSpeed. Should remove the need for this.
+                // See BTT_ToggleStrafingState for further detail
+                BlackboardComponent->SetValue<UBlackboardKeyType_Float>(
+                    DefaultMaxWalkSpeedKeyID,
+                    OwnerCharacter->GetCharacterMovement()->MaxWalkSpeed);
+            }
+            else
+            {
+                AEON_WARNING_ALOG("AWarriorAIController::OnPossess: Failed to get possessing "
+                                  "character on %s",
+                                  *GetActorNameOrLabel());
+            }
         }
         else
         {

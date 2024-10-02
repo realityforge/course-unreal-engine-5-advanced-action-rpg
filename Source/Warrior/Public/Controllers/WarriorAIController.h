@@ -49,6 +49,9 @@ class WARRIOR_API AWarriorAIController : public AAIController
     // Cached Blackboard Keys. Populated during possession to minimize
     // runtime cost when using keys and centralize error handling
     FBlackboard::FKey TargetActorKeyID;
+
+    // This key should be removed and the need for it eliminated. See BTT_ToggleStrafingSTate for further details
+    FBlackboard::FKey DefaultMaxWalkSpeedKeyID;
 #pragma endregion
 
 protected:
