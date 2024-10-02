@@ -1,6 +1,8 @@
 #include "WarriorFunctionLibrary.h"
 #include "AbilitySystemBlueprintLibrary.h"
 #include "Aeon/AbilitySystem/AeonAbilitySystemComponent.h"
+#include "Aeon/Logging.h"
+#include "GenericTeamAgentInterface.h"
 #include "Interfaces/PawnCombatInterface.h"
 
 UAeonAbilitySystemComponent* UWarriorFunctionLibrary::NativeGetAeonAbilitySystemComponentFromActor(AActor* InActor)
@@ -49,6 +51,28 @@ UPawnCombatComponent* UWarriorFunctionLibrary::NativeGetPawnCombatComponentFromA
 
     const auto CombatInterface = Cast<IPawnCombatInterface>(InActor);
     return CombatInterface ? CombatInterface->GetPawnCombatComponent() : nullptr;
+}
+
+bool UWarriorFunctionLibrary::IsTargetPawnHostile(const APawn* Pawn, const APawn* TargetPawn)
+{
+    if (!Pawn)
+    {
+        AEON_WARNING_ALOG("UWarriorFunctionLibrary::IsTargetPawnHostile - Passed in NULL Pawn parameter")
+        return false;
+    }
+    else if (!TargetPawn)
+    {
+        AEON_WARNING_ALOG("UWarriorFunctionLibrary::IsTargetPawnHostile - Passed in NULL TargetPawn parameter")
+        return false;
+    }
+    else
+    {
+        const auto PawnTeamAgent = Cast<IGenericTeamAgentInterface>(Pawn->GetController());
+        const auto TargetPawnTeamAgent = Cast<IGenericTeamAgentInterface>(TargetPawn->GetController());
+        return PawnTeamAgent && TargetPawnTeamAgent
+            ? PawnTeamAgent->GetGenericTeamId() != TargetPawnTeamAgent->GetGenericTeamId()
+            : false;
+    }
 }
 
 UPawnCombatComponent* UWarriorFunctionLibrary::BP_GetPawnCombatComponentFromActor(AActor* InActor,

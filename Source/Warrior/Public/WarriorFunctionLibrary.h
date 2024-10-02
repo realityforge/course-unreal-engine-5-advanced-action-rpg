@@ -41,4 +41,7 @@ public:
     static UPawnCombatComponent* BP_GetPawnCombatComponentFromActor(AActor* InActor, EWarriorValidType& OutValidType);
 
     static UPawnCombatComponent* NativeGetPawnCombatComponentFromActor(AActor* InActor);
+
+    UFUNCTION(BlueprintPure, Category = "Warrior|FunctionLibrary")
+    static bool IsTargetPawnHostile(const APawn* Pawn, const APawn* TargetPawn);
 };
