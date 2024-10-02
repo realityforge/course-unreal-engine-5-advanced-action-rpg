@@ -30,6 +30,13 @@ class WARRIOR_API UWarriorCharacterAnimInstance : public UWarriorAnimInstanceBas
               meta = (AllowPrivateAccess = "true"))
     bool bHasAcceleration{ false };
 
+    /** Is the character strafing? */
+    UPROPERTY(EditInstanceOnly,
+              BlueprintReadOnly,
+              Category = "AnimData|LocomotionData",
+              meta = (AllowPrivateAccess = "true"))
+    bool bStrafing{ false };
+
     /** Direction of character in degrees. Ranging from -180 to 180. */
     UPROPERTY(EditInstanceOnly,
               BlueprintReadOnly,

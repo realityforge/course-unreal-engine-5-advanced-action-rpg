@@ -2,6 +2,8 @@
 #include "Characters/WarriorCharacterBase.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "KismetAnimationLibrary.h"
+#include "WarriorFunctionLibrary.h"
+#include "WarriorGameplayTags.h"
 
 void UWarriorCharacterAnimInstance::NativeInitializeAnimation()
 {
@@ -23,5 +25,8 @@ void UWarriorCharacterAnimInstance::NativeThreadSafeUpdateAnimation(float DeltaS
 
         LocomotionDirection = UKismetAnimationLibrary::CalculateDirection(OwningCharacter->GetVelocity(),
                                                                           OwningCharacter->GetActorRotation());
+        bStrafing =
+            UWarriorFunctionLibrary::NativeIsGameplayTagPresentOnActor(OwningCharacter,
+                                                                       WarriorGameplayTags::Enemy_Status_Strafing);
     }
 }
