@@ -30,6 +30,7 @@ class WARRIOR_API UWarriorCharacterAnimInstance : public UWarriorAnimInstanceBas
               meta = (AllowPrivateAccess = "true"))
     bool bHasAcceleration{ false };
 
+    /** Direction of character in degrees. Ranging from -180 to 180. */
     UPROPERTY(EditInstanceOnly,
               BlueprintReadOnly,
               Category = "AnimData|LocomotionData",
