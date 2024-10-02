@@ -13,4 +13,9 @@ UCLASS()
 class WARRIOR_API UEnemyCombatComponent : public UPawnCombatComponent
 {
     GENERATED_BODY()
+
+protected:
+#pragma region UPawnCombatComponent Interface
+    virtual void OnHitTargetActor(AActor* HitActor) override;
+#pragma endregion
 };
