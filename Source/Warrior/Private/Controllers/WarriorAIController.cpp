@@ -70,12 +70,15 @@ void AWarriorAIController::OnPossess(APawn* InPawn)
         else
         {
             AEON_WARNING_ALOG("AWarriorAIController::OnPossess: Failed to retrieve "
-                              "BlackboardComponent and thus no blackboard keys cached")
+                              "BlackboardComponent and thus no blackboard keys cached on %s",
+                              *GetActorNameOrLabel());
         }
     }
     else
     {
-        AEON_WARNING_ALOG("AWarriorAIController::OnPossess: BehaviorTree not configured")
+        AEON_WARNING_ALOG("AWarriorAIController::OnPossess: "
+                          "BehaviorTree not configured for %s",
+                          *GetActorNameOrLabel())
     }
 }
 
