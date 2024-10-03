@@ -25,4 +25,11 @@ public:
     /** Return the CombatComponent from the associated Avatar Actor */
     UFUNCTION(BlueprintPure, Category = "Warrior|Ability")
     UEnemyCombatComponent* GetEnemyCombatComponentFromActorInfo();
+
+    UFUNCTION(BlueprintPure, Category = "Warrior|Ability")
+    FGameplayEffectSpecHandle MakeDamageEffectSpecHandle(UPARAM(DisplayName = "Effect Class",
+                                                                meta = (AllowAbstract = "false"))
+                                                             TSubclassOf<UGameplayEffect> InEffectClass,
+                                                         UPARAM(ref, DisplayName = "Damage Scalable Float")
+                                                             const FScalableFloat& InDamageScalableFloat);
 };
