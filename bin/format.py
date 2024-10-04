@@ -30,9 +30,8 @@ if args.verbose:
 
 
 try:
-    files = subprocess.check_output(["git", "ls-tree", "--name-only", "HEAD", *args.files],
+    files = subprocess.check_output(["git", "ls-tree", "-r", "--name-only", "HEAD", *args.files],
                                     universal_newlines=True).splitlines()
-
     files_to_format = []
     files_to_format_assuming_json = []
     for file in files:
@@ -49,7 +48,7 @@ try:
     for file in files_to_format_assuming_json:
         content = ''
         with open(file, 'rb') as f:
-            content = subprocess.run(f"clang-format --assume-filename={file}.json", stdin=f, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, check=True).stdout
+            content = subprocess.run(["clang-format", f"--assume-filename={file}.json"], stdin=f, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, check=True).stdout
         with open(file, 'w') as f:
             f.write(content)
 
