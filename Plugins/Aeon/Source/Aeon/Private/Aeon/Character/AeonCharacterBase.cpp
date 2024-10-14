@@ -1,7 +1,6 @@
 #include "Aeon/Character/AeonCharacterBase.h"
 #include "Aeon/AbilitySystem/AeonAbilitySystemComponent.h"
 #include "Aeon/AbilitySystem/AeonAbilitySystemGrantsBase.h"
-#include "Aeon/AbilitySystem/AeonAttributeSet.h"
 #include "Aeon/Logging.h"
 #include "Engine/AssetManager.h"
 #include "Engine/StreamableManager.h"
