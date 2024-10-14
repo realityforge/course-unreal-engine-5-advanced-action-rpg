@@ -6,6 +6,7 @@
 #include "WarriorCharacterBase.generated.h"
 
 class UWarriorAttributeSet;
+class UMotionWarpingComponent;
 
 UCLASS()
 class WARRIOR_API AWarriorCharacterBase :
@@ -20,6 +21,12 @@ class WARRIOR_API AWarriorCharacterBase :
               Category = "Warrior|AbilitySystem",
               meta = (AllowPrivateAccess = "true"))
     TObjectPtr<UWarriorAttributeSet> WarriorAttributeSet{ nullptr };
+
+    UPROPERTY(VisibleAnywhere,
+              BlueprintReadOnly,
+              Category = "Warrior|MotionWarping",
+              meta = (AllowPrivateAccess = "true"))
+    TObjectPtr<UMotionWarpingComponent> MotionWarpingComponent{ nullptr };
 
 public:
     AWarriorCharacterBase();

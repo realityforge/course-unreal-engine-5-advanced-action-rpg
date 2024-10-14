@@ -1,5 +1,6 @@
 #include "Characters/WarriorCharacterBase.h"
 #include "AbilitySystem/Attributes/WarriorAttributeSet.h"
+#include "MotionWarpingComponent.h"
 
 AWarriorCharacterBase::AWarriorCharacterBase()
 {
@@ -8,6 +9,9 @@ AWarriorCharacterBase::AWarriorCharacterBase()
     GetMesh()->bReceivesDecals = false;
 
     WarriorAttributeSet = CreateDefaultSubobject<UWarriorAttributeSet>(TEXT("WarriorAttributeSet"));
+
+    // Component used to warp enemy character towards player when attacking
+    MotionWarpingComponent = CreateDefaultSubobject<UMotionWarpingComponent>(TEXT("MotionWarpingComponent"));
 }
 
 void AWarriorCharacterBase::PossessedBy(AController* NewController)
