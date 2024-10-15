@@ -62,6 +62,7 @@ namespace WarriorGameplayTags
 
     // Status Tags
     WARRIOR_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Enemy_Status_Strafing)
+    WARRIOR_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Enemy_Status_UnderAttack)
 
     // --------------------------------------------------- //
     // Shared Tags (Used by both the Enemy and the Player)
