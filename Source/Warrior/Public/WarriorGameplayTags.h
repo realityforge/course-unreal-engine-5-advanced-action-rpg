@@ -21,6 +21,7 @@ namespace WarriorGameplayTags
     // --------------------------------------------------- //
 
     WARRIOR_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(GameplayCue_Sounds_MeleeHit_Axe)
+    WARRIOR_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(GameplayCue_Sounds_MeleeHit_Stick)
     WARRIOR_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(GameplayCue_Sounds_Death_Guardian)
 
     // --------------------------------------------------- //

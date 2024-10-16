@@ -20,6 +20,7 @@ namespace WarriorGameplayTags
     // --------------------------------------------------- //
 
     UE_DEFINE_GAMEPLAY_TAG(GameplayCue_Sounds_MeleeHit_Axe, "GameplayCue.Sounds.MeleeHit.Axe")
+    UE_DEFINE_GAMEPLAY_TAG(GameplayCue_Sounds_MeleeHit_Stick, "GameplayCue.Sounds.MeleeHit.Stick")
     UE_DEFINE_GAMEPLAY_TAG(GameplayCue_Sounds_Death_Guardian, "GameplayCue.Sounds.Death.Guardian")
 
     // --------------------------------------------------- //
