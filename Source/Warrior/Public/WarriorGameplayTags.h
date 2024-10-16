@@ -15,6 +15,7 @@ namespace WarriorGameplayTags
     WARRIOR_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Input_Ability_UnequipAxe)
     WARRIOR_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Input_Ability_LightAttack_Axe)
     WARRIOR_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Input_Ability_HeavyAttack_Axe)
+    WARRIOR_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Input_Ability_Roll);
 
     // --------------------------------------------------- //
     // GameplayCue Tags
@@ -34,6 +35,7 @@ namespace WarriorGameplayTags
     WARRIOR_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_Ability_Attack_Light_Axe)
     WARRIOR_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_Ability_Attack_Heavy_Axe)
     WARRIOR_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_Ability_HitPause)
+    WARRIOR_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_Ability_Roll);
 
     // Weapon Tags
     WARRIOR_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_Weapon_Axe)
@@ -45,6 +47,7 @@ namespace WarriorGameplayTags
 
     // Status Tags
     WARRIOR_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_Status_JumpToFinisher)
+    WARRIOR_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_Status_Rolling);
 
     // SetByCaller Tags
     WARRIOR_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_SetByCaller_AttackType_Light)

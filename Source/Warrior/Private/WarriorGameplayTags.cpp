@@ -15,6 +15,8 @@ namespace WarriorGameplayTags
     UE_DEFINE_GAMEPLAY_TAG(Input_Ability_LightAttack_Axe, "Input.Ability.LightAttack.Axe")
     UE_DEFINE_GAMEPLAY_TAG(Input_Ability_HeavyAttack_Axe, "Input.Ability.HeavyAttack.Axe")
 
+    UE_DEFINE_GAMEPLAY_TAG(Input_Ability_Roll, "Input.Ability.Roll");
+
     // --------------------------------------------------- //
     // GameplayCue Tags
     // --------------------------------------------------- //
@@ -33,6 +35,7 @@ namespace WarriorGameplayTags
     UE_DEFINE_GAMEPLAY_TAG(Player_Ability_Attack_Light_Axe, "Player.Ability.Attack.Light.Axe")
     UE_DEFINE_GAMEPLAY_TAG(Player_Ability_Attack_Heavy_Axe, "Player.Ability.Attack.Heavy.Axe")
     UE_DEFINE_GAMEPLAY_TAG(Player_Ability_HitPause, "Player.Ability.HitPause")
+    UE_DEFINE_GAMEPLAY_TAG(Player_Ability_Roll, "Player.Ability.Roll");
 
     // Weapon Tags
     UE_DEFINE_GAMEPLAY_TAG(Player_Weapon_Axe, "Player.Weapon.Axe")
@@ -44,6 +47,7 @@ namespace WarriorGameplayTags
 
     // Status Tags
     UE_DEFINE_GAMEPLAY_TAG(Player_Status_JumpToFinisher, "Player.Status.JumpToFinisher")
+    UE_DEFINE_GAMEPLAY_TAG(Player_Status_Rolling, "Player.Status.Rolling");
 
     // Set By Caller Tags
     UE_DEFINE_GAMEPLAY_TAG(Player_SetByCaller_AttackType_Light, "Player.SetByCaller.AttackType.Light")
