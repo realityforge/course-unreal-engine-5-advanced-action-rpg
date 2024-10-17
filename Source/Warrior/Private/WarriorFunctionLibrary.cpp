@@ -75,6 +75,11 @@ bool UWarriorFunctionLibrary::IsTargetPawnHostile(const APawn* Pawn, const APawn
     }
 }
 
+float UWarriorFunctionLibrary::GetScalableFloatValueAtLevel(const FScalableFloat& ScalableFloat, float Level)
+{
+    return ScalableFloat.GetValueAtLevel(Level);
+}
+
 UPawnCombatComponent* UWarriorFunctionLibrary::BP_GetPawnCombatComponentFromActor(AActor* InActor,
                                                                                   EWarriorValidType& OutValidType)
 {
