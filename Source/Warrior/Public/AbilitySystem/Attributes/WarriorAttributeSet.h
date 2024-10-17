@@ -34,8 +34,6 @@ public:
     UPROPERTY(BlueprintReadOnly, Category = "Rage")
     FGameplayAttributeData MaxRage;
 
-    // Public temporarily to capture in UGEExecCalc_DamageTaken
-
     /** The attack power of the character. */
     UPROPERTY(BlueprintReadOnly, Category = "Damage")
     FGameplayAttributeData AttackPower;
