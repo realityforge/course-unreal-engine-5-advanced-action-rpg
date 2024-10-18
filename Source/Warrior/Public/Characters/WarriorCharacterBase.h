@@ -20,7 +20,7 @@ class WARRIOR_API AWarriorCharacterBase :
               BlueprintReadOnly,
               Category = "Warrior|AbilitySystem",
               meta = (AllowPrivateAccess = "true"))
-    TObjectPtr<UWarriorAttributeSet> WarriorAttributeSet{ nullptr };
+    TObjectPtr<const UWarriorAttributeSet> WarriorAttributeSet{ nullptr };
 
     UPROPERTY(VisibleAnywhere,
               BlueprintReadOnly,
@@ -41,5 +41,5 @@ public:
 
     virtual void PossessedBy(AController* NewController) override;
 
-    FORCEINLINE UWarriorAttributeSet* GetWarriorAttributeSet() const { return WarriorAttributeSet; }
+    FORCEINLINE const UWarriorAttributeSet* GetWarriorAttributeSet() const { return WarriorAttributeSet; }
 };
