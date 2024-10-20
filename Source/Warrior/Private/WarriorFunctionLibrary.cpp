@@ -4,6 +4,8 @@
 #include "Aeon/Logging.h"
 #include "GenericTeamAgentInterface.h"
 #include "Interfaces/PawnCombatInterface.h"
+#include "Kismet/KismetMathLibrary.h"
+#include "WarriorGameplayTags.h"
 
 UAeonAbilitySystemComponent* UWarriorFunctionLibrary::NativeGetAeonAbilitySystemComponentFromActor(AActor* InActor)
 {
@@ -78,6 +80,50 @@ bool UWarriorFunctionLibrary::IsTargetPawnHostile(const APawn* Pawn, const APawn
 float UWarriorFunctionLibrary::GetScalableFloatValueAtLevel(const FScalableFloat& ScalableFloat, float Level)
 {
     return ScalableFloat.GetValueAtLevel(Level);
+}
+
+FGameplayTag UWarriorFunctionLibrary::ComputeHitReactDirectionTag(const AActor* Attacker,
+                                                                  const AActor* Victim,
+                                                                  float& AngleDifference)
+{
+    if (ensureAlwaysMsgf(Attacker, TEXT("Null Attacker supplied to function")))
+    {
+        if (ensureAlwaysMsgf(Victim, TEXT("Null Victim supplied to function")))
+        {
+            const FVector VictimForward = Victim->GetActorForwardVector();
+            const FVector VictimToAttackerNormalized =
+                (Attacker->GetActorLocation() - Victim->GetActorLocation()).GetSafeNormal();
+
+            // Factor determines whether the angle between victim is to the right or to the left.
+            // Unreal is RHS system, so when the second vector is on the right of the first vector,
+            // then the cross-product points up
+            const float Factor = FVector::CrossProduct(VictimForward, VictimToAttackerNormalized).Z >= 0.f ? 1.f : -1.f;
+
+            AngleDifference =
+                UKismetMathLibrary::DegAcos(FVector::DotProduct(VictimForward, VictimToAttackerNormalized)) * Factor;
+            if (AngleDifference >= -45.f && AngleDifference <= 45.f)
+            {
+                return WarriorGameplayTags::Shared_Status_HitReact_Front;
+            }
+            else if (AngleDifference < -45.f && AngleDifference >= -135.f)
+            {
+                return WarriorGameplayTags::Shared_Status_HitReact_Left;
+            }
+            else if (AngleDifference < -135.f || AngleDifference > 135.f)
+            {
+                return WarriorGameplayTags::Shared_Status_HitReact_Back;
+            }
+            else if (AngleDifference > 45.f && AngleDifference <= 135.f)
+            {
+                return WarriorGameplayTags::Shared_Status_HitReact_Right;
+            }
+            else
+            {
+                return WarriorGameplayTags::Shared_Status_HitReact_Front;
+            }
+        }
+    };
+    return WarriorGameplayTags::Shared_Status_HitReact_Front;
 }
 
 UPawnCombatComponent* UWarriorFunctionLibrary::BP_GetPawnCombatComponentFromActor(AActor* InActor,
